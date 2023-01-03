@@ -5,23 +5,40 @@
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <link rel="stylesheet" href="./styles/styles.css">
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Inika&family=Inter:wght@300;400;700&display=swap"
+      rel="stylesheet">
+   <link rel="stylesheet" href="./sass/style.css">
    <title>Plants</title>
 </head>
 
 <body>
    <header class="header">
-      <div class="wrapper">
+      <div class="wrapper header__wrapper">
          <a href="#" class="logo">
-            <span class="ico ico_logo"></span> Plants
+            <object data="./images/header/logo.svg" type="image/svg+xml">
+               Your browser does not support SVG
+            </object>
+            Plants
          </a>
          <nav class="header__navigation">
             <ul class="navigation">
-               <li>Home</li>
-               <li>About us</li>
-               <li>Service</li>
-               <li>Price</li>
-               <li>Contacts</li>
+               <li class="navigation__link">
+                  <a href="#home">Home</a>
+               </li>
+               <li class="navigation__link">
+                  <a href="#about">About us</a>
+               </li>
+               <li class="navigation__link">
+                  <a href="#service">Service</a>
+               </li>
+               <li class="navigation__link">
+                  <a href="#price">Price</a>
+               </li>
+               <li class="navigation__link">
+                  <a href="#contacts">Contacts</a>
+               </li>
             </ul>
          </nav>
       </div>
@@ -30,32 +47,32 @@
       <section class="welcome">
          <div class="wrapper">
             <div class="welcome__content">
-               <h1>We grow plants and give you oxygen</h1>
+               <h1>We grow <span>plants</span> and give you oxygen</h1>
                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
                   industry's standard dummy text ever since the 1500s.</p>
-               <div class="welcome__button">
-                  <button class="button button_unactive">Learn more</button>
+               <div class="welcome__button button">
+                  <button class="button_unactive">Learn more</button>
                </div>
             </div>
          </div>
       </section>
-      <section class="about">
+      <section class="about" id="about">
          <div class="wrapper">
-            <h2>We are professional experienced gardeners</h2>
+            <h2><span>We are</span> professional experienced <span>gardeners</span></h2>
             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
                industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
                scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
                into electronic typesetting, remaining essentially unchanged. </p>
          </div>
       </section>
-      <section class="service">
+      <section class="service" id="service">
          <div class="wrapper">
             <div class="services-content">
                <h2>Service and our projects</h2>
-               <div class="service__buttons">
-                  <button class="button button_unactive">Gardens</button>
-                  <button class="button button_unactive">Lawn</button>
-                  <button class="button button_unactive">Planting</button>
+               <div class="service__buttons button">
+                  <button class="button_unactive">Gardens</button>
+                  <button class="button_unactive">Lawn</button>
+                  <button class="button_unactive">Planting</button>
                </div>
                <div class="services layout-3-column">
                   <div class="service-item">
@@ -102,7 +119,7 @@
             </div>
          </div>
       </section>
-      <section class="prices">
+      <section class="prices" id="price">
          <div class="wrapper">
             <div class="prices__type">
                <h2>Prices</h2>
@@ -127,14 +144,14 @@
                   </div>
                </div>
                <div class="prices__contact-us">
-                  <h3>Our best <span>gardeners</span> are ready to help you></h3>
+                  <h2>Our best <span>gardeners</span> are ready to help you></h2>
                   <button class="button button_unactive">Contact us</button>
                </div>
             </div>
 
          </div>
       </section>
-      <section class="contacts">
+      <section class="contacts" id="contacts">
          <div class="wrapper">
             <h2>Contact us</h2>
             <div class="contacts__button_unactive accordion_batton">
@@ -158,16 +175,16 @@
             <div class="footer_social-list">
                <ul>
                   <li>
-                     <span></span>
+                     <span class="ico"></span>
                   </li>
                   <li>
-                     <span></span>
+                     <span class="ico"></span>
                   </li>
                   <li>
-                     <span></span>
+                     <span class="ico"></span>
                   </li>
                   <li>
-                     <span></span>
+                     <span class="ico"></span>
                   </li>
                </ul>
             </div>

@@ -1,0 +1,12 @@
+.logo{
+   @extend %font-add;
+   @include font(1.6rem, 2.1rem);
+   color: $color-heading;
+   @extend %transition;
+   cursor: pointer;
+}
+
+.logo:hover{
+   @include font(1.6rem, 2.1rem, 700);
+   color:$color-primary; 
+}

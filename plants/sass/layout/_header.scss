@@ -1,0 +1,15 @@
+.header{
+   background-color: $color-section-background;
+   padding: 42px 0;
+}
+
+.header__wrapper{
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   a {
+      text-decoration: none;
+   }
+}
+
+

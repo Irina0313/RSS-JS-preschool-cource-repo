@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Inika&family=Inter:wght@300;400;700&display=swap');
+
+html{
+   font-size: 10px;
+}
+
+body {
+   font-family: 'Inter', sans-serif;
+}
+h1{
+   margin: 0;
+   color: $color-text-light;
+   @include font(4.5rem, 5rem, 700);
+   span {
+      font-weight: 700;
+      color: $color-heading-additional;
+   }
+}
+
+h2{
+   margin: 0;
+   @extend %font-add;
+   color: $color-primary;
+   @include font(4rem, 5.2rem, 400);
+   span {
+      color: $color-heading-additional;
+   }
+}
+
+h3{
+   margin: 0;
+   color: $color-primary;
+   @include font(2rem, 2rem, 700);
+}

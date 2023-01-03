@@ -1,0 +1,20 @@
+.navigation{
+   display: flex;
+}
+
+.navigation__link{
+   list-style: none;
+   padding: 0 23px;
+   a{
+      @extend %font-add;
+      @include font(1.6rem, 5rem);
+      color: $color-navigation;
+      @extend %transition;
+   } 
+   &:hover a{
+      @include font(1.6rem, 5rem, 700);
+      color: $color-primary;
+   }
+}
+
+
