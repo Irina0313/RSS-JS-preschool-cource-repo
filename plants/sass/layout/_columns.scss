@@ -1,3 +1,8 @@
 .layout-2-column {
    @include columns ($width: 45%);
 }
+
+.layout-2-column_about {
+   @include columns ($width: 49%);
+}
+

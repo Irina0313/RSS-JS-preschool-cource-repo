@@ -432,9 +432,12 @@ html {
   font-size: 10px;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: "Inter", sans-serif;
-  box-sizing: border-box;
 }
 
 h1 {
@@ -480,6 +483,7 @@ h3 {
   border: 1px solid #E06733;
   border-radius: 10px;
   cursor: pointer;
+  padding: 0;
 }
 .button_unactive:hover {
   color: #FFFFFF;
@@ -490,12 +494,18 @@ h3 {
   width: 158px;
   height: 44px;
   border: 2px solid #E06733;
+  font-family: "Inter", sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 1.6rem;
   line-height: 2rem;
   text-transform: uppercase;
   color: #000000;
+  background-color: #EDF2EC;
+}
+.welcome__button .button_unactive:hover {
+  color: #FFFFFF;
+  background-color: #E06733;
 }
 
 .logo {
@@ -505,7 +515,6 @@ h3 {
   line-height: 2.1rem;
   color: #000000;
   cursor: pointer;
-  height: 21.04px;
   padding: 10px 0 18.96px 0;
 }
 
@@ -534,6 +543,15 @@ h3 {
 }
 .layout-2-column > * {
   flex-basis: 45%;
+}
+
+.layout-2-column_about {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.layout-2-column_about > * {
+  flex-basis: 49%;
 }
 
 .wrapper {
@@ -565,11 +583,8 @@ h3 {
   padding: 0;
 }
 
-.header__navigation {
-  margin: 0 0 -2px 0;
-}
-
 .navigation__link {
+  padding: 0 0 2px 0;
   list-style: none;
 }
 .navigation__link a {
@@ -593,11 +608,11 @@ h3 {
 
 .navigation__link:nth-of-type(2),
 .navigation__link:nth-of-type(4) {
-  padding: 0 0 0 46.3px;
+  padding: 0 0 0 46.5px;
 }
 
 .navigation__link:last-of-type {
-  padding: 0 1px 0 47px;
+  padding: 0 0 0 47px;
 }
 
 .welcome {
@@ -608,15 +623,49 @@ h3 {
   display: flex;
   flex-direction: column;
   order: 2;
+  max-width: 549px;
+  padding: 33px 0 31.36px 0;
 }
 
 .welcome__leafs {
   display: flex;
   order: 1;
   background-image: url(../../images/welcome/leafs.png);
-  width: 448.8px;
+  max-width: 448.8px;
   height: 407.36px;
   background-repeat: no-repeat;
   background-position: center;
   background-size: initial;
+}
+
+.welcome__text {
+  margin: 43px 0 48px 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 2rem;
+  line-height: 3.5rem;
+  color: #636060;
+}
+
+.about {
+  padding: 93px 0 94px 0;
+}
+
+.about__plant {
+  background-image: url(../../images/about/houseplant.png);
+  max-width: 464px;
+  height: 479px;
+}
+
+.about__title {
+  padding: 65px 0 38px 0;
+}
+
+.about__text {
+  margin: 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 2rem;
+  line-height: 3rem;
+  color: #636060;
 }/*# sourceMappingURL=style.css.map */

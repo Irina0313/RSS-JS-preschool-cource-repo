@@ -5,16 +5,16 @@
    
 
 }
-.header__navigation{
-   margin: 0 0 -2px 0;
-}
+
 .navigation__link{
+   padding: 0 0 2px 0;
    list-style: none;
    a{
       @extend %font-add;
       @include font(1.6rem, 5rem);
       color: $color-navigation;
       @extend %transition;
+      
    } 
    &:hover a{
       @include font(1.6rem, 5rem, 700);
@@ -25,13 +25,14 @@
 .navigation__link:nth-of-type(3){
    padding: 0 0 0 47.5px;
 }
+
 .navigation__link:nth-of-type(2),
 .navigation__link:nth-of-type(4){
-   padding: 0 0 0 46.3px;
+   padding: 0 0 0 46.5px;
 }
 
 .navigation__link:last-of-type{
-   padding: 0 1px 0 47px;
+   padding: 0 0 0 47px;
 }
 
 

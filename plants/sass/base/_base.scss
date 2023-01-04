@@ -3,10 +3,12 @@
 html{
    font-size: 10px;
 }
-
+*{
+   box-sizing: border-box;
+}
 body {
    font-family: 'Inter', sans-serif;
-   box-sizing: border-box;
+   
 }
 h1{
    margin: 0;
