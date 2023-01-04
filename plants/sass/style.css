@@ -520,16 +520,29 @@ h3 {
 .logo__svg {
   width: 20px;
   height: 20px;
-  padding-left: 2px;
+  padding-left: 1px;
 }
 
 .logo__text {
   margin-left: -3px;
 }
 
+.layout-2-column {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.layout-2-column > * {
+  flex-basis: 45%;
+}
+
 .wrapper {
   max-width: 1222px;
   margin: 0 auto;
+}
+
+.header__wrapper {
+  max-width: 1220px;
 }
 
 .header {
@@ -550,6 +563,9 @@ h3 {
   display: flex;
   margin: 0;
   padding: 0;
+}
+
+.header__navigation {
   margin: 0 0 -2px 0;
 }
 
@@ -571,15 +587,36 @@ h3 {
   color: #E06733;
 }
 
-.navigation__link:not(last-of-type) {
-  padding: 0 0 0 47px;
+.navigation__link:nth-of-type(3) {
+  padding: 0 0 0 47.5px;
+}
+
+.navigation__link:nth-of-type(2),
+.navigation__link:nth-of-type(4) {
+  padding: 0 0 0 46.3px;
 }
 
 .navigation__link:last-of-type {
   padding: 0 1px 0 47px;
 }
 
+.welcome {
+  padding: 62px 0 62.64px 0;
+}
+
 .welcome__content {
+  display: flex;
+  flex-direction: column;
+  order: 2;
+}
+
+.welcome__leafs {
+  display: flex;
+  order: 1;
   background-image: url(../../images/welcome/leafs.png);
-  background-size: 448.8px;
+  width: 448.8px;
+  height: 407.36px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: initial;
 }/*# sourceMappingURL=style.css.map */

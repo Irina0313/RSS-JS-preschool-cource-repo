@@ -1,9 +1,21 @@
 .welcome{
    @extend %background;
+   padding: 62px 0 62.64px 0;
 }
 .welcome__content{
+   display: flex;
+   flex-direction: column;
+   order: 2;
+}
+.welcome__leafs{
+   display: flex;
+   order: 1;
    background-image: url(../../images/welcome/leafs.png);
-   background-size: 448.8px;
+   width: 448.8px;
+   height: 407.36px;
+   background-repeat: no-repeat;
+   background-position: center;
+   background-size:initial;
 
 }
 

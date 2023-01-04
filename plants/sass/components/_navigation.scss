@@ -2,10 +2,12 @@
    display: flex;
    margin: 0;
    padding: 0;
-   margin: 0 0 -2px 0;
+   
 
 }
-
+.header__navigation{
+   margin: 0 0 -2px 0;
+}
 .navigation__link{
    list-style: none;
    a{
@@ -19,8 +21,13 @@
       color: $color-primary;
    }
 }
-.navigation__link:not(last-of-type){
-   padding: 0 0 0 47px;
+
+.navigation__link:nth-of-type(3){
+   padding: 0 0 0 47.5px;
+}
+.navigation__link:nth-of-type(2),
+.navigation__link:nth-of-type(4){
+   padding: 0 0 0 46.3px;
 }
 
 .navigation__link:last-of-type{
