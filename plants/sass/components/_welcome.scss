@@ -1,3 +1,9 @@
 .welcome{
    @extend %background;
 }
+.welcome__content{
+   background-image: url(../../images/welcome/leafs.png);
+   background-size: 448.8px;
+
+}
+

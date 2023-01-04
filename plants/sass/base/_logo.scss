@@ -4,9 +4,22 @@
    color: $color-heading;
    @extend %transition;
    cursor: pointer;
+   height: 21.04px;
+   padding: 10px 0 18.96px 0;
 }
 
 .logo:hover{
    @include font(1.6rem, 2.1rem, 700);
    color:$color-primary; 
 }
+
+.logo__svg{
+   width: 20px;
+   height: 20px;
+   padding-left: 2px;
+}
+
+.logo__text{
+   margin-left: -3px;
+}
+

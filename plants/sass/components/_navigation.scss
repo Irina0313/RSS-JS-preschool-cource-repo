@@ -1,10 +1,13 @@
 .navigation{
    display: flex;
+   margin: 0;
+   padding: 0;
+   margin: 0 0 -2px 0;
+
 }
 
 .navigation__link{
    list-style: none;
-   padding: 0 23px;
    a{
       @extend %font-add;
       @include font(1.6rem, 5rem);
@@ -15,6 +18,13 @@
       @include font(1.6rem, 5rem, 700);
       color: $color-primary;
    }
+}
+.navigation__link:not(last-of-type){
+   padding: 0 0 0 47px;
+}
+
+.navigation__link:last-of-type{
+   padding: 0 1px 0 47px;
 }
 
 
