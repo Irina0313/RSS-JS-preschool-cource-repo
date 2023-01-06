@@ -725,7 +725,7 @@ h3 {
 .welcome__leafs {
   display: flex;
   order: 1;
-  background-image: url(../../images/welcome/leafs.png);
+  background-image: url(../images/welcome/leafs.png);
   max-width: 448.8px;
   height: 407.36px;
   background-repeat: no-repeat;
@@ -747,7 +747,7 @@ h3 {
 }
 
 .about__plant {
-  background-image: url(../../images/about/houseplant.png);
+  background-image: url(../images/about/houseplant.png);
   max-width: 464px;
   height: 479px;
 }
@@ -805,27 +805,27 @@ h3 {
 }
 
 .service__image_garden-care {
-  background-image: url("../../images/service/garden-care.jpg");
+  background-image: url("../images/service/garden-care.jpg");
 }
 
 .service__image_planting {
-  background-image: url("../../images/service/planting.jpg");
+  background-image: url("../images/service/planting.jpg");
 }
 
 .service__image_lawn-care {
-  background-image: url("../../images/service/lawn-care.jpg");
+  background-image: url("../images/service/lawn-care.jpg");
 }
 
 .service__image_planting-second {
-  background-image: url("../../images/service/planting-second.jpg");
+  background-image: url("../images/service/planting-second.jpg");
 }
 
 .service__image_garden-care-second {
-  background-image: url("../../images/service/garden-care-second.jpg");
+  background-image: url("../images/service/garden-care-second.jpg");
 }
 
 .service__image_planting-third {
-  background-image: url("../../images/service/planting-third.jpg");
+  background-image: url("../images/service/planting-third.jpg");
 }
 
 .prices {
@@ -890,7 +890,7 @@ h3 {
 }
 
 .prices__leafs-small {
-  background-image: url("../../images/prices/leafs-small.png");
+  background-image: url("../images/prices/leafs-small.png");
   width: 152px;
   height: 174.99px;
   margin: 39px 0 116px 0;
@@ -907,7 +907,7 @@ h3 {
 
 .contacts__image {
   display: flex;
-  background-image: url("../../images/contact-us/contact_woman.png");
+  background-image: url("../images/contact-us/contact_woman.png");
   width: 400px;
   height: 496.99px;
   order: -1;
@@ -943,7 +943,7 @@ h3 {
 
 .copiright {
   display: inline-block;
-  background-image: url("../../images/footer/copyright.svg");
+  background-image: url("../images/footer/copyright.svg");
   width: 19px;
   height: 19px;
   background-repeat: no-repeat;
@@ -998,38 +998,38 @@ h3 {
 .ico_twitter {
   width: 26.67px;
   height: 21.67px;
-  background-image: url("../../images/footer/tw.svg");
+  background-image: url("../images/footer/tw.svg");
   margin-left: 30px;
 }
 .ico_twitter:hover {
-  background-image: url("../../images/footer/tw-active.svg");
+  background-image: url("../images/footer/tw-active.svg");
 }
 
 .ico_instagram {
   width: 26.66px;
   height: 26.65px;
-  background-image: url("../../images/footer/insta.svg");
+  background-image: url("../images/footer/insta.svg");
 }
 .ico_instagram:hover {
-  background-image: url("../../images/footer/insta-active.svg");
+  background-image: url("../images/footer/insta-active.svg");
 }
 
 .ico_facebook {
   width: 16.67px;
   height: 26.67px;
-  background-image: url("../../images/footer/fb.svg");
+  background-image: url("../images/footer/fb.svg");
   margin-left: 30.68px;
 }
 .ico_facebook:hover {
-  background-image: url("../../images/footer/fb-active.svg");
+  background-image: url("../images/footer/fb-active.svg");
 }
 
 .ico_pinterest {
   width: 26.67px;
   height: 26.67px;
-  background-image: url("../../images/footer/pint.svg");
+  background-image: url("../images/footer/pint.svg");
   margin-left: 25.38px;
 }
 .ico_pinterest:hover {
-  background-image: url("../../images/footer/pint-active.svg");
+  background-image: url("../images/footer/pint-active.svg");
 }/*# sourceMappingURL=style.css.map */
