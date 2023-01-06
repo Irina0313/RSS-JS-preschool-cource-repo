@@ -7,7 +7,7 @@
    flex-direction: column;
    order: 2;
    max-width: 549px;
-   padding: 33px 0 31.36px 0;
+   padding: 36px 0 31.36px 0;
 }
 .welcome__leafs{
    display: flex;
@@ -24,7 +24,7 @@
 
 .welcome__text{
    margin: 43px 0 48px 0;
-   @include font($size: 2rem, $height: 3.5rem );
+   @include font($size: 2rem, $height: 3.5rem);
    color: $color-text;
 }
 

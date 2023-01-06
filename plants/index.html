@@ -10,6 +10,10 @@
    <link href="https://fonts.googleapis.com/css2?family=Inika&family=Inter:wght@300;400;700&display=swap"
       rel="stylesheet">
    <link rel="stylesheet" href="./sass/style.css">
+   <link rel="apple-touch-icon" sizes="180x180" href="./images/favicon/apple-touch-icon.png">
+   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon/favicon-32x32.png">
+   <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon/favicon-16x16.png">
+   <link rel="manifest" href="./images/favicon/site.webmanifest">
    <title>Plants</title>
 </head>
 
@@ -76,7 +80,7 @@
       <section class="service" id="service">
          <div class="wrapper">
             <div class="services-content">
-               <h2>Service and our projects</h2>
+               <h2 class="service__title">Service and our projects</h2>
                <div class="service__buttons button">
                   <button class="button_unactive">Gardens</button>
                   <button class="button_unactive">Lawn</button>
@@ -84,42 +88,32 @@
                </div>
                <div class="services layout-3-column">
                   <div class="service-item">
-                     <img src="./images/service/garden-care.jpg" alt="garden care">
+                     <div class="service__image service__image_garden-care"></div>
                      <h3>Garden care</h3>
                      <p>Lorem Ipsum has been the industry</p>
                   </div>
-               </div>
-               <div class="services layout-3-column">
                   <div class="service-item">
-                     <img src="./images/service/planting.jpg" alt="planting">
+                     <div class="service__image service__image_planting"></div>
                      <h3>Planting</h3>
                      <p>Lorem Ipsum has been the industry</p>
                   </div>
-               </div>
-               <div class="services layout-3-column">
                   <div class="service-item">
-                     <img src="./images/service/lawn-care.jpg" alt="lawn care">
+                     <div class="service__image service__image_lawn-care"></div>
                      <h3>Lawn care</h3>
                      <p>Lorem Ipsum has been the industry</p>
                   </div>
-               </div>
-               <div class="services layout-3-column">
                   <div class="service-item">
-                     <img src="./images/service/planting-second.jpg" alt="planting">
+                     <div class="service__image service__image_planting-second"></div>
                      <h3>Planting</h3>
                      <p>Lorem Ipsum has been the industry</p>
                   </div>
-               </div>
-               <div class="services layout-3-column">
                   <div class="service-item">
-                     <img src="./images/service/garden-care-second.jpg" alt="garden care">
+                     <div class="service__image service__image_garden-care-second"></div>
                      <h3>Garden care</h3>
                      <p>Lorem Ipsum has been the industry</p>
                   </div>
-               </div>
-               <div class="services layout-3-column">
                   <div class="service-item">
-                     <img src="./images/service/planting-third.jpg" alt="planting">
+                     <div class="service__image service__image_planting-third"></div>
                      <h3>Planting</h3>
                      <p>Lorem Ipsum has been the industry</p>
                   </div>
@@ -128,77 +122,98 @@
          </div>
       </section>
       <section class="prices" id="price">
-         <div class="wrapper">
+         <div class="wrapper layout-2-column">
             <div class="prices__type">
-               <h2>Prices</h2>
+               <h2 class="prices__title">Prices</h2>
                <div class="prices__items">
                   <div class="praces__item  praces__item_not-open">
-                     <p>Basis</p>
-                     <div class="accordion_batton">
-                        <div class="arrow"></div>
+                     <p class="price__type">Basics</p>
+                     <div class="accordion_button">
+                        <object class="arrow" data="./images/prices/arrow.svg" type="image/svg+xml">
+                           Your browser does not support SVG
+                        </object>
                      </div>
                   </div>
                   <div class="praces__item  praces__item_not-open">
-                     <p>Standart</p>
-                     <div class="accordion_batton">
-                        <div class="arrow"></div>
+                     <p class="price__type">Standard</p>
+                     <div class="accordion_button">
+                        <object class="arrow" data="./images/prices/arrow.svg" type="image/svg+xml">
+                           Your browser does not support SVG
+                        </object>
                      </div>
                   </div>
                   <div class="praces__item  praces__item_not-open">
-                     <p>Pro care</p>
-                     <div class="praces__button_unactive accordion_batton">
-                        <div class="arrow"></div>
+                     <p class="price__type">Pro care</p>
+                     <div class="praces__button_unactive accordion_button">
+                        <object class="arrow" data="./images/prices/arrow.svg" type="image/svg+xml">
+                           Your browser does not support SVG
+                        </object>
                      </div>
                   </div>
-               </div>
-               <div class="prices__contact-us">
-                  <h2>Our best <span>gardeners</span> are ready to help you></h2>
-                  <button class="button button_unactive">Contact us</button>
                </div>
             </div>
-
+            <div class="prices__contact-us">
+               <h2 class="prices__title prices__title_contact-us">Our best <span>gardeners</span> are ready to help you
+               </h2>
+               <button class="button button_unactive">Contact us</button>
+               <div class="prices__leafs-small"></div>
+            </div>
          </div>
       </section>
       <section class="contacts" id="contacts">
-         <div class="wrapper">
-            <h2>Contact us</h2>
-            <div class="contacts__button_unactive accordion_batton">
-               <div class="arrow"></div>
+         <div class="wrapper contacts__wrapper">
+            <h2 class="contacts__title">Contact us</h2>
+            <div class="contacts__button_unactive">
+               <p class="contacts__text">City</p>
+               <div class="accordion_button contacts__accordion_button">
+
+                  <object class="arrow" data="./images/contact-us/arrow-light.svg" type="image/svg+xml">
+                     Your browser does not support SVG
+                  </object>
+               </div>
             </div>
+            <div class="contacts__image"></div>
          </div>
       </section>
 
    </main>
    <footer>
-      <div class="wrapper">
+      <div class="wrapper footer__wrapper">
          <div class="layout-3-column">
             <div class="footer__data">
                <span class="copiright"></span>
-               <span>2022</span>
-               <a href="#" title="visit github" target="_blank">github</a>
+               <span class="footer__year">2022</span>
+               <a class="footer__link" href="https://github.com/Irina0313" title="visit github"
+                  target="_blank">github</a>
             </div>
             <div class="footer__rsschool">
-               <a href="https://rs.school/js-stage0/" title="JS-stage0" target="_blank">Rolling Scopes School</a>
+               <a class="footer__link" href="https://rs.school/js-stage0/" title="JS-stage0" target="_blank">Rolling
+                  Scopes School</a>
             </div>
-            <div class="footer_social-list">
-               <ul>
+            <div class="footer__social-list">
+               <ul class="social-list">
                   <li>
-                     <span class="ico"></span>
+                     <a class="ico ico_instagram" href="https://www.instagram.com/" title="Instagram" target="_blank">
+                     </a>
                   </li>
                   <li>
-                     <span class="ico"></span>
+                     <a class="ico ico_facebook" href="https://www.facebook.com/" title="Facebook" target="_blank">
+                     </a>
                   </li>
                   <li>
-                     <span class="ico"></span>
+                     <a class="ico ico_twitter" href="https://twitter.com/" title="Twitter" target="_blank">
+                     </a>
                   </li>
                   <li>
-                     <span class="ico"></span>
+                     <a class="ico ico_pinterest" href="https://www.pinterest.com/" title="Pinterest" target="_blank">
+                     </a>
                   </li>
                </ul>
             </div>
          </div>
       </div>
    </footer>
+   <script src="./scripts/index.js"></script>
 </body>
 
 </html>

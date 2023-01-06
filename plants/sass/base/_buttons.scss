@@ -1,36 +1,127 @@
-
-.button{
+.button {
    display: flex;
    align-items: center;
    text-align: center;
-   
-   
-   &_unactive{
+
+   &_unactive {
       border: 1px solid $color-primary;
       border-radius: 10px;
       @extend %transition;
       cursor: pointer;
       padding: 0;
    }
-   &_unactive:hover{
+   &_unactive:hover {
       color: $color-light;
       background-color: $color-primary;
    }
 }
-.welcome__button{
-      
-   .button_unactive{
+.welcome__button {
+   .button_unactive {
       width: 158px;
       height: 44px;
       border: 2px solid $color-primary;
-      font-family: 'Inter', sans-serif;
+      font-family: "Inter", sans-serif;
       @include font(1.6rem, 2rem);
       text-transform: uppercase;
       color: $color-heading;
       background-color: $color-section-background;
-      &:hover{
+
+      &:hover {
          color: $color-light;
          background-color: $color-primary;
+      }
    }
 }
+
+.service__buttons {
+   padding-top: 29px;
+   align-items: flex-start;
+   > * {
+      width: 161px;
+      height: 50px;
+      border: 1px solid $color-primary;
+      border-radius: 5px;
+      background-color: $color-section-background;
+      @extend %font-add;
+      @include font($size: 2rem, $height: 2.6rem);
+      color: $color-primary;
+      margin: 0 38px 0 0;
+
+      &:hover {
+         color: $color-light;
+         background-color: $color-primary;
+      }
+   }
+}
+.accordion_button {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 16px;
+   height: 16px;
+   background-color: $color-accordion-button;
+   border-radius: 45%;
+}
+
+.prices__contact-us {
+   .button_unactive {
+      box-sizing: border-box;
+      align-items: center;
+      justify-content: center;
+      width: 162px;
+      height: 50px;
+      border: 1px solid $color-primary;
+      border-radius: 5px;
+      background: none;
+      @extend %font-add;
+      @include font($size: 2rem, $height: 2.6rem, $weight: 700);
+      color: $color-primary;
+   }
+}
+.prices__contact-us .button_unactive:hover {
+   color: $color-light;
+   background-color: $color-primary;
+   .accordion_button {
+      background-color: $color-accordion-btn-background;
+      transition: all 0.3s;
+      transform: rotate(180deg);
+   }
+}
+
+.contacts__button_unactive {
+   display: flex;
+   order: 3;
+   box-sizing: border-box;
+   justify-content: space-between;
+   align-items: center;
+   width: 450px;
+   height: 50px;
+   background-color: $color-contact;
+   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+   margin: 93px 0 0 0;
+   padding: 5px 35px 5px 20px;
+
+   .accordion_button {
+      background-color: $color-accordion-btn-background;
+   }
+
+   &:hover,
+   &:active {
+      @extend %transition;
+      cursor: pointer;
+      background-color: $color-accordion-active;
+      border: 1px solid $color-contact;
+      box-shadow: none;
+      padding: 5px 35px 5px 35px;
+
+      &:hover .contacts__accordion_button,
+      &:active .contacts__accordion_button {
+         background-color: $color-arrow-active;
+         transition: all 0.3s;
+         transform: rotate(180deg);
+      }
+   }
+   .arrow {
+      color: $color-light;
+   }
 }
