@@ -1,0 +1,30 @@
+.welcome{
+   @extend %background;
+   padding: 62px 0 62.64px 0;
+}
+.welcome__content{
+   display: flex;
+   flex-direction: column;
+   order: 2;
+   max-width: 549px;
+   padding: 36px 0 31.36px 0;
+}
+.welcome__leafs{
+   display: flex;
+   order: 1;
+   background-image: url(../../images/welcome/leafs.png);
+   max-width: 448.8px;
+   height: 407.36px;
+   background-repeat: no-repeat;
+   background-position: center;
+   background-size:initial;
+
+
+}
+
+.welcome__text{
+   margin: 43px 0 48px 0;
+   @include font($size: 2rem, $height: 3.5rem);
+   color: $color-text;
+}
+
