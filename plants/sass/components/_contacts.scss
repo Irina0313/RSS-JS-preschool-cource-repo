@@ -1,28 +1,27 @@
-.contacts{
+.contacts {
    @extend %background;
    padding: 53px 0 0 0;
 }
 
-.contacts__wrapper{
+.contacts__wrapper {
    display: flex;
    flex-wrap: wrap;
-   
 }
-.contacts__image{
+.contacts__image {
    display: flex;
-   background-image: url("../../images/contact-us/contact_woman.png");
+   background-image: url("../images/contact-us/contact_woman.png");
    width: 400px;
    height: 496.99px;
    order: -1;
    margin: 0 113px 1px 0;
 }
 
-.contacts__title{
+.contacts__title {
    font-weight: 700;
    color: $color-heading-additional;
    margin: 6px 68px 0 0;
 }
-.contacts__text{
+.contacts__text {
    @include font($size: 2rem, $height: 4rem);
    letter-spacing: 0.05em;
    color: $color-text-light;

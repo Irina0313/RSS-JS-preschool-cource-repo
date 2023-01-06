@@ -1,30 +1,28 @@
-.prices{
+.prices {
    padding: 40px 0 0 0;
 }
 
-.prices__title{
-   font-family: 'Inter', sans-serif;
+.prices__title {
+   font-family: "Inter", sans-serif;
    margin: 0 0 60px 0;
    @include font($size: 4rem, $height: 4.8rem, $weight: 700);
    color: $color-heading;
 }
 
-.prices__title_contact-us{
-line-height: 5rem;
-margin: 0 0 39px 0;
-text-align: right;
-
+.prices__title_contact-us {
+   line-height: 5rem;
+   margin: 0 0 39px 0;
+   text-align: right;
 }
 
-
-.prices__items{
+.prices__items {
    display: inline-block;
    padding: 34px 40px 0 40px;
    border: 1px solid $color-border;
    border-radius: 20px;
 }
 
-.praces__item{
+.praces__item {
    box-sizing: border-box;
    display: flex;
    justify-content: space-between;
@@ -34,35 +32,29 @@ text-align: right;
    width: 250px;
    height: 50px;
    border-radius: 20px;
-   &_not-open{
-   background: $color-section-background;
+   &_not-open {
+      background: $color-section-background;
    }
    &_not-open:hover .accordion_button,
-   &_not-open:active .accordion_button{
+   &_not-open:active .accordion_button {
       transition: all 0.3s;
-      transform: rotate(180deg) ;
+      transform: rotate(180deg);
    }
 }
-.price__type{
+.price__type {
    @include font($size: 2rem, $height: 2rem, $weight: 700);
    color: $color-heading;
-   
 }
 
-.prices__contact-us{
+.prices__contact-us {
    display: flex;
    flex-wrap: wrap;
    flex-direction: column;
    align-items: flex-end;
 }
-.prices__leafs-small{
-   background-image: url("../../images/prices/leafs-small.png");
+.prices__leafs-small {
+   background-image: url("../images/prices/leafs-small.png");
    width: 152px;
    height: 174.99px;
    margin: 39px 0 116px 0;
 }
-
-
-
-
-

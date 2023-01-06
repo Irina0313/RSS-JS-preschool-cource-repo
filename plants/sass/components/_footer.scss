@@ -11,7 +11,7 @@
 }
 .copiright {
    display: inline-block;
-   background-image: url("../../images/footer/copyright.svg");
+   background-image: url("../images/footer/copyright.svg");
    width: 19px;
    height: 19px;
    background-repeat: no-repeat;
@@ -55,39 +55,39 @@
 .ico_twitter {
    width: 26.67px;
    height: 21.67px;
-   background-image: url("../../images/footer/tw.svg");
+   background-image: url("../images/footer/tw.svg");
    margin-left: 30px;
    &:hover {
       @extend %transition;
-      background-image: url("../../images/footer/tw-active.svg");
+      background-image: url("../images/footer/tw-active.svg");
    }
 }
 .ico_instagram {
    width: 26.66px;
    height: 26.65px;
-   background-image: url("../../images/footer/insta.svg");
+   background-image: url("../images/footer/insta.svg");
    &:hover {
       @extend %transition;
-      background-image: url("../../images/footer/insta-active.svg");
+      background-image: url("../images/footer/insta-active.svg");
    }
 }
 .ico_facebook {
    width: 16.67px;
    height: 26.67px;
-   background-image: url("../../images/footer/fb.svg");
+   background-image: url("../images/footer/fb.svg");
    margin-left: 30.68px;
    &:hover {
       @extend %transition;
-      background-image: url("../../images/footer/fb-active.svg");
+      background-image: url("../images/footer/fb-active.svg");
    }
 }
 .ico_pinterest {
    width: 26.67px;
    height: 26.67px;
-   background-image: url("../../images/footer/pint.svg");
+   background-image: url("../images/footer/pint.svg");
    margin-left: 25.38px;
    &:hover {
       @extend %transition;
-      background-image: url("../../images/footer/pint-active.svg");
+      background-image: url("../images/footer/pint-active.svg");
    }
 }
