@@ -1,14 +1,35 @@
 .about {
    padding: 93px 0 94px 0;
+   @include media-tablet {
+      padding: 0;
+   }
+}
+.about__content {
+   @include media-tablet {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+   }
 }
 .about__plant {
    background-image: url(../images/about/houseplant.png);
    max-width: 464px;
    height: 479px;
+   @include media-tablet {
+      max-width: 250px;
+      height: 258px;
+      background-size: cover;
+      margin: 68px 0 95px;
+   }
 }
 
 .about__title {
    padding: 68px 0 38px 0;
+   @include media-tablet {
+      padding: 40px 0 50px 0;
+      max-width: 423px;
+      text-align: center;
+   }
 }
 
 .about__text {

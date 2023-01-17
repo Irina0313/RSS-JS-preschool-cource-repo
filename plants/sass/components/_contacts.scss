@@ -1,11 +1,18 @@
 .contacts {
    @extend %background;
    padding: 53px 0 0 0;
+   @include media-tablet {
+      padding: 40px 0 0 0;
+   }
 }
 
 .contacts__wrapper {
    display: flex;
    flex-wrap: wrap;
+   @include media-tablet {
+      flex-direction: column;
+      align-items: center;
+   }
 }
 .contacts__image {
    display: flex;
@@ -14,13 +21,27 @@
    height: 496.99px;
    order: -1;
    margin: 0 113px 1px 0;
+   @include media-tablet {
+      order: 3;
+      width: 200px;
+      height: 248.49px;
+      background-size: cover;
+      margin: 249px 0 0 19px;
+   }
 }
 
 .contacts__title {
    font-weight: 700;
    color: $color-heading-additional;
    margin: 6px 68px 0 0;
+   @include media-tablet {
+      @include font($size: 4rem, $height: 5.2rem, $weight: 700);
+      width: 100%;
+      margin: 0;
+      text-align: center;
+   }
 }
+
 .contacts__text {
    @include font($size: 2rem, $height: 4rem);
    letter-spacing: 0.05em;

@@ -52,6 +52,9 @@
          background-color: $color-primary;
       }
    }
+   @include media-tablet {
+      padding: 42px 0 40px;
+   }
 }
 .accordion_button {
    display: flex;
@@ -123,5 +126,9 @@
    }
    .arrow {
       color: $color-light;
+   }
+
+   @include media-tablet {
+      margin: 100px 0 0 0;
    }
 }

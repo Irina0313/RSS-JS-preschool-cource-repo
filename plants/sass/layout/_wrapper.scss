@@ -1,9 +1,12 @@
-.wrapper{
+.wrapper {
    max-width: $content-width;
    margin: 0 auto;
+   @include media-tablet {
+      max-width: $tablet-width;
+      padding: 0 50px;
+   }
 }
 
-.header__wrapper{
+.header__wrapper {
    max-width: $header-width;
 }
-

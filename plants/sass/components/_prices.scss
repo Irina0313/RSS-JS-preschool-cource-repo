@@ -7,12 +7,26 @@
    margin: 0 0 60px 0;
    @include font($size: 4rem, $height: 4.8rem, $weight: 700);
    color: $color-heading;
+   @include media-tablet {
+      @include font($size: 3.5rem, $height: 4.2rem, $weight: 700);
+      margin: 0 0 57px 15px;
+   }
+}
+
+.prices__contact-us {
+   @include media-tablet {
+      margin: 100px 0 0 0;
+   }
 }
 
 .prices__title_contact-us {
    line-height: 5rem;
    margin: 0 0 39px 0;
    text-align: right;
+   @include media-tablet {
+      @include font($size: 2.5rem, $height: 3.5rem, $weight: 700);
+      margin: 0 0 29px 0;
+   }
 }
 
 .prices__items {
@@ -57,4 +71,7 @@
    width: 152px;
    height: 174.99px;
    margin: 39px 0 116px 0;
+   @include media-tablet {
+      margin: 29px 0 92px 0;
+   }
 }

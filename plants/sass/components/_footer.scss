@@ -1,5 +1,15 @@
 .footer__wrapper {
    padding: 39px 0 41px 0;
+   @include media-tablet {
+      padding: 33px 0 41px 0;
+   }
+}
+
+.layout-3-column_footer {
+   @include media-tablet {
+      flex-direction: column;
+      align-items: center;
+   }
 }
 
 .footer__data {
@@ -7,6 +17,10 @@
    align-items: center;
    > * {
       padding-right: 20px;
+   }
+   @include media-tablet {
+      flex-basis: 100%;
+      padding: 1px 0 16px 17px;
    }
 }
 .copiright {
@@ -20,6 +34,9 @@
 .footer__year {
    @include font($size: 2rem, $height: 5rem);
    color: $color-heading;
+   @include media-tablet {
+      @include font($size: 2rem, $height: 2.4rem);
+   }
 }
 
 .footer__link {
@@ -30,21 +47,35 @@
       cursor: pointer;
       color: $color-primary;
    }
+   @include media-tablet {
+      @include font($size: 2rem, $height: 2.4rem);
+   }
 }
+
 .footer__rsschool {
    display: flex;
    justify-content: center;
+   @include media-tablet {
+      flex-basis: 100%;
+   }
 }
+
 .footer__social-list {
    display: flex;
    align-items: center;
    justify-content: flex-end;
+   @include media-tablet {
+      flex-basis: 100%;
+   }
 }
 
 .social-list {
    display: flex;
    margin: 0;
    padding-right: 2.71px;
+   @include media-tablet {
+      padding: 26px 0 0;
+   }
 }
 .social-list li {
    list-style-type: none;
@@ -61,6 +92,7 @@
       @extend %transition;
       background-image: url("../images/footer/tw-active.svg");
    }
+   margin-top: 3px;
 }
 .ico_instagram {
    width: 26.66px;

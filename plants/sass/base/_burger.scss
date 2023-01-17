@@ -1,0 +1,29 @@
+%burger-line {
+   content: "";
+   display: inline-block;
+   position: absolute;
+   background-color: $color-text-light;
+   height: 2px;
+   width: 100%;
+}
+
+.burger {
+   display: none;
+   position: relative;
+   box-sizing: border-box;
+   width: 40px;
+   height: 32px;
+   border-top: solid 2px $color-text-light;
+   border-bottom: solid 2px $color-text-light;
+   @include media-mobile {
+      display: inline-block;
+   }
+   &::before {
+      @extend %burger-line;
+      top: 8px;
+   }
+   &::after {
+      @extend %burger-line;
+      bottom: 8px;
+   }
+}

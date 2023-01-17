@@ -1,9 +1,12 @@
-.header{
+.header {
    background-color: $color-section-background;
    padding: 42px 0;
+   @include media-tablet {
+      padding: 35px 0 32px 0;
+   }
 }
 
-.header__wrapper{
+.header__wrapper {
    display: flex;
    justify-content: space-between;
    align-items: center;
@@ -11,5 +14,3 @@
       text-decoration: none;
    }
 }
-
-
