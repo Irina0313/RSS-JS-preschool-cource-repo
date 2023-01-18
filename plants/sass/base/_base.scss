@@ -20,6 +20,9 @@ h1 {
    @include media-tablet {
       @include font(3.5rem, 5rem, 700);
    }
+   @include media-mobile {
+      @include font(2.5rem, 3.5rem, 700);
+   }
 }
 
 h2 {
@@ -31,7 +34,10 @@ h2 {
       color: $color-heading-additional;
    }
    @include media-tablet {
-      @include font(3.5rem, 4.6rem, 400);
+      @include font($size: 3.5rem, $height: 4.6rem, $weight: 400);
+   }
+   @include media-mobile {
+      @include font($size: 2.5rem, $height: 3.3rem);
    }
 }
 

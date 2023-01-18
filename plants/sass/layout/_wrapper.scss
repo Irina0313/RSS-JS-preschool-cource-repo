@@ -5,6 +5,10 @@
       max-width: $tablet-width;
       padding: 0 50px;
    }
+   @include media-mobile {
+      max-width: $mobile-width;
+      padding: 0 25px 0 25px;
+   }
 }
 
 .header__wrapper {

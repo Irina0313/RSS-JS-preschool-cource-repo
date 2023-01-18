@@ -1,25 +1,26 @@
-.logo{
+.logo {
    @extend %font-add;
    @include font(1.6rem, 2.1rem);
    color: $color-heading;
    @extend %transition;
    cursor: pointer;
-   //height: 21.04px;
    padding: 10px 0 15px 0;
+   @include media-mobile {
+      padding: 0;
+   }
 }
 
-.logo:hover{
+.logo:hover {
    @include font(1.6rem, 2.1rem, 700);
-   color:$color-primary; 
+   color: $color-primary;
 }
 
-.logo__svg{
+.logo__svg {
    width: 20px;
    height: 20px;
    padding-left: 1px;
 }
 
-.logo__text{
+.logo__text {
    margin-left: -3px;
 }
-

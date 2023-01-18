@@ -12,7 +12,7 @@
    position: relative;
    box-sizing: border-box;
    width: 40px;
-   height: 32px;
+   height: 26px;
    border-top: solid 2px $color-text-light;
    border-bottom: solid 2px $color-text-light;
    @include media-mobile {
@@ -20,10 +20,10 @@
    }
    &::before {
       @extend %burger-line;
-      top: 8px;
+      top: 6px;
    }
    &::after {
       @extend %burger-line;
-      bottom: 8px;
+      bottom: 6px;
    }
 }

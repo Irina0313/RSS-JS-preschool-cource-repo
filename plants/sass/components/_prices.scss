@@ -1,5 +1,13 @@
 .prices {
    padding: 40px 0 0 0;
+   @include media-mobile {
+      padding: 25px 0 40px 0;
+   }
+}
+.prices__type {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
 }
 
 .prices__title {
@@ -11,21 +19,10 @@
       @include font($size: 3.5rem, $height: 4.2rem, $weight: 700);
       margin: 0 0 57px 15px;
    }
-}
-
-.prices__contact-us {
-   @include media-tablet {
-      margin: 100px 0 0 0;
-   }
-}
-
-.prices__title_contact-us {
-   line-height: 5rem;
-   margin: 0 0 39px 0;
-   text-align: right;
-   @include media-tablet {
-      @include font($size: 2.5rem, $height: 3.5rem, $weight: 700);
-      margin: 0 0 29px 0;
+   @include media-mobile {
+      @include font($size: 2.5rem, $height: 3rem, $weight: 700);
+      text-align: center;
+      margin: 0 0 37px 0;
    }
 }
 
@@ -34,6 +31,9 @@
    padding: 34px 40px 0 40px;
    border: 1px solid $color-border;
    border-radius: 20px;
+   @include media-mobile {
+      padding: 15.08px 22px 12px;
+   }
 }
 
 .praces__item {
@@ -54,10 +54,19 @@
       transition: all 0.3s;
       transform: rotate(180deg);
    }
+   @include media-mobile {
+      width: 180px;
+      height: 50px;
+      padding: 0 40px 0 30px;
+      margin: 13.92px 0 13.92px 0;
+   }
 }
 .price__type {
    @include font($size: 2rem, $height: 2rem, $weight: 700);
    color: $color-heading;
+   @include media-mobile {
+      @include font($size: 1.5rem, $height: 2rem, $weight: 700);
+   }
 }
 
 .prices__contact-us {
@@ -65,7 +74,30 @@
    flex-wrap: wrap;
    flex-direction: column;
    align-items: flex-end;
+   @include media-tablet {
+      margin: 100px 0 0 0;
+   }
+   @include media-mobile {
+      margin: 20px 0 0 0;
+      align-items: center;
+   }
 }
+.prices__title_contact-us {
+   line-height: 5rem;
+   margin: 0 0 39px 0;
+   text-align: right;
+   @include media-tablet {
+      @include font($size: 2.5rem, $height: 3.5rem, $weight: 700);
+      margin: 0 0 29px 0;
+   }
+   @include media-mobile {
+      @include font($size: 2rem, $height: 3.5rem, $weight: 700);
+      text-align: center;
+      max-width: 230px;
+      margin: 0 0 20px 0;
+   }
+}
+
 .prices__leafs-small {
    background-image: url("../images/prices/leafs-small.png");
    width: 152px;
@@ -73,5 +105,8 @@
    margin: 39px 0 116px 0;
    @include media-tablet {
       margin: 29px 0 92px 0;
+   }
+   @include media-mobile {
+      display: none;
    }
 }

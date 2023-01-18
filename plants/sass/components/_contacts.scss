@@ -4,6 +4,9 @@
    @include media-tablet {
       padding: 40px 0 0 0;
    }
+   @include media-mobile {
+      padding: 25px 0 0 0;
+   }
 }
 
 .contacts__wrapper {
@@ -28,6 +31,11 @@
       background-size: cover;
       margin: 249px 0 0 19px;
    }
+   @include media-mobile {
+      width: 100px;
+      height: 124.25px;
+      margin: 133px 0 0 0px;
+   }
 }
 
 .contacts__title {
@@ -39,6 +47,9 @@
       width: 100%;
       margin: 0;
       text-align: center;
+   }
+   @include media-mobile {
+      @include font($size: 2.5rem, $height: 3.3rem, $weight: 700);
    }
 }
 

@@ -30,6 +30,11 @@
          color: $color-light;
          background-color: $color-primary;
       }
+      @include media-mobile {
+         width: 100px;
+         height: 34.14px;
+         @include font(1rem, 2rem);
+      }
    }
 }
 
@@ -55,7 +60,18 @@
    @include media-tablet {
       padding: 42px 0 40px;
    }
+   @include media-mobile {
+      padding: 38px 0 13px;
+      flex-wrap: wrap;
+      > * {
+         width: 121px;
+         height: 35px;
+         @include font($size: 1.5rem, $height: 2rem);
+         margin: 0 10px 9px 0;
+      }
+   }
 }
+
 .accordion_button {
    display: flex;
    justify-content: center;
@@ -79,6 +95,11 @@
       @extend %font-add;
       @include font($size: 2rem, $height: 2.6rem, $weight: 700);
       color: $color-primary;
+      @include media-mobile {
+         width: 121px;
+         height: 35px;
+         @include font($size: 1.5rem, $height: 2rem, $weight: 700);
+      }
    }
 }
 .prices__contact-us .button_unactive:hover {
@@ -130,5 +151,10 @@
 
    @include media-tablet {
       margin: 100px 0 0 0;
+   }
+   @include media-mobile {
+      width: 300px;
+      margin: 80px 0 0 0;
+      padding: 5px 20px;
    }
 }

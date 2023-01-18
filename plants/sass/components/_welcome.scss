@@ -4,6 +4,9 @@
    @include media-tablet {
       padding: 40px 0 70px 0;
    }
+   @include media-mobile {
+      padding: 26px 0 24px 0;
+   }
 }
 
 .welcome .welcome__content {
@@ -16,6 +19,9 @@
       order: 1;
       padding: 0;
       flex-basis: 51%;
+   }
+   @include media-tablet {
+      flex-basis: 100%;
    }
 }
 
@@ -35,6 +41,9 @@
       height: 254.15px;
       background-size: cover;
    }
+   @include media-mobile {
+      display: none;
+   }
 }
 
 .welcome__text {
@@ -45,5 +54,8 @@
    @include media-tablet {
       @include font($size: 1.6rem, $height: 2.5rem);
       margin: 30px 0 36px 5px;
+   }
+   @include media-mobile {
+      margin: 20px 0 26px 0;
    }
 }
