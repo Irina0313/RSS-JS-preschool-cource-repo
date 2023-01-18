@@ -2,6 +2,9 @@
    display: flex;
    margin: 0;
    padding: 0;
+   @include media-tablet {
+      flex-wrap: wrap;
+   }
 }
 
 .navigation__link {

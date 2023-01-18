@@ -1,16 +1,45 @@
 .wrapper {
    max-width: $content-width;
    margin: 0 auto;
+   @include media-content {
+      padding: 0 50px;
+   }
    @include media-tablet {
-      max-width: $tablet-width;
       padding: 0 50px;
    }
    @include media-mobile {
-      max-width: $mobile-width;
       padding: 0 25px 0 25px;
+   }
+   @include media-small-mobile {
+      padding: 0 10px 0 10px;
    }
 }
 
 .header__wrapper {
-   max-width: $header-width;
+   max-width: $main-content-width;
+}
+
+.contacts__wrapper {
+   display: flex;
+   flex-wrap: wrap;
+   @include media-content {
+      justify-content: space-between;
+   }
+   @include media-tablet {
+      flex-direction: column;
+      align-items: center;
+   }
+}
+
+.footer__wrapper {
+   padding: 39px 0 41px 0;
+   @include media-content {
+      padding: 39px 50px 41px 50px;
+   }
+   @include media-tablet {
+      padding: 33px 0 28px 0;
+   }
+   @include media-mobile {
+      padding: 22px 0 17px 0;
+   }
 }

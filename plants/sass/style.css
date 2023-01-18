@@ -548,7 +548,7 @@ h3 {
 }
 
 .service__buttons {
-  padding-top: 29px;
+  padding: 29px 0 20px 0;
   align-items: flex-start;
 }
 .service__buttons > * {
@@ -794,21 +794,64 @@ h3 {
   max-width: 1222px;
   margin: 0 auto;
 }
+@media (max-width: 1220px) {
+  .wrapper {
+    padding: 0 50px;
+  }
+}
 @media (max-width: 768px) {
   .wrapper {
-    max-width: 768px;
     padding: 0 50px;
   }
 }
 @media (max-width: 380px) {
   .wrapper {
-    max-width: 380px;
     padding: 0 25px 0 25px;
+  }
+}
+@media (max-width: 320px) {
+  .wrapper {
+    padding: 0 10px 0 10px;
   }
 }
 
 .header__wrapper {
   max-width: 1220px;
+}
+
+.contacts__wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+@media (max-width: 1220px) {
+  .contacts__wrapper {
+    justify-content: space-between;
+  }
+}
+@media (max-width: 768px) {
+  .contacts__wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.footer__wrapper {
+  padding: 39px 0 41px 0;
+}
+@media (max-width: 1220px) {
+  .footer__wrapper {
+    padding: 39px 50px 41px 50px;
+  }
+}
+@media (max-width: 768px) {
+  .footer__wrapper {
+    padding: 33px 0 28px 0;
+  }
+}
+@media (max-width: 380px) {
+  .footer__wrapper {
+    padding: 22px 0 17px 0;
+  }
 }
 
 .header {
@@ -839,6 +882,11 @@ h3 {
   display: flex;
   margin: 0;
   padding: 0;
+}
+@media (max-width: 768px) {
+  .navigation {
+    flex-wrap: wrap;
+  }
 }
 
 .navigation__link {
@@ -1348,17 +1396,6 @@ h3 {
   }
 }
 
-.contacts__wrapper {
-  display: flex;
-  flex-wrap: wrap;
-}
-@media (max-width: 768px) {
-  .contacts__wrapper {
-    flex-direction: column;
-    align-items: center;
-  }
-}
-
 .contacts__image {
   display: flex;
   background-image: url("../images/contact-us/contact_woman.png");
@@ -1367,9 +1404,14 @@ h3 {
   order: -1;
   margin: 0 113px 1px 0;
 }
-@media (max-width: 768px) {
+@media (max-width: 1220px) {
   .contacts__image {
     order: 3;
+    margin: 0 0px 1px 0;
+  }
+}
+@media (max-width: 768px) {
+  .contacts__image {
     width: 200px;
     height: 248.49px;
     background-size: cover;
@@ -1389,15 +1431,19 @@ h3 {
   color: #499a18;
   margin: 6px 68px 0 0;
 }
+@media (max-width: 1220px) {
+  .contacts__title {
+    width: 100%;
+    margin: 0;
+    text-align: center;
+  }
+}
 @media (max-width: 768px) {
   .contacts__title {
     font-style: normal;
     font-weight: 700;
     font-size: 4rem;
     line-height: 5.2rem;
-    width: 100%;
-    margin: 0;
-    text-align: center;
   }
 }
 @media (max-width: 380px) {
@@ -1416,20 +1462,6 @@ h3 {
   line-height: 4rem;
   letter-spacing: 0.05em;
   color: #717171;
-}
-
-.footer__wrapper {
-  padding: 39px 0 41px 0;
-}
-@media (max-width: 768px) {
-  .footer__wrapper {
-    padding: 33px 0 28px 0;
-  }
-}
-@media (max-width: 380px) {
-  .footer__wrapper {
-    padding: 22px 0 17px 0;
-  }
 }
 
 @media (max-width: 768px) {
