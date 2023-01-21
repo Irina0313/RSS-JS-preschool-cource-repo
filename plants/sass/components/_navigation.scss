@@ -73,7 +73,6 @@
 
 .header__navigation {
    @include media-mobile {
-      //display: none;
       position: fixed;
       top: 80px;
       left: -150%;
@@ -96,6 +95,5 @@
    @include media-mobile {
       display: flex;
       flex-direction: column;
-      transition: left 0.3s ease 0s;
    }
 }

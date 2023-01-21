@@ -1034,7 +1034,6 @@ h3 {
   .header__navigation .navigation {
     display: flex;
     flex-direction: column;
-    transition: left 0.3s ease 0s;
   }
 }
 
