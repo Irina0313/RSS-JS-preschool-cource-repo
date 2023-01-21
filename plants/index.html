@@ -19,8 +19,10 @@
 
 <body>
    <header class="header">
-      <div class="wrapper header__wrapper">
-         <a href="#" class="logo">
+      <span class="burger">
+      </span>
+      <div class="wrapper header__wrapper section">
+         <a href="#" class="logo section">
             <object class="logo__svg" data="./images/header/logo.svg" type="image/svg+xml">
                Your browser does not support SVG
             </object>
@@ -29,26 +31,27 @@
          <nav class="header__navigation">
             <ul class="navigation">
                <li class="navigation__link">
-                  <a href="#home">Home</a>
+                  <a data-goto=".welcome" href="#">Home</a>
                </li>
                <li class="navigation__link">
-                  <a href="#about">About us</a>
+                  <a data-goto=".about" href="#">About us</a>
                </li>
                <li class="navigation__link">
-                  <a href="#service">Service</a>
+                  <a data-goto=".service" href="#">Service</a>
                </li>
                <li class="navigation__link">
-                  <a href="#price">Price</a>
+                  <a data-goto=".prices" href="#">Price</a>
                </li>
                <li class="navigation__link">
-                  <a href="#contacts">Contacts</a>
+                  <a data-goto=".contacts" href="#">Contacts</a>
                </li>
             </ul>
          </nav>
+
       </div>
    </header>
-   <main>
-      <section class="welcome">
+   <main class="main">
+      <section class="welcome section">
          <div class="wrapper layout-2-column">
             <div class="welcome__content">
                <h1 class="welcome__title">We grow <span>plants</span> and give you oxygen</h1>
@@ -62,8 +65,8 @@
             <div class="welcome__leafs"></div>
          </div>
       </section>
-      <section class="about" id="about">
-         <div class="wrapper layout-2-column_about">
+      <section class="about section">
+         <div class="wrapper layout-column_about">
             <div class="about__content">
                <h2 class="about__title">
                   <span>We are</span> professional experienced <span>gardeners</span>
@@ -77,7 +80,7 @@
             <div class="about__plant"></div>
          </div>
       </section>
-      <section class="service" id="service">
+      <section class="service section">
          <div class="wrapper">
             <div class="services-content">
                <h2 class="service__title">Service and our projects</h2>
@@ -121,7 +124,7 @@
             </div>
          </div>
       </section>
-      <section class="prices" id="price">
+      <section class="prices section">
          <div class="wrapper layout-2-column">
             <div class="prices__type">
                <h2 class="prices__title">Prices</h2>
@@ -160,7 +163,7 @@
             </div>
          </div>
       </section>
-      <section class="contacts" id="contacts">
+      <section class="contacts section">
          <div class="wrapper contacts__wrapper">
             <h2 class="contacts__title">Contact us</h2>
             <div class="contacts__button_unactive">
@@ -179,7 +182,7 @@
    </main>
    <footer>
       <div class="wrapper footer__wrapper">
-         <div class="layout-3-column">
+         <div class="layout-3-column layout-3-column_footer">
             <div class="footer__data">
                <span class="copiright"></span>
                <span class="footer__year">2022</span>
