@@ -17,4 +17,7 @@
    a {
       text-decoration: none;
    }
+   @include media-mobile {
+      position: relative;
+   }
 }

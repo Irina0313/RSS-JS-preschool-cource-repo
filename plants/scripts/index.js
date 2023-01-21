@@ -20,6 +20,37 @@
 Спасибо за потраченное на мою работу время!!!!`);*/
 
 
+
+
+//Меню бургер
+
+const burger = document.querySelector('.burger');
+const headerNavigation = document.querySelector('.header__navigation');
+const sections = document.querySelectorAll('.section');
+
+if (burger) {
+   burger.addEventListener("click", function (e) {
+      document.body.classList.toggle('_lock');
+      burger.classList.toggle('_active');
+      headerNavigation.classList.toggle('_active');
+      console.log('33');
+
+      if (burger.classList.contains('_active')) {
+         if (sections.length > 0) {
+            sections.forEach(space => {
+               space.addEventListener("click", function (e) {
+                  document.body.classList.remove('_lock');
+                  burger.classList.remove('_active');
+                  headerNavigation.classList.remove('_active');
+
+               });
+            }
+            )
+         }
+      }
+   }
+   )
+}
 //Прокрутка при клике
 const navigationLinks = document.querySelectorAll('.navigation__link>*[data-goto]');
 if (navigationLinks.length > 0) {
@@ -33,6 +64,12 @@ if (navigationLinks.length > 0) {
          const gotoSection = document.querySelector(navigationLink.dataset.goto);
          const gotoSectionValue = gotoSection.getBoundingClientRect().top + scrollY;
 
+         if (burger.classList.contains('_active')) {
+            document.body.classList.remove('_lock');
+            burger.classList.remove('_active');
+            headerNavigation.classList.remove('_active');
+         }
+
          window.scrollTo({
             top: gotoSectionValue,
             behavior: "smooth"
@@ -41,3 +78,4 @@ if (navigationLinks.length > 0) {
       }
    }
 }
+
