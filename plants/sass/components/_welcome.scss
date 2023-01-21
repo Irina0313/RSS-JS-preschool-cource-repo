@@ -34,12 +34,15 @@
    background-repeat: no-repeat;
    background-position: center;
    background-size: initial;
+   @include media-content {
+      background-size: contain;
+      background-repeat: no-repeat;
+   }
    @include media-tablet {
       order: 2;
       flex-basis: 41.92%;
-      max-width: 280px;
       height: 254.15px;
-      background-size: cover;
+      background-size: contain;
    }
    @include media-mobile {
       display: none;

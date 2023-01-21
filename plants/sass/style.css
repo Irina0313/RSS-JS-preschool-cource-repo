@@ -731,7 +731,8 @@ h3 {
 
 .burger {
   display: none;
-  position: relative;
+  position: absolute;
+  right: 25px;
   box-sizing: border-box;
   width: 40px;
   height: 26px;
@@ -905,7 +906,8 @@ h3 {
 }
 @media (max-width: 380px) {
   .header__wrapper {
-    position: relative;
+    max-width: 50%;
+    margin-left: 0;
   }
 }
 
@@ -1079,13 +1081,18 @@ h3 {
   background-position: center;
   background-size: initial;
 }
+@media (max-width: 1220px) {
+  .welcome .welcome__leafs {
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+}
 @media (max-width: 768px) {
   .welcome .welcome__leafs {
     order: 2;
     flex-basis: 41.92%;
-    max-width: 280px;
     height: 254.15px;
-    background-size: cover;
+    background-size: contain;
   }
 }
 @media (max-width: 380px) {
@@ -1148,8 +1155,15 @@ h3 {
     margin: 68px 0 95px;
   }
 }
+@media (max-width: 1220px) {
+  .about__plant {
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+}
 @media (max-width: 380px) {
   .about__plant {
+    background-size: cover;
     max-width: 150px;
     height: 147px;
     margin: 0 0 34px;
