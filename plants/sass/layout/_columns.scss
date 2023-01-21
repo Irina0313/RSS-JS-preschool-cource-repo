@@ -1,11 +1,18 @@
 .layout-2-column {
-   @include columns ($width: 45%);
+   @include columns($width: 45%);
+   @include media-mobile {
+      @include columns($width: 100%);
+   }
 }
 
-.layout-2-column_about {
-   @include columns ($width: 49%);
+.layout-column_about {
+   @include columns($width: 49%);
+   @include media-tablet {
+      @include columns($width: 100%);
+      justify-content: center;
+   }
 }
 
 .layout-3-column {
-   @include columns ($width: 30%);
+   @include columns($width: 30%);
 }

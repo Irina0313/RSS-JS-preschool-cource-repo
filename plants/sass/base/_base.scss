@@ -8,6 +8,9 @@ html {
 body {
    font-family: "Inter", sans-serif;
 }
+body._lock {
+   overflow: hidden;
+}
 
 h1 {
    margin: 0;
@@ -16,6 +19,12 @@ h1 {
    span {
       font-weight: 700;
       color: $color-heading-additional;
+   }
+   @include media-tablet {
+      @include font(3.5rem, 5rem, 700);
+   }
+   @include media-mobile {
+      @include font(2.5rem, 3.5rem, 700);
    }
 }
 
@@ -26,6 +35,12 @@ h2 {
    @include font(4rem, 5.2rem, 400);
    span {
       color: $color-heading-additional;
+   }
+   @include media-tablet {
+      @include font($size: 3.5rem, $height: 4.6rem, $weight: 400);
+   }
+   @include media-mobile {
+      @include font($size: 2.5rem, $height: 3.3rem);
    }
 }
 
