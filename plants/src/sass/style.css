@@ -629,6 +629,33 @@ h3 {
   background-color: #d9d9d9;
   border-radius: 45%;
 }
+.accordion_button_opened {
+  display: none;
+}
+
+.praces__item_opened .accordion_button {
+  background-color: #aea1a1;
+  margin: 0;
+}
+
+.praces__item_opened .accordion_button .arrow {
+  transform: rotate(180deg);
+}
+
+.price__order {
+  width: 86px;
+  height: 25px;
+  background: #ffffff;
+  border-radius: 10px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1.4rem;
+  line-height: 2rem;
+  color: #717171;
+  border: none;
+  padding: 3px 20px;
+  text-align: start;
+}
 
 .prices__contact-us .button_unactive {
   box-sizing: border-box;
@@ -1436,6 +1463,7 @@ h3 {
 .praces__item {
   box-sizing: border-box;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   margin: 0 0 32px 0;
@@ -1444,10 +1472,24 @@ h3 {
   height: 50px;
   border-radius: 20px;
 }
-.praces__item_not-open {
+.praces__item_not-opened {
   background: #edf2ec;
 }
-.praces__item_not-open:hover .accordion_button, .praces__item_not-open:active .accordion_button {
+.praces__item_opened {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.4s ease-out;
+  background: #d6e7d2;
+  flex-wrap: wrap;
+  padding: 12px 40px;
+  border-radius: 20px;
+  width: 250px;
+  height: 154px;
+  box-sizing: border-box;
+}
+.praces__item_not-opened:hover .accordion_button, .praces__item_not-opened:active .accordion_button {
   transition: all 0.3s;
   transform: rotate(180deg);
 }
@@ -1460,20 +1502,59 @@ h3 {
   }
 }
 
+.praces-opened {
+  display: none;
+}
+
 .price__type {
+  display: inline-block;
   font-style: normal;
   font-weight: 700;
   font-size: 2rem;
   line-height: 2rem;
   color: #000000;
+  margin: 0;
 }
-@media (max-width: 380px) {
-  .price__type {
-    font-style: normal;
-    font-weight: 700;
-    font-size: 1.5rem;
-    line-height: 2rem;
-  }
+
+/*.praces__item_opened .price__type {
+   margin: 0 0 10px 0;
+}*/
+.price__text {
+  margin: 0;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 1rem;
+  line-height: 1rem;
+  color: #717171;
+  padding: 4.5px 0;
+  border-top: 0.5px solid #aea1a1;
+  margin: 0 0 3px 0;
+}
+
+.price__value {
+  width: 100%;
+  margin: 0 0 8px 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.2rem;
+  line-height: 2rem;
+  color: #000000;
+}
+
+.price__currency {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1.2rem;
+  line-height: 2rem;
+  color: #e06733;
+}
+
+.price__number {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1.6rem;
+  line-height: 2rem;
+  color: #e06733;
 }
 
 .prices__contact-us {

@@ -104,6 +104,29 @@
    height: 16px;
    background-color: $color-accordion-button;
    border-radius: 45%;
+   &_opened {
+      display: none;
+   }
+}
+
+.praces__item_opened .accordion_button {
+   background-color: $color-accordion-btn-background;
+   margin: 0;
+}
+.praces__item_opened .accordion_button .arrow {
+   transform: rotate(180deg);
+}
+
+.price__order {
+   width: 86px;
+   height: 25px;
+   background: $color-light;
+   border-radius: 10px;
+   @include font($size: 1.4rem, $height: 2rem, $weight: 700);
+   color: $color-text-light;
+   border: none;
+   padding: 3px 20px;
+   text-align: start;
 }
 
 .prices__contact-us {
