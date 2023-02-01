@@ -15,6 +15,7 @@
       background-color: $color-primary;
    }
 }
+
 .welcome__button {
    .button_unactive {
       width: 158px;
@@ -41,22 +42,6 @@
 .service__buttons {
    padding: 29px 0 20px 0;
    align-items: flex-start;
-   > * {
-      width: 161px;
-      height: 50px;
-      border: 1px solid $color-primary;
-      border-radius: 5px;
-      background-color: $color-section-background;
-      @extend %font-add;
-      @include font($size: 2rem, $height: 2.6rem);
-      color: $color-primary;
-      margin: 0 38px 0 0;
-
-      &:hover {
-         color: $color-light;
-         background-color: $color-primary;
-      }
-   }
    @include media-tablet {
       padding: 42px 0 40px;
    }
@@ -72,6 +57,43 @@
          margin: 0 10px 9px 0;
       }
    }
+}
+
+.service__buttons ._blocked {
+   color: $color-primary;
+   background-color: $color-section-background;
+}
+
+.service__buttons .button_unactive {
+   transition: all 0.4s ease-out;
+   width: 161px;
+   height: 50px;
+   border: 1px solid $color-primary;
+   border-radius: 5px;
+   background-color: $color-section-background;
+   @extend %font-add;
+   @include font($size: 2rem, $height: 2.6rem);
+   color: $color-primary;
+   margin: 0 38px 0 0;
+}
+
+.service__buttons .button_unactive.focused {
+   transition: all 0.4s ease-out;
+   color: $color-light;
+   background-color: $color-primary;
+}
+.service__buttons ._clicked {
+   width: 161px;
+   height: 50px;
+   border: 1px solid $color-primary;
+   border-radius: 5px;
+
+   @extend %font-add;
+   @include font($size: 2rem, $height: 2.6rem);
+
+   margin: 0 38px 0 0;
+   color: $color-light;
+   background-color: $color-primary;
 }
 
 .accordion_button {

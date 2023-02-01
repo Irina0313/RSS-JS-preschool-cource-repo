@@ -33,6 +33,7 @@
 }
 
 .service-item {
+   transition: all 0.4s ease;
    display: flex;
    flex-direction: column;
    margin-bottom: 55px;
@@ -40,6 +41,7 @@
    border-radius: 20px;
    align-items: center;
    border: 1px solid $color-border;
+
    @include media-tablet {
       max-width: 280px;
       margin-bottom: 38px;
@@ -50,6 +52,9 @@
    }
 }
 
+._blur {
+   filter: blur(2px);
+}
 .service-item p {
    margin: 14px 0 35px 0;
    @include font($size: 1.6rem, $height: 2rem);

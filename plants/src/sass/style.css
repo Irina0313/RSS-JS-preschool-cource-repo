@@ -424,7 +424,7 @@ template {
   background-color: #edf2ec;
 }
 
-.navigation__link a, .logo, .prices__contact-us .button_unactive, .service__buttons > *, h2 {
+.navigation__link a, .logo, .prices__contact-us .button_unactive, .service__buttons ._clicked, .service__buttons .button_unactive, h2 {
   font-family: "Inika", serif;
 }
 
@@ -555,23 +555,6 @@ h3 {
   padding: 29px 0 20px 0;
   align-items: flex-start;
 }
-.service__buttons > * {
-  width: 161px;
-  height: 50px;
-  border: 1px solid #e06733;
-  border-radius: 5px;
-  background-color: #edf2ec;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 2rem;
-  line-height: 2.6rem;
-  color: #e06733;
-  margin: 0 38px 0 0;
-}
-.service__buttons > *:hover {
-  color: #ffffff;
-  background-color: #e06733;
-}
 @media (max-width: 768px) {
   .service__buttons {
     padding: 42px 0 40px;
@@ -595,6 +578,46 @@ h3 {
     line-height: 2rem;
     margin: 0 10px 9px 0;
   }
+}
+
+.service__buttons ._blocked {
+  color: #e06733;
+  background-color: #edf2ec;
+}
+
+.service__buttons .button_unactive {
+  transition: all 0.4s ease-out;
+  width: 161px;
+  height: 50px;
+  border: 1px solid #e06733;
+  border-radius: 5px;
+  background-color: #edf2ec;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 2rem;
+  line-height: 2.6rem;
+  color: #e06733;
+  margin: 0 38px 0 0;
+}
+
+.service__buttons .button_unactive.focused {
+  transition: all 0.4s ease-out;
+  color: #ffffff;
+  background-color: #e06733;
+}
+
+.service__buttons ._clicked {
+  width: 161px;
+  height: 50px;
+  border: 1px solid #e06733;
+  border-radius: 5px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 2rem;
+  line-height: 2.6rem;
+  margin: 0 38px 0 0;
+  color: #ffffff;
+  background-color: #e06733;
 }
 
 .accordion_button {
@@ -1241,6 +1264,7 @@ h3 {
 }
 
 .service-item {
+  transition: all 0.4s ease;
   display: flex;
   flex-direction: column;
   margin-bottom: 55px;
@@ -1260,6 +1284,10 @@ h3 {
     max-width: 279px;
     margin: 18px 0 15px;
   }
+}
+
+._blur {
+  filter: blur(2px);
 }
 
 .service-item p {
