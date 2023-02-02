@@ -41,6 +41,7 @@
 }
 
 .praces__item {
+   transition: all 0.3s ease-in-out;
    box-sizing: border-box;
    display: flex;
    flex-wrap: wrap;
@@ -70,11 +71,7 @@
       height: 154px;
       box-sizing: border-box;
    }
-   &_not-opened:hover .accordion_button,
-   &_not-opened:active .accordion_button {
-      transition: all 0.3s;
-      transform: rotate(180deg);
-   }
+
    @include media-mobile {
       width: 180px;
       height: 50px;
@@ -82,9 +79,13 @@
       margin: 13.92px 0 13.92px 0;
    }
 }
-.praces-opened {
+.praces-not-opened {
    display: none;
-   //display: block;
+   transition: all 0.6s ease-out;
+}
+.praces-opened {
+   transition: all 0.6s ease-out;
+   display: block;
 }
 .price__type {
    display: inline-block;

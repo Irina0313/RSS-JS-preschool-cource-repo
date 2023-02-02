@@ -633,13 +633,23 @@ h3 {
   display: none;
 }
 
-.praces__item_opened .accordion_button {
+._accordion_button_opened {
+  transition: all 0.4s ease-out;
   background-color: #aea1a1;
-  margin: 0;
 }
 
-.praces__item_opened .accordion_button .arrow {
-  transform: rotate(180deg);
+.praces__item .accordion_button .arrow {
+  transition: all 0.4s ease-out;
+  width: 2px;
+  height: 2px;
+  transform: rotate(45deg);
+  border-bottom: 0.5px solid #717171;
+  border-right: 0.5px solid #717171;
+}
+.praces__item .accordion_button .arrow_active {
+  transform: rotate(225deg);
+  border-bottom: 0.5px solid #ffffff;
+  border-right: 0.5px solid #ffffff;
 }
 
 .price__order {
@@ -655,6 +665,12 @@ h3 {
   border: none;
   padding: 3px 20px;
   text-align: start;
+}
+
+.price__order.focused {
+  transition: all 0.4s ease-out;
+  color: #ffffff;
+  background-color: #e06733;
 }
 
 .prices__contact-us .button_unactive {
@@ -1461,6 +1477,7 @@ h3 {
 }
 
 .praces__item {
+  transition: all 0.3s ease-in-out;
   box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;
@@ -1489,10 +1506,6 @@ h3 {
   height: 154px;
   box-sizing: border-box;
 }
-.praces__item_not-opened:hover .accordion_button, .praces__item_not-opened:active .accordion_button {
-  transition: all 0.3s;
-  transform: rotate(180deg);
-}
 @media (max-width: 380px) {
   .praces__item {
     width: 180px;
@@ -1502,8 +1515,14 @@ h3 {
   }
 }
 
-.praces-opened {
+.praces-not-opened {
   display: none;
+  transition: all 0.6s ease-out;
+}
+
+.praces-opened {
+  transition: all 0.6s ease-out;
+  display: block;
 }
 
 .price__type {

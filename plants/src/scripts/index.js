@@ -95,8 +95,11 @@ if (navigationLinks.length > 0) {
 
 window.onload = function () {
 
-   //Блюр
+   //Services
    addButtonsClickHandler();
+
+   //Prices
+   addPricesAccordionClickHandler();
 }
 
 //hover секция Service
@@ -121,11 +124,11 @@ const addButtonsClickHandler = () => {
 
       if (e.target.classList.contains('service-button')) {
          let clickedButton = e.target;
-
          selectClickedButton(clickedButton);
          filterServiceItems(clickedButton);
       }
    })
+
 }
 
 const selectClickedButton = (clickedButton) => {
@@ -208,9 +211,80 @@ const removeBlure = () => {
    })
 }
 
+//Prices accordion
 
+const addPricesAccordionClickHandler = () => {
+   const pricesAccodionButton = document.querySelectorAll('.praces__item .accordion_button');
+   pricesAccodionButton.forEach(pricesButton => {
+      pricesButton.addEventListener('click', (e) => {
 
+         closeOpenedModalWindows(pricesButton);
 
+         pricesButton.classList.toggle('_accordion_button_opened')
+         pricesButton.childNodes[1].classList.toggle('arrow_active');
 
+         showModalWindow(pricesButton);
 
+         if (!pricesButton.classList.contains('_accordion_button_opened')) {
+            hiddenModalWindow(pricesButton);
+         }
+      })
+   })
+   buttonOrderClicked();
+}
+
+const showModalWindow = (pricesButton) => {
+   pricesButton.parentNode.classList.add('praces__item_opened');
+   pricesButton.nextElementSibling.classList.add('praces-opened');
+}
+
+const hiddenModalWindow = (pricesButton) => {
+   pricesButton.parentNode.classList.remove('praces__item_opened');
+   pricesButton.nextElementSibling.classList.remove('praces-opened');
+}
+
+const closeOpenedModalWindows = (pricesButton) => {
+
+   const openedModalsAmount = document.querySelectorAll('._accordion_button_opened');
+
+   if (openedModalsAmount.length > 0) {
+      openedModalsAmount.forEach(modal => {
+         if (modal != pricesButton) {
+            modal.classList.remove('_accordion_button_opened')
+            modal.childNodes[1].classList.remove('arrow_active');
+            if (!modal.classList.contains('_accordion_button_opened')) {
+               hiddenModalWindow(modal);
+            }
+         }
+      })
+   }
+}
+
+// Button Order
+
+const buttonsOrder = document.querySelectorAll('.price__order');
+const buttonOrderClicked = (e) => {
+   buttonsOrder.forEach(button => {
+      // mouse behaviour (hover and click)
+      button.addEventListener('mouseover', () => {
+         button.classList.add('focused');
+      })
+      button.addEventListener('mouseout', () => {
+         button.classList.remove('focused');
+      })
+      button.addEventListener('click', () => {
+         button.classList.remove('focused');
+      })
+
+      button.addEventListener('click', () => {
+         //scroll to Contact section
+         const gotoSection = document.querySelector(button.dataset.goto);
+         const gotoSectionValue = gotoSection.getBoundingClientRect().top + scrollY;
+         window.scrollTo({
+            top: gotoSectionValue,
+            behavior: "smooth"
+         });
+      })
+   })
+}
 

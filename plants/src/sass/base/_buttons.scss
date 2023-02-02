@@ -108,13 +108,23 @@
       display: none;
    }
 }
-
-.praces__item_opened .accordion_button {
+._accordion_button_opened {
+   transition: all 0.4s ease-out;
    background-color: $color-accordion-btn-background;
-   margin: 0;
 }
-.praces__item_opened .accordion_button .arrow {
-   transform: rotate(180deg);
+
+.praces__item .accordion_button .arrow {
+   transition: all 0.4s ease-out;
+   width: 2px;
+   height: 2px;
+   transform: rotate(45deg);
+   border-bottom: 0.5px solid $color-text-light;
+   border-right: 0.5px solid $color-text-light;
+   &_active {
+      transform: rotate(225deg);
+      border-bottom: 0.5px solid $color-light;
+      border-right: 0.5px solid $color-light;
+   }
 }
 
 .price__order {
@@ -127,6 +137,11 @@
    border: none;
    padding: 3px 20px;
    text-align: start;
+}
+.price__order.focused {
+   transition: all 0.4s ease-out;
+   color: $color-light;
+   background-color: $color-primary;
 }
 
 .prices__contact-us {
