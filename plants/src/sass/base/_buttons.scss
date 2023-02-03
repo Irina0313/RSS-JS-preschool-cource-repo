@@ -43,7 +43,7 @@
    padding: 29px 0 20px 0;
    align-items: flex-start;
    @include media-tablet {
-      padding: 42px 0 40px;
+      padding: 42px 0 30px;
    }
    @include media-small-tablet {
       flex-wrap: wrap;
@@ -74,7 +74,13 @@
    @extend %font-add;
    @include font($size: 2rem, $height: 2.6rem);
    color: $color-primary;
-   margin: 0 38px 0 0;
+   margin: 0 38px 10px 0;
+   @include media-mobile {
+      width: 121px;
+      height: 35px;
+      @include font($size: 1.5rem, $height: 2rem, $weight: 400);
+      margin: 0 10px 8px 0;
+   }
 }
 
 .service__buttons .button_unactive.focused {
@@ -95,7 +101,6 @@
    color: $color-light;
    background-color: $color-primary;
 }
-
 .accordion_button {
    display: flex;
    justify-content: center;
@@ -120,10 +125,14 @@
    transform: rotate(45deg);
    border-bottom: 0.5px solid $color-text-light;
    border-right: 0.5px solid $color-text-light;
+   border-top: 0.5px solid transparent;
+   border-left: 0.5px solid transparent;
    &_active {
       transform: rotate(225deg);
       border-bottom: 0.5px solid $color-light;
       border-right: 0.5px solid $color-light;
+      border-top: 0.5px solid transparent;
+      border-left: 0.5px solid transparent;
    }
 }
 
@@ -164,6 +173,23 @@
       }
    }
 }
+
+.arrow_contacts {
+   transition: all 0.4s ease-out;
+   width: 2px;
+   height: 2px;
+   transform: rotate(45deg);
+
+   &_unactive {
+      border-bottom: 0.5px solid $color-light;
+      border-right: 0.5px solid $color-light;
+   }
+   &_active {
+      border-bottom: 0.5px solid $color-light;
+      border-right: 0.5px solid $color-light;
+   }
+}
+
 .prices__contact-us .button_unactive:hover {
    color: $color-light;
    background-color: $color-primary;
@@ -171,52 +197,5 @@
       background-color: $color-accordion-btn-background;
       transition: all 0.3s;
       transform: rotate(180deg);
-   }
-}
-
-.contacts__button_unactive {
-   display: flex;
-   order: 3;
-   box-sizing: border-box;
-   justify-content: space-between;
-   align-items: center;
-   width: 450px;
-   height: 50px;
-   background-color: $color-contact;
-   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-   margin: 93px 0 0 0;
-   padding: 5px 35px 5px 20px;
-
-   .accordion_button {
-      background-color: $color-accordion-btn-background;
-   }
-
-   &:hover,
-   &:active {
-      @extend %transition;
-      cursor: pointer;
-      background-color: $color-accordion-active;
-      border: 1px solid $color-contact;
-      box-shadow: none;
-      padding: 5px 35px 5px 35px;
-
-      &:hover .contacts__accordion_button,
-      &:active .contacts__accordion_button {
-         background-color: $color-arrow-active;
-         transition: all 0.3s;
-         transform: rotate(180deg);
-      }
-   }
-   .arrow {
-      color: $color-light;
-   }
-
-   @include media-tablet {
-      margin: 100px 0 0 0;
-   }
-   @include media-small-tablet {
-      width: 300px;
-      margin: 80px 0 0 0;
-      padding: 5px 20px;
    }
 }

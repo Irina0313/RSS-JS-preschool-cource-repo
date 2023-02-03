@@ -1,41 +1,21 @@
-/*console.log(`
+console.log(`
 Привет, надеюсь проверка моей работы не отнимет много времени.))\n
 Рассчитываю на максимальный балл, все требования выполнены.\n
 Всегда благодарна за дельные замечания и советы. Готова ответить на любые вопросы по работе.\n
 В проекте используется SCSS и normalize (разрешены в требованиях).\n
 Самопроверка:\n
-Ваша оценка - 85 баллов \n
-Отзыв по пунктам ТЗ:\n
-Выполненные пункты:\n
-Вёрстка соответствует макету. Ширина экрана 768px - 24 балла\n
-1) Блок header \n
-2) Секция welcome \n
-3) Секция about \n
-4) Секция service \n
-5) Секция prices \n
-6) Секция contacts \n
-7) Блок footer \n
-Вёрстка соответствует макету. Ширина экрана 380px - 24 балла \n
-8) Блок header \n
-9) Секция welcome \n
-10) Секция about \n
-11) Секция service \n
-12) Секция prices \n
-13) Секция contacts \n
-14) Блок footer \n
-\n
-15) нет полосы прокрутки при ширине страницы от 1440рх до 380px \n
-16) нет полосы прокрутки при ширине страницы от 380px до 320рх \n
-17) при ширине страницы 380рх панель навигации скрывается, появляется бургер-иконка \n
-18) при нажатии на бургер-иконку плавно появляется адаптивное меню \n
-19) адаптивное меню соответствует цветовой схеме макета \n
-20) при нажатии на крестик адаптивное меню плавно скрывается уезжая за экран \n
-21) ссылки в адаптивном меню работают, обеспечивая плавную прокрутку по якорям (все, кроме Account, она пока просто закрывает меню) \n
-22) при клике по ссылке в адаптивном меню адаптивное меню плавно скрывается, также скрытие меню происходит если сделать клик вне данного окна \n
+1. При нажатии на кнопки:Gardens,Lawn,Planting происходит смена фокуса на услугах в разделе service +50\n
+-- При выборе одной услуги (нажатии одной кнопки), остальные карточки услуг принимают эффект blur, выбранная услуга остается неизменной + 20\n
+--Пользователь может нажать одновременно две кнопки услуги, тогда эта кнопка тоже принимает стиль активной и карточки с именем услуги выходят из эффекта blur. При этом пользователь не может нажать одновременно все три кнопки услуг. При повторном нажатии на активную кнопку она деактивируется (становится неактивной) а привязанные к ней позиции возвращаются в исходное состояние (входит в состяние blur если есть еще активная кнопка или же перестають быть в блюре если это была единственная нажатая кнопка). +20\n
+-- Анимации плавного перемещения кнопок в активное состояние и карточек услуг в эффект blur +10\n
+2. Accordion в секции prices реализация 3-х выпадающих списков об услугах и ценах + 50\n
+-- При нажатии на dropdown кнопку появляется описание тарифов цен в соответствии с макетом. Внутри реализована кнопка order, которая ведет на секцию contacts, при нажатии на нее Accordion все еще остается открытым. +25\n
+-- Пользователь может самостоятельно закрыть содержимое нажав на кнопку dropup, но не может одновременно открыть все тарифы услуг, при открытии нового тарифа предыдущее автоматически закрывается. +25\n
+3. В разделе contacts реализован select с выбором городов +25\n
+-- В зависимости от выбора пользователя появляется блок с адресом и телефоном офиса в определенном городе +15\n
+-- При нажатии на кнопку Call us реализован вызов по номеру, который соответствует выбранному городу +10\n
 
-Спасибо за потраченное на мою работу время!!!!`);*/
-
-
+Спасибо за потраченное на мою работу время!!!!`);
 
 
 //Меню бургер
@@ -92,6 +72,8 @@ if (navigationLinks.length > 0) {
       }
    }
 }
+//Plants Part2
+
 
 window.onload = function () {
 
@@ -100,6 +82,9 @@ window.onload = function () {
 
    //Prices
    addPricesAccordionClickHandler();
+
+   //Contact us
+   addContactClickHandler();
 }
 
 //hover секция Service
@@ -210,6 +195,19 @@ const removeBlure = () => {
       item.classList.remove('_blur')
    })
 }
+//button Contact us
+const buttonContactUs = document.querySelector('.prices__contact-us .button');
+
+buttonContactUs.addEventListener('click', (e) => {
+   const gotoSection = document.querySelector(buttonContactUs.dataset.goto);
+   const gotoSectionValue = gotoSection.getBoundingClientRect().top + scrollY;
+
+   window.scrollTo({
+      top: gotoSectionValue,
+      behavior: "smooth"
+   })
+
+});
 
 //Prices accordion
 
@@ -288,3 +286,138 @@ const buttonOrderClicked = (e) => {
    })
 }
 
+//Contact us
+
+const addContactClickHandler = () => {
+
+   document.querySelector('.contacts__button-heading').addEventListener('click', (e) => {
+
+      if (e.target) {
+
+         transformContactButton();
+         changeContactButtonHeading();
+         showCityList();
+         getClickedCity();
+         hideContactModalWindow();
+
+         resetContactButtonHeading();
+         const contactHeding = document.querySelector('.contacts__button-heading');
+         contactHeding.parentElement.classList.add('contacts__button_unactive_active');
+
+         const contactImg = document.querySelector('.contacts__image');
+         contactImg.classList.add('contacts__image_active');
+      }
+   })
+
+}
+const transformContactButton = () => {
+   const contactArrow = document.querySelector('.arrow_contacts');
+   contactArrow.classList.toggle('arrow_contacts_unactive');
+   contactArrow.classList.toggle('arrow_contacts_active');
+
+   const contactButton = document.querySelector('.contacts__accordion_button');
+   contactButton.classList.toggle('contacts__accordion_button_unactive');
+   contactButton.classList.toggle('contacts__accordion_button_active');
+}
+
+const changeContactButtonHeading = () => {
+   const contactHeding = document.querySelector('.contacts__button-heading');
+   contactHeding.classList.toggle('contacts__button-heading_unactive');
+   contactHeding.classList.toggle('contacts__button-heading_active');
+
+
+
+   const cityList = document.querySelector('.city-list');
+   if (!cityList.classList.contains('city-list_active')) {
+      contactHeding.classList.remove('contacts__button-heading_unactive');
+      contactHeding.classList.add('contacts__button-heading_active');
+   }
+}
+
+const showCityList = () => {
+   const cityList = document.querySelector('.city-list');
+   cityList.classList.toggle('city-list_active');
+};
+
+const getClickedCity = () => {
+   const clickedCity = document.querySelectorAll('.city');
+   clickedCity.forEach(city => {
+      city.addEventListener('click', (e) => {
+         const choosedCity = e.target.innerText;
+         closeCityList(choosedCity);
+         showContactModalWindow(choosedCity);
+         buttonCallUsClicked();
+         transformContactButtonToUnactive();
+      })
+   })
+};
+const transformContactButtonToUnactive = () => {
+   const contactArrow = document.querySelector('.arrow_contacts');
+   contactArrow.classList.add('arrow_contacts_unactive');
+   contactArrow.classList.remove('arrow_contacts_active');
+
+   const contactButton = document.querySelector('.contacts__accordion_button');
+   contactButton.classList.add('contacts__accordion_button_unactive');
+   contactButton.classList.remove('contacts__accordion_button_active');
+}
+
+const closeCityList = (choosedCity) => {
+   const contactText = document.querySelector('.contacts__text');
+   contactText.classList.add('contact__text_changed');
+   contactText.innerText = choosedCity;
+   hideCityList();
+};
+
+const hideCityList = () => {
+   const cityList = document.querySelector('.city-list');
+   cityList.classList.remove('city-list_active');
+};
+
+const modalsCityes = document.querySelectorAll('.contact-modal');
+const showContactModalWindow = (choosedCity) => {
+   const targetCity = choosedCity;
+   modalsCityes.forEach(cityes => {
+      if (cityes.innerText.includes(targetCity)) {
+         cityes.classList.remove('contact-modal_unactive');
+         cityes.classList.add('contact-modal_active');
+      }
+   })
+}
+
+const hideContactModalWindow = (choosedCity) => {
+   const contactsHeadingState = document.querySelector('.city-list');
+   if (contactsHeadingState.classList.contains('city-list_active')) {
+      modalsCityes.forEach(cityes => {
+         cityes.classList.remove('contact-modal_active');
+         cityes.classList.add('contact-modal_unactive');
+      })
+   }
+}
+
+// Button Call us
+
+const buttonCallUsClicked = () => {
+   const buttonCall = document.querySelectorAll('.contact-call-us');
+   buttonCall.forEach(buttonCallUs => {
+      buttonCallUs.addEventListener('mouseover', () => {
+         buttonCallUs.classList.add('focused');
+      })
+      buttonCallUs.addEventListener('mouseout', () => {
+         buttonCallUs.classList.remove('focused');
+      })
+      buttonCallUs.addEventListener('click', () => {
+         buttonCallUs.classList.remove('focused');
+      })
+   })
+}
+
+const resetContactButtonHeading = () => {
+   const arrowContacts = document.querySelector('.arrow_contacts');
+   const cityList = document.querySelector('.city-list');
+
+   if (arrowContacts.classList.contains('arrow_contacts_unactive') && !cityList.classList.contains('city-list_active')) {
+      const contactText = document.querySelector('.contacts__text');
+      contactText.classList.remove('contact__text_changed');
+      contactText.innerText = 'City';
+   }
+};

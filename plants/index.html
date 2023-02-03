@@ -179,7 +179,7 @@
             <div class="prices__contact-us">
                <h2 class="prices__title prices__title_contact-us">Our best <span>gardeners</span> are ready to help you
                </h2>
-               <button class="button button_unactive">Contact us</button>
+               <button class="button button_unactive" data-goto=".contacts">Contact us</button>
                <div class="prices__leafs-small"></div>
             </div>
          </div>
@@ -188,13 +188,75 @@
          <div class="wrapper contacts__wrapper">
             <h2 class="contacts__title">Contact us</h2>
             <div class="contacts__button_unactive">
-               <p class="contacts__text">City</p>
-               <div class="accordion_button contacts__accordion_button">
-
-                  <object class="arrow" data="./src/images/contact-us/arrow-light.svg" type="image/svg+xml">
-                     Your browser does not support SVG
-                  </object>
+               <div class="contacts__button-heading contacts__button-heading_unactive">
+                  <p class="contacts__text">City</p>
+                  <div class="accordion_button contacts__accordion_button contacts__accordion_button_unactive">
+                     <div class="arrow_contacts arrow_contacts_unactive"></div>
+                  </div>
                </div>
+               <div class="city-list">
+                  <div class="city canandaigua">Canandaigua, NY</div>
+                  <div class="city new-york">New York City</div>
+                  <div class="city yonkers">Yonkers, NY</div>
+                  <div class="city sherrill">Sherrill, NY</div>
+               </div>
+
+               <div class="contact-modal contact-modal_unactive canandaigua">
+                  <div class="modal-item-title modal-city">City:</div>
+                  <div class="modal-item modal-value">Canandaigua, NY</div>
+                  <div class="modal-item-title modal-phone">Phone:</div>
+                  <div class="modal-item modal-value">+1 585 393 0001</div>
+                  <div class="modal-item-title modal-address">Office adress:</div>
+                  <div class="modal-item modal-value">151 Charlotte Street</div>
+                  <button class="contact-call-us">
+                     <a href="tel: +15853930001">
+                        <div>Call us</div>
+                     </a>
+                  </button>
+               </div>
+
+               <div class="contact-modal contact-modal_unactive new-york">
+                  <div class="modal-item-title modal-city">City:</div>
+                  <div class="modal-item modal-value">New York City</div>
+                  <div class="modal-item-title modal-phone">Phone:</div>
+                  <div class="modal-item modal-value">+1 212 456 0002</div>
+                  <div class="modal-item-title modal-address">Office adress:</div>
+                  <div class="modal-item modal-value">9 East 91st Street</div>
+                  <button class="contact-call-us">
+                     <a href="tel: +12124560002">
+                        <div>Call us</div>
+                     </a>
+                  </button>
+               </div>
+
+               <div class="contact-modal contact-modal_unactive yonkers">
+                  <div class="modal-item-title modal-city">City:</div>
+                  <div class="modal-item modal-value">Yonkers, NY</div>
+                  <div class="modal-item-title modal-phone">Phone:</div>
+                  <div class="modal-item modal-value">+1 914 678 0003</div>
+                  <div class="modal-item-title modal-address">Office adress:</div>
+                  <div class="modal-item modal-value">511 Warburton Ave</div>
+                  <button class="contact-call-us">
+                     <a href="tel: +19146780003">
+                        <div>Call us</div>
+                     </a>
+                  </button>
+               </div>
+
+               <div class="contact-modal contact-modal_unactive sherrill">
+                  <div class="modal-item-title modal-city">City:</div>
+                  <div class="modal-item modal-value">Sherrill, NY</div>
+                  <div class="modal-item-title modal-phone">Phone:</div>
+                  <div class="modal-item modal-value">+1 315 908 0004</div>
+                  <div class="modal-item-title modal-address">Office adress:</div>
+                  <div class="modal-item modal-value">14 WEST Noyes BLVD</div>
+                  <button class="contact-call-us">
+                     <a href="tel: +13159080004">
+                        <div>Call us</div>
+                     </a>
+                  </button>
+               </div>
+
             </div>
             <div class="contacts__image"></div>
          </div>
