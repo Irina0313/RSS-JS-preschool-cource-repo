@@ -1,0 +1,201 @@
+.button {
+   display: flex;
+   align-items: center;
+   text-align: center;
+
+   &_unactive {
+      border: 1px solid $color-primary;
+      border-radius: 10px;
+      @extend %transition;
+      cursor: pointer;
+      padding: 0;
+   }
+   &_unactive:hover {
+      color: $color-light;
+      background-color: $color-primary;
+   }
+}
+
+.welcome__button {
+   .button_unactive {
+      width: 158px;
+      height: 44px;
+      border: 2px solid $color-primary;
+      font-family: "Inter", sans-serif;
+      @include font(1.6rem, 2rem);
+      text-transform: uppercase;
+      color: $color-heading;
+      background-color: $color-section-background;
+
+      &:hover {
+         color: $color-light;
+         background-color: $color-primary;
+      }
+      @include media-mobile {
+         width: 100px;
+         height: 34.14px;
+         @include font(1rem, 2rem);
+      }
+   }
+}
+
+.service__buttons {
+   padding: 29px 0 20px 0;
+   align-items: flex-start;
+   @include media-tablet {
+      padding: 42px 0 30px;
+   }
+   @include media-small-tablet {
+      flex-wrap: wrap;
+   }
+   @include media-mobile {
+      padding: 38px 0 13px;
+      > * {
+         width: 121px;
+         height: 35px;
+         @include font($size: 1.5rem, $height: 2rem);
+         margin: 0 10px 9px 0;
+      }
+   }
+}
+
+.service__buttons ._blocked {
+   color: $color-primary;
+   background-color: $color-section-background;
+}
+
+.service__buttons .button_unactive {
+   transition: all 0.4s ease-out;
+   width: 161px;
+   height: 50px;
+   border: 1px solid $color-primary;
+   border-radius: 5px;
+   background-color: $color-section-background;
+   @extend %font-add;
+   @include font($size: 2rem, $height: 2.6rem);
+   color: $color-primary;
+   margin: 0 38px 10px 0;
+   @include media-mobile {
+      width: 121px;
+      height: 35px;
+      @include font($size: 1.5rem, $height: 2rem, $weight: 400);
+      margin: 0 10px 8px 0;
+   }
+}
+
+.service__buttons .button_unactive.focused {
+   transition: all 0.4s ease-out;
+   color: $color-light;
+   background-color: $color-primary;
+}
+.service__buttons ._clicked {
+   width: 161px;
+   height: 50px;
+   border: 1px solid $color-primary;
+   border-radius: 5px;
+
+   @extend %font-add;
+   @include font($size: 2rem, $height: 2.6rem);
+
+   margin: 0 38px 0 0;
+   color: $color-light;
+   background-color: $color-primary;
+}
+.accordion_button {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 16px;
+   height: 16px;
+   background-color: $color-accordion-button;
+   border-radius: 45%;
+   &_opened {
+      display: none;
+   }
+}
+._accordion_button_opened {
+   transition: all 0.4s ease-out;
+   background-color: $color-accordion-btn-background;
+}
+
+.praces__item .accordion_button .arrow {
+   transition: all 0.4s ease-out;
+   width: 2px;
+   height: 2px;
+   transform: rotate(45deg);
+   border-bottom: 0.5px solid $color-text-light;
+   border-right: 0.5px solid $color-text-light;
+   border-top: 0.5px solid transparent;
+   border-left: 0.5px solid transparent;
+   &_active {
+      transform: rotate(225deg);
+      border-bottom: 0.5px solid $color-light;
+      border-right: 0.5px solid $color-light;
+      border-top: 0.5px solid transparent;
+      border-left: 0.5px solid transparent;
+   }
+}
+
+.price__order {
+   width: 86px;
+   height: 25px;
+   background: $color-light;
+   border-radius: 10px;
+   @include font($size: 1.4rem, $height: 2rem, $weight: 700);
+   color: $color-text-light;
+   border: none;
+   padding: 3px 20px;
+   text-align: start;
+}
+.price__order.focused {
+   transition: all 0.4s ease-out;
+   color: $color-light;
+   background-color: $color-primary;
+}
+
+.prices__contact-us {
+   .button_unactive {
+      box-sizing: border-box;
+      align-items: center;
+      justify-content: center;
+      width: 162px;
+      height: 50px;
+      border: 1px solid $color-primary;
+      border-radius: 5px;
+      background: none;
+      @extend %font-add;
+      @include font($size: 2rem, $height: 2.6rem, $weight: 700);
+      color: $color-primary;
+      @include media-mobile {
+         width: 121px;
+         height: 35px;
+         @include font($size: 1.5rem, $height: 2rem, $weight: 700);
+      }
+   }
+}
+
+.arrow_contacts {
+   transition: all 0.4s ease-out;
+   width: 2px;
+   height: 2px;
+   transform: rotate(45deg);
+
+   &_unactive {
+      border-bottom: 0.5px solid $color-light;
+      border-right: 0.5px solid $color-light;
+   }
+   &_active {
+      border-bottom: 0.5px solid $color-light;
+      border-right: 0.5px solid $color-light;
+   }
+}
+
+.prices__contact-us .button_unactive:hover {
+   color: $color-light;
+   background-color: $color-primary;
+   .accordion_button {
+      background-color: $color-accordion-btn-background;
+      transition: all 0.3s;
+      transform: rotate(180deg);
+   }
+}

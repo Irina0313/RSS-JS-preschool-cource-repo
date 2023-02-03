@@ -41,8 +41,10 @@
 }
 
 .praces__item {
+   transition: all 0.3s;
    box-sizing: border-box;
    display: flex;
+   flex-wrap: wrap;
    justify-content: space-between;
    align-items: center;
    margin: 0 0 32px 0;
@@ -50,29 +52,80 @@
    width: 250px;
    height: 50px;
    border-radius: 20px;
-   &_not-open {
+   &_not-opened {
       background: $color-section-background;
+      @include media-mobile {
+         width: 180px;
+         height: 50px;
+         padding: 0 40px 0 30px;
+         margin: 13.92px 0 13.92px 0;
+      }
    }
-   &_not-open:hover .accordion_button,
-   &_not-open:active .accordion_button {
-      transition: all 0.3s;
-      transform: rotate(180deg);
-   }
-   @include media-mobile {
-      width: 180px;
-      height: 50px;
-      padding: 0 40px 0 30px;
-      margin: 13.92px 0 13.92px 0;
+   &_opened {
+      display: flex;
+      flex-wrap: wrap;
+      box-sizing: border-box;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.4s ease-out;
+      background: $color-contact;
+      flex-wrap: wrap;
+      padding: 16px 40px 12px 40px;
+      border-radius: 20px;
+      width: 250px;
+      height: 154px;
+      box-sizing: border-box;
+      @include media-mobile {
+         width: 180px;
+         height: 154px;
+         padding: 0 40px 0 30px;
+         margin: 13.92px 0 13.92px 0;
+      }
    }
 }
+.praces-not-opened {
+   display: none;
+   transition: all 0.6s ease-out;
+}
+.praces-opened {
+   transition: all 0.6s ease-out;
+   display: block;
+   box-sizing: border-box;
+   margin: 3px 0 0 0;
+}
 .price__type {
+   display: inline-block;
    @include font($size: 2rem, $height: 2rem, $weight: 700);
    color: $color-heading;
+   margin: 0;
    @include media-mobile {
       @include font($size: 1.5rem, $height: 2rem, $weight: 700);
    }
 }
 
+.price__text {
+   margin: 0;
+   box-sizing: border-box;
+   @include font($size: 1rem, $height: 1rem, $weight: 300);
+   color: $color-text-light;
+   padding: 4.5px 0 0 0;
+   border-top: 0.5px solid $color-accordion-btn-background;
+   margin: 0 0 3px 0;
+}
+.price__value {
+   width: 100%;
+   margin: 0 0 8px 0;
+   @include font($size: 1.2rem, $height: 2rem, $weight: 400);
+   color: $color-heading;
+}
+.price__currency {
+   @include font($size: 1.2rem, $height: 2rem, $weight: 700);
+   color: $color-primary;
+}
+.price__number {
+   @include font($size: 1.6rem, $height: 2rem, $weight: 700);
+   color: $color-primary;
+}
 .prices__contact-us {
    display: flex;
    flex-wrap: wrap;
