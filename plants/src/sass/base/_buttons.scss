@@ -100,6 +100,12 @@
    margin: 0 38px 0 0;
    color: $color-light;
    background-color: $color-primary;
+   @include media-mobile {
+      width: 121px;
+      height: 35px;
+      @include font($size: 1.5rem, $height: 2rem, $weight: 400);
+      margin: 0 10px 8px 0;
+   }
 }
 .accordion_button {
    display: flex;
