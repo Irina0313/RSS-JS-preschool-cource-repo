@@ -78,7 +78,12 @@ window.addEventListener('beforeunload', setLocalStorage)
 
 function getLocalStorage() {
    if (localStorage.getItem('name')) {
-      userName.value = localStorage.getItem('name');
+      userName.value = localStorage.getItem('name')
+
+
+
+
+         ;
       userName.style.color = greeting.style.color;
    }
 }
@@ -88,7 +93,6 @@ window.addEventListener('load', getLocalStorage)
 const setBg = () => {
    const timeOfDay = getTimeOfDay();
    const bgNum = getRandomNum();
-   console.log(bgNum)
    document.querySelector('body').style.backgroundImage = `url('https://github.com/Irina0313/stage1-tasks/blob/main/images/${timeOfDay}/${bgNum}.jpg?raw=true')`;
 }
 
@@ -97,6 +101,6 @@ getRandomNum = () => {
    if (num > 0) {
       return String(num).padStart(2, '0');
    } else {
-      getRandomNum();
+      return String(num + 1).padStart(2, '0')
    }
 }
