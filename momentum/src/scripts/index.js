@@ -92,13 +92,12 @@ const setBg = () => {
    const timeOfDay = getTimeOfDay();
    const bgNum = randomNum;
    const img = new Image();
-   img.src = `url('https://github.com/Irina0313/stage1-tasks/blob/main/images/${timeOfDay}/${bgNum}.jpg?raw=true')`;
+   img.src = `https://github.com/Irina0313/stage1-tasks/blob/main/images/${timeOfDay}/${bgNum}.jpg?raw=true`;
    console.log(img.src)
    img.onload = () => {
-      document.querySelector('body').style.backgroundImage = img.src;
+      document.querySelector('body').style.backgroundImage = `url(${img.src})`;
    };
    console.log('2', randomNum)
-   //document.querySelector('body').style.backgroundImage = `url('https://github.com/Irina0313/stage1-tasks/blob/main/images/${timeOfDay}/${bgNum}.jpg?raw=true')`;
 };
 
 const getRandomNum = () => {
