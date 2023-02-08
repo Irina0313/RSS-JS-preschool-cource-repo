@@ -9,6 +9,8 @@ window.onload = function () {
 
    showTime();
 
+   getWeather();
+
 
 }
 
@@ -19,6 +21,7 @@ const userName = document.querySelector('.name');
 let randomNum = '';
 const slideNext = document.querySelector('.slide-next');
 const slidePrev = document.querySelector('.slide-prev');
+const city = document.querySelector('.city');
 
 
 //show time
@@ -76,28 +79,34 @@ const getTimeOfDay = () => {
 
 function setLocalStorage() {
    localStorage.setItem('name', userName.value);
+   localStorage.setItem('city', city.value);
+
 }
 window.addEventListener('beforeunload', setLocalStorage)
 
 function getLocalStorage() {
+
    if (localStorage.getItem('name')) {
       userName.value = localStorage.getItem('name');
       userName.style.color = greeting.style.color;
+   }
+   if (localStorage.getItem('city')) {
+      city.value = localStorage.getItem('city');
    }
 }
 window.addEventListener('load', getLocalStorage)
 
 //get background image
 const setBg = () => {
+
+
    const timeOfDay = getTimeOfDay();
    const bgNum = randomNum;
    const img = new Image();
    img.src = `https://github.com/Irina0313/stage1-tasks/blob/main/images/${timeOfDay}/${bgNum}.jpg?raw=true`;
-   console.log(img.src)
    img.onload = () => {
       document.querySelector('body').style.backgroundImage = `url(${img.src})`;
    };
-   console.log('2', randomNum)
 };
 
 const getRandomNum = () => {
@@ -108,11 +117,9 @@ const getRandomNum = () => {
       num = String(num + 1).padStart(2, '0');
    }
    randomNum = String(num);
-   console.log('3', randomNum);
    return randomNum;
 };
 randomNum = getRandomNum();
-console.log('5', randomNum, typeof (randomNum))
 
 slideNext.addEventListener('click', () => {
    getSlideNext();
@@ -124,6 +131,7 @@ slidePrev.addEventListener('click', () => {
 })
 
 const getSlideNext = () => {
+   getLocalStorage();
    if (randomNum === '20') {
       randomNum = '01';
    } else {
@@ -140,3 +148,65 @@ const getSlidePrev = () => {
    }
    setBg();
 };
+
+//weather informer
+
+const weatherIcon = document.querySelector('.weather-icon');
+const temperature = document.querySelector('.temperature');
+const wind = document.querySelector('.wind');
+const humidity = document.querySelector('.humidity');
+const weatherDescription = document.querySelector('.weather-description');
+const weatherError = document.querySelector('.weather-error');
+
+
+
+async function getWeather() {
+
+   getLocalStorage();
+   if (city.value === '') {
+      city.value = "Minsk"
+   }
+   const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=en&appid=de976795907a030f102e85cd73d64b2f&units=metric`;
+   try {
+      const res = await fetch(url);
+      if (!res.ok) {
+         weatherError.textContent = 'Check the city name, please. Let try again :)';
+         weatherIcon.className = 'weather-icon owf';
+         weatherIcon.textContent = '';
+         temperature.textContent = '';
+         weatherDescription.textContent = '';
+         wind.textContent = '';
+         humidity.textContent = '';
+         throw new Error('Ответ сети был не ok.');
+      }
+
+      const data = await res.json();
+      weatherError.textContent = '';
+      weatherIcon.className = 'weather-icon owf';
+      weatherIcon.classList.add(`owf-${data.weather[0].id}`);
+      temperature.textContent = `${Math.round(data.main.temp)}°C`;
+      weatherDescription.textContent = data.weather[0].description;
+      wind.textContent = `Wind speed: ${Math.round(data.wind.speed)}m/s`;
+      humidity.textContent = `Humidity: ${Math.round(data.main.humidity)}%`;
+
+   } catch (error) {
+      console.log('Возникла проблема с вашим fetch запросом: ', error.message);
+   }
+}
+
+
+
+city.addEventListener('change', () => {
+   if (city.value === '') {
+      weatherError.textContent = 'Type the city name';
+      weatherIcon.className = 'weather-icon owf';
+      weatherIcon.textContent = '';
+      temperature.textContent = '';
+      weatherDescription.textContent = '';
+      wind.textContent = '';
+      humidity.textContent = '';
+      return
+   }
+   setLocalStorage();
+   getWeather();
+});
