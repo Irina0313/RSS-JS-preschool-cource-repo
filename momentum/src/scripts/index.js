@@ -22,6 +22,9 @@ let randomNum = '';
 const slideNext = document.querySelector('.slide-next');
 const slidePrev = document.querySelector('.slide-prev');
 const city = document.querySelector('.city');
+const quote = document.querySelector('.quote');
+const author = document.querySelector('.author');
+const changeQuote = document.querySelector('.change-quote');
 
 
 //show time
@@ -210,3 +213,25 @@ city.addEventListener('change', () => {
    setLocalStorage();
    getWeather();
 });
+
+
+//day qoute
+let result = 0;
+async function getQuotes() {
+   const quotes = 'source/quotesEn.json';
+   const res = await fetch(quotes);
+   const data = await res.json();
+   num = Math.floor(Math.random() * data.length);
+
+   console.log(result)
+   if (result != num) {
+      result = num;
+   } else {
+      result = num + 1;
+   }
+   console.log(num, result)
+   quote.textContent = `" ${data[result].text} "`;
+   author.textContent = `${data[result].author}`;
+}
+getQuotes();
+changeQuote.addEventListener('click', getQuotes);
