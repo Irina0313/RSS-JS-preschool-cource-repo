@@ -102,7 +102,6 @@ window.addEventListener('load', getLocalStorage)
 //get background image
 const setBg = () => {
 
-
    const timeOfDay = getTimeOfDay();
    const bgNum = randomNum;
    const img = new Image();
@@ -222,14 +221,11 @@ async function getQuotes() {
    const res = await fetch(quotes);
    const data = await res.json();
    num = Math.floor(Math.random() * data.length);
-
-   console.log(result)
    if (result != num) {
       result = num;
    } else {
       result = num + 1;
    }
-   console.log(num, result)
    quote.textContent = `" ${data[result].text} "`;
    author.textContent = `${data[result].author}`;
 }
