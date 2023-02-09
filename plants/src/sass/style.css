@@ -1040,7 +1040,7 @@ h3 {
 }
 @media (max-width: 380px) {
   .navigation__link:nth-of-type(2),
-.navigation__link:nth-of-type(4) {
+  .navigation__link:nth-of-type(4) {
     padding: 0;
   }
 }
@@ -1838,6 +1838,7 @@ h3 {
   padding: 27px 50px 31px 20px;
   top: 50px;
   left: 0;
+  background-color: #dce9d9;
 }
 
 .city {
