@@ -31,11 +31,15 @@ body {
   padding: 20px;
 }
 
+.player {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .player-controls {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: 120px;
+  width: 100%;
   margin-bottom: 28px;
 }
 
@@ -52,6 +56,10 @@ body {
   cursor: pointer;
   transition: 0.3s;
 }
+.played {
+  opacity: 1;
+  text-decoration: underline;
+}
 
 .play-item:hover {
   opacity: 1;
@@ -67,6 +75,9 @@ body {
 
 .item-active::before {
   color: #c5b358;
+}
+.player-icon {
+  margin: 0 20px;
 }
 
 .player-icon,

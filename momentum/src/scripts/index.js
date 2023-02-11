@@ -25,6 +25,9 @@ const city = document.querySelector('.city');
 const quote = document.querySelector('.quote');
 const author = document.querySelector('.author');
 const changeQuote = document.querySelector('.change-quote');
+let isPlay = false;
+let playNum = 0;
+
 
 
 //show time
@@ -112,7 +115,7 @@ const setBg = () => {
 };
 
 const getRandomNum = () => {
-   num = Math.floor(Math.random() * 20);
+   let num = Math.floor(Math.random() * 20);
    if (num > 0) {
       num = String(num).padStart(2, '0');
    } else {
@@ -220,7 +223,7 @@ async function getQuotes() {
    const quotes = 'source/quotesEn.json';
    const res = await fetch(quotes);
    const data = await res.json();
-   num = Math.floor(Math.random() * data.length);
+   let num = Math.floor(Math.random() * data.length);
    if (result != num) {
       result = num;
    } else {
@@ -231,3 +234,93 @@ async function getQuotes() {
 }
 getQuotes();
 changeQuote.addEventListener('click', getQuotes);
+
+//audio player
+
+const btnPlay = document.querySelector('.play');
+const btnPlayNext = document.querySelector('.play-next');
+const btnPlayPrev = document.querySelector('.play-prev')
+const audio = new Audio();
+const playListContainer = document.querySelector('.play-list');
+let li = '';
+import playList from './playList.js';
+console.log(playList);
+
+playList.forEach(el => {
+   // console.log(el.title)
+   li = document.createElement('li');
+   li.classList.add('play-item');
+   li.textContent = el.title;
+   // console.log(playListContainer)
+   playListContainer.append(li);
+})
+
+const playAudio = () => {
+   audio.src = `${playList[playNum].src}`;
+   audio.currentTime = 0;
+   playListContainer.children[playNum].classList.add('played')
+   audio.play();
+   isPlay = true;
+}
+audio.addEventListener('ended', (event) => {
+   playListContainer.children[playNum].classList.remove('played');
+   playNext();
+});
+
+
+
+const pauseAudio = () => {
+   audio.pause();
+   isPlay = false;
+}
+
+const toggleBtn = () => {
+   btnPlay.classList.toggle('pause');
+}
+btnPlay.addEventListener('click', () => {
+   toggleBtn();
+   if (isPlay === false) {
+      playAudio();
+   } else {
+      pauseAudio();
+   }
+
+});
+btnPlayNext.addEventListener('click', () => {
+   playListContainer.children[playNum].classList.remove('played');
+   playNext();
+
+});
+
+const playNext = () => {
+   if (playNum === playList.length - 1) {
+      playNum = 0;
+   } else {
+      playNum = playNum + 1;
+   }
+   if (btnPlay.classList.contains('pause')) {
+      pauseAudio();
+      playAudio();
+   } else {
+      btnPlay.classList.add('pause');
+      playAudio();
+   }
+};
+btnPlayPrev.addEventListener('click', () => {
+   playListContainer.children[playNum].classList.remove('played');
+   playPrev();
+});
+const playPrev = () => {
+   if (playNum === 0) {
+      playNum = playList.length - 1;
+   } else {
+      playNum = playNum - 1;
+   }
+   if (btnPlay.classList.contains('pause')) {
+      pauseAudio();
+      playAudio();
+   } else {
+      btnPlay.classList.add('pause');
+      playAudio();
+   }
+}
