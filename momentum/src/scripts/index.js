@@ -25,8 +25,7 @@ const city = document.querySelector('.city');
 const quote = document.querySelector('.quote');
 const author = document.querySelector('.author');
 const changeQuote = document.querySelector('.change-quote');
-let isPlay = false;
-let playNum = 0;
+
 
 
 
@@ -242,50 +241,51 @@ const btnPlayNext = document.querySelector('.play-next');
 const btnPlayPrev = document.querySelector('.play-prev')
 const audio = new Audio();
 const playListContainer = document.querySelector('.play-list');
+let isPlay = false;
+let playNum = 0;
 let li = '';
 import playList from './playList.js';
 console.log(playList);
+const audioLength = document.querySelector('.player-time .length');
+
+
+audio.src = `${playList[playNum].src}`;
+
+const playSong = () => {
+   isPlay = true;
+   audio.play();
+}
+
+const pauseSong = () => {
+   isPlay = false;
+   audio.pause();
+}
 
 playList.forEach(el => {
-   // console.log(el.title)
    li = document.createElement('li');
    li.classList.add('play-item');
    li.textContent = el.title;
-   // console.log(playListContainer)
    playListContainer.append(li);
 })
 
-const playAudio = () => {
-   audio.src = `${playList[playNum].src}`;
-   audio.currentTime = 0;
-   playListContainer.children[playNum].classList.add('played')
-   audio.play();
-   isPlay = true;
-}
+
+btnPlay.addEventListener('click', () => {
+   toggleBtn();
+   getSongDuration();
+   if (isPlay === false) {
+      playSong();
+   } else {
+      pauseSong();
+   }
+   playListContainer.children[playNum].classList.add('played');
+});
 audio.addEventListener('ended', (event) => {
    playListContainer.children[playNum].classList.remove('played');
    playNext();
 });
-
-
-
-const pauseAudio = () => {
-   audio.pause();
-   isPlay = false;
-}
-
 const toggleBtn = () => {
    btnPlay.classList.toggle('pause');
 }
-btnPlay.addEventListener('click', () => {
-   toggleBtn();
-   if (isPlay === false) {
-      playAudio();
-   } else {
-      pauseAudio();
-   }
-
-});
 btnPlayNext.addEventListener('click', () => {
    playListContainer.children[playNum].classList.remove('played');
    playNext();
@@ -293,34 +293,68 @@ btnPlayNext.addEventListener('click', () => {
 });
 
 const playNext = () => {
+   if (isPlay === true) {
+      audio.pause();
+   }
    if (playNum === playList.length - 1) {
       playNum = 0;
    } else {
       playNum = playNum + 1;
    }
-   if (btnPlay.classList.contains('pause')) {
-      pauseAudio();
-      playAudio();
-   } else {
+   if (!btnPlay.classList.contains('pause')) {
       btnPlay.classList.add('pause');
-      playAudio();
    }
+   audio.src = `${playList[playNum].src}`
+   getSongDuration();
+   playSong();
+   playListContainer.children[playNum].classList.add('played');
 };
+
 btnPlayPrev.addEventListener('click', () => {
    playListContainer.children[playNum].classList.remove('played');
    playPrev();
 });
+
 const playPrev = () => {
+   if (isPlay === true) {
+      audio.pause();
+   }
    if (playNum === 0) {
       playNum = playList.length - 1;
    } else {
       playNum = playNum - 1;
    }
-   if (btnPlay.classList.contains('pause')) {
-      pauseAudio();
-      playAudio();
-   } else {
+   if (!btnPlay.classList.contains('pause')) {
       btnPlay.classList.add('pause');
-      playAudio();
    }
+   audio.src = `${playList[playNum].src}`
+   getSongDuration();
+   playSong();
+   playListContainer.children[playNum].classList.add('played');
+}
+
+const songLength = document.querySelector('.player-time .length');
+const getSongDuration = () => {
+   songLength.innerHTML = `${playList[playNum].duration}`
+}
+
+setInterval(() => {
+   document.querySelector(".timeline .progress").style.width = audio.currentTime / audio.duration * 100 + "%";
+   document.querySelector(".player-time .current").textContent = getCurrentSongTime(
+      audio.currentTime);
+}, 200);
+
+const getCurrentSongTime = (curTime) => {
+   let sec = Math.floor(curTime);
+   let min = Math.floor(sec / 60);
+   let hours = 0;
+   if (min > 59) {
+      hours = Math.floor(min / 60);
+      min -= hours * 60;
+   }
+   sec -= min * 60;
+   if (hours > 0) {
+      return `${String(hours).padStart(2, 0)}:${String(min).padStart(2, 0)}:${String(sec).padStart(2, 0)}`;
+   }
+   return `${String(min).padStart(2, 0)}:${String(sec).padStart(2, 0)}`;
 }
