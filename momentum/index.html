@@ -13,10 +13,17 @@
 <body>
   <header class="header">
     <div class="player">
-      <div class="player-controls">
-        <button class="play-prev player-icon"></button>
-        <button class="play player-icon"></button>
-        <button class="play-next player-icon"></button>
+      <div class="player-head">
+        <div class="player-controls">
+          <button class="play-prev player-icon"></button>
+          <button class="play player-icon"></button>
+          <button class="play-next player-icon"></button>
+        </div>
+        <div class="playing-song-container">
+          <div class="song-container">
+            <span class="playing-song"></span>
+          </div>
+        </div>
       </div>
       <div class="timeline">
         <div class="progress"></div>
@@ -28,11 +35,12 @@
       </div>
       <div class="volume-container">
         <div class="volume-button">
-          <div class="volume icono-volume-medium"></div>
+          <div class="volume volume-active"></div>
         </div>
 
         <div class="volume-slider">
           <div class="volume-percentage"></div>
+
         </div>
       </div>
       <ul class="play-list"></ul>

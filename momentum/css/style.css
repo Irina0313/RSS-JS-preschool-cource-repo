@@ -34,17 +34,59 @@ body {
 .player {
   display: flex;
   flex-wrap: wrap;
+  margin: 0 30px;
+  max-width: 25%;
 }
-
+.player-head {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 28px;
+}
 .player-controls {
   display: flex;
   align-items: center;
-  width: 100%;
-  margin-bottom: 28px;
+  width: 35%;
+  max-width: 164px;
 }
+.playing-song-container {
+  display: flex;
+  align-items: center;
+  width: 65%;
+  height: 1em;
+}
+.song-container {
+  width: 100%;
+  display: flex;
+  white-space: nowrap;
+  margin-left: 15px;
+  height: 100%;
+  font-weight: 700;
+  text-align: start;
+  overflow: hidden;
+
+  /*padding-left: 100%;*/
+  white-space: nowrap;
+}
+/*.playing-song {
+  max-width: 100%;
+}*/
+.playing-song-animated {
+  animation: text 30s linear infinite;
+}
+@keyframes text {
+  0% {
+    transform: translate(10%, 0);
+  }
+  100% {
+    transform: translate(-100%, 0);
+  }
+}
+
 .timeline {
   background: white;
   width: 100%;
+  /*max-width: 500px;*/
   height: 5px;
   /*position: relative;*/
   cursor: pointer;
@@ -52,7 +94,7 @@ body {
   margin: 0 0 15px 0;
 }
 .progress {
-  background: coral;
+  background: rgb(80, 153, 255);
   width: 0%;
   height: 100%;
   transition: 0.25s;
@@ -66,12 +108,17 @@ body {
 }
 
 .volume-container {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+
   width: 80%;
   cursor: pointer;
   position: relative;
   z-index: 2;
 }
 .volume-button {
+  order: 2;
   justify-content: end;
   height: 26px;
   display: flex;
@@ -79,34 +126,31 @@ body {
 }
 .volume {
   transform: scale(0.7);
-  background-image: url("../assets/svg/volume-icon.svg");
   width: 50px;
   height: 50px;
   opacity: 0.8;
 }
+.volume-active {
+  background-image: url("../assets/svg/volume-icon.svg");
+}
 .volume:hover {
   opacity: 1;
 }
-
+.volume-muted {
+  background-image: url("../assets/svg/volume-muted.svg");
+}
 .volume-slider {
-  position: absolute;
-  left: -3px;
-  top: 15px;
-  z-index: -1;
   width: 0;
-  height: 15px;
-  background: white;
+  height: 6px;
+  background: #fff;
   box-shadow: 0 0 20px #000a;
   transition: 0.25s;
 }
 .volume-percentage {
-  background: coral;
+  position: relative;
+  background: rgb(80, 153, 255);
   height: 100%;
   width: 75%;
-}
-.volume-slider:hover .volume-slider {
-  left: -123px;
-  width: 120px;
 }
 
 .play-list {
@@ -144,7 +188,7 @@ body {
   color: #c5b358;
 }
 .player-icon {
-  margin: 0 20px;
+  margin: 0 10px;
 }
 
 .player-icon,

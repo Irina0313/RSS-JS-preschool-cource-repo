@@ -241,14 +241,22 @@ const btnPlayNext = document.querySelector('.play-next');
 const btnPlayPrev = document.querySelector('.play-prev')
 const audio = new Audio();
 const playListContainer = document.querySelector('.play-list');
+const playingSong = document.querySelector('.playing-song');
+
+const volumeContainer = document.querySelector('.volume-container');
+const volumeButton = document.querySelector('.volume');
+const volumeSlider = document.querySelector('.volume-slider');
+const volumeLevel = document.querySelector('.volume-percentage');
+
 let isPlay = false;
 let playNum = 0;
 let li = '';
 import playList from './playList.js';
 console.log(playList);
 const audioLength = document.querySelector('.player-time .length');
+audio.volume = 0.75;
 
-
+console.log(volumeLevel.style.width)
 audio.src = `${playList[playNum].src}`;
 
 const playSong = () => {
@@ -277,8 +285,11 @@ btnPlay.addEventListener('click', () => {
    } else {
       pauseSong();
    }
+   getNameOfPlaingSong();
    playListContainer.children[playNum].classList.add('played');
+   console.log(playListContainer.children[playNum].innerHTML)
 });
+
 audio.addEventListener('ended', (event) => {
    playListContainer.children[playNum].classList.remove('played');
    playNext();
@@ -289,8 +300,18 @@ const toggleBtn = () => {
 btnPlayNext.addEventListener('click', () => {
    playListContainer.children[playNum].classList.remove('played');
    playNext();
-
 });
+
+const getNameOfPlaingSong = () => {
+   if (playingSong.classList.contains('playing-song-animated')) {
+      playingSong.classList.remove('playing-song-animated');
+   }
+   playingSong.innerHTML = `${playListContainer.children[playNum].innerHTML}`;
+   const songContainer = document.querySelector('.song-container')
+   if (songContainer.offsetWidth < playingSong.offsetWidth) {
+      playingSong.classList.add('playing-song-animated');
+   }
+}
 
 const playNext = () => {
    if (isPlay === true) {
@@ -306,6 +327,7 @@ const playNext = () => {
    }
    audio.src = `${playList[playNum].src}`
    getSongDuration();
+   getNameOfPlaingSong();
    playSong();
    playListContainer.children[playNum].classList.add('played');
 };
@@ -329,6 +351,7 @@ const playPrev = () => {
    }
    audio.src = `${playList[playNum].src}`
    getSongDuration();
+   getNameOfPlaingSong();
    playSong();
    playListContainer.children[playNum].classList.add('played');
 }
@@ -337,12 +360,9 @@ const songLength = document.querySelector('.player-time .length');
 const getSongDuration = () => {
    songLength.innerHTML = `${playList[playNum].duration}`
 }
+const timeLine = document.querySelector(".timeline");
+const progressSongLine = document.querySelector(".timeline .progress");
 
-setInterval(() => {
-   document.querySelector(".timeline .progress").style.width = audio.currentTime / audio.duration * 100 + "%";
-   document.querySelector(".player-time .current").textContent = getCurrentSongTime(
-      audio.currentTime);
-}, 200);
 
 const getCurrentSongTime = (curTime) => {
    let sec = Math.floor(curTime);
@@ -358,3 +378,74 @@ const getCurrentSongTime = (curTime) => {
    }
    return `${String(min).padStart(2, 0)}:${String(sec).padStart(2, 0)}`;
 }
+
+
+timeLine.addEventListener('click', (e) => {
+
+   progressSongLine.style.width = (e.pageX - e.target.offsetLeft) * 100 / timeLine.offsetWidth + "%";
+
+   audio.currentTime = (e.pageX - e.target.offsetLeft) / timeLine.offsetWidth * audio.duration;
+   console.log(audio.currentTime)
+});
+
+const getSongPoint = () => {
+   progressSongLine.style.width = audio.currentTime / audio.duration * 100 + "%";
+   document.querySelector(".player-time .current").textContent = getCurrentSongTime(
+      audio.currentTime);
+}
+setInterval(() => {
+   getSongPoint();
+}, 200);
+
+//volume control
+//volumeLevel.style.width = '0%';
+const toggleVolume = () => {
+   volumeButton.addEventListener('click', () => {
+      volumeButton.classList.toggle('volume-active');
+      volumeButton.classList.toggle('volume-muted');
+      if (volumeButton.classList.contains('volume-muted')) {
+         audio.volume = 0;
+      } else {
+         getLevelOfVolume();
+      }
+   });
+}
+toggleVolume();
+volumeContainer.addEventListener('mouseover', () => {
+   volumeSlider.style.width = '30%';
+
+
+})
+volumeContainer.addEventListener('mouseleave', () => {
+   volumeSlider.style.width = '0';
+})
+
+
+
+const getLevelOfVolume = () => {
+
+   volumeSlider.addEventListener('click', (e) => {
+      if (volumeButton.classList.contains('volume-muted')) {
+         volumeButton.classList.remove('volume-muted');
+         volumeButton.classList.add('volume-active');
+      }
+      let num = Math.floor((e.pageX - volumeContainer.offsetLeft - volumeSlider.offsetLeft) / (volumeSlider.offsetWidth) * 100);
+      volumeLevel.style.width = num + '%';
+      if (num < 3) {
+         num = 0;
+      } else if (num > 96) {
+         num = 100;
+      }
+      volumeLevel.style.width = num + '%';
+      audio.volume = num / 100;
+      if (audio.volume > 1) {
+         audio.volume = 1;
+      }
+      if (audio.volume === 0) {
+         volumeButton.classList.add('volume-muted')
+      }
+      return audio.volume;
+   })
+   return audio.volume = 0.75;
+}
+getLevelOfVolume()
