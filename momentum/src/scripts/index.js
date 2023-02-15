@@ -242,21 +242,20 @@ const btnPlayPrev = document.querySelector('.play-prev')
 const audio = new Audio();
 const playListContainer = document.querySelector('.play-list');
 const playingSong = document.querySelector('.playing-song');
-
 const volumeContainer = document.querySelector('.volume-container');
 const volumeButton = document.querySelector('.volume');
-const volumeSlider = document.querySelector('.volume-slider');
 const volumeLevel = document.querySelector('.volume-percentage');
+
+
 
 let isPlay = false;
 let playNum = 0;
 let li = '';
+let div = '';
 import playList from './playList.js';
-console.log(playList);
 const audioLength = document.querySelector('.player-time .length');
 audio.volume = 0.75;
 
-console.log(volumeLevel.style.width)
 audio.src = `${playList[playNum].src}`;
 
 const playSong = () => {
@@ -275,10 +274,18 @@ playList.forEach(el => {
    li.textContent = el.title;
    playListContainer.append(li);
 })
+const playItem = document.querySelectorAll('.play-item');
 
+playItem.forEach(el => {
+   div = document.createElement('div');
+   div.classList.add('button-item');
+   div.classList.add('button-item_play');
+   el.prepend(div);
+})
 
 btnPlay.addEventListener('click', () => {
    toggleBtn();
+   toggleBtnItem();
    getSongDuration();
    if (isPlay === false) {
       playSong();
@@ -287,8 +294,15 @@ btnPlay.addEventListener('click', () => {
    }
    getNameOfPlaingSong();
    playListContainer.children[playNum].classList.add('played');
-   console.log(playListContainer.children[playNum].innerHTML)
 });
+
+const btnPlayItem = document.querySelectorAll('.button-item');
+const toggleBtnItem = () => {
+   playListContainer.children[playNum].children[0].classList.toggle('button-item_play');
+   playListContainer.children[playNum].children[0].classList.toggle('button-item_pause');
+}
+
+
 
 audio.addEventListener('ended', (event) => {
    playListContainer.children[playNum].classList.remove('played');
@@ -297,6 +311,7 @@ audio.addEventListener('ended', (event) => {
 const toggleBtn = () => {
    btnPlay.classList.toggle('pause');
 }
+
 btnPlayNext.addEventListener('click', () => {
    playListContainer.children[playNum].classList.remove('played');
    playNext();
@@ -316,6 +331,7 @@ const getNameOfPlaingSong = () => {
 const playNext = () => {
    if (isPlay === true) {
       audio.pause();
+      toggleBtnItem();
    }
    if (playNum === playList.length - 1) {
       playNum = 0;
@@ -328,6 +344,7 @@ const playNext = () => {
    audio.src = `${playList[playNum].src}`
    getSongDuration();
    getNameOfPlaingSong();
+   toggleBtnItem();
    playSong();
    playListContainer.children[playNum].classList.add('played');
 };
@@ -340,6 +357,7 @@ btnPlayPrev.addEventListener('click', () => {
 const playPrev = () => {
    if (isPlay === true) {
       audio.pause();
+      toggleBtnItem();
    }
    if (playNum === 0) {
       playNum = playList.length - 1;
@@ -352,6 +370,7 @@ const playPrev = () => {
    audio.src = `${playList[playNum].src}`
    getSongDuration();
    getNameOfPlaingSong();
+   toggleBtnItem();
    playSong();
    playListContainer.children[playNum].classList.add('played');
 }
@@ -378,14 +397,45 @@ const getCurrentSongTime = (curTime) => {
    }
    return `${String(min).padStart(2, 0)}:${String(sec).padStart(2, 0)}`;
 }
+//control from playlist
 
+playListContainer.addEventListener('click', (e) => {
+   toggleBtn();
+   btnPlayItem.forEach(item => {
+      item.classList.remove('button-item_pause');
+      item.classList.add('button-item_play');
+      item.parentElement.classList.remove('played')
+   })
+   let targetSongName = '';
+   if (e.target.classList.contains('play-item')) {
+      targetSongName = e.target.innerText;
+      e.target.classList.add('played');
+   } else if (e.target.classList.contains('button-item')) {
+      targetSongName = e.target.parentElement.innerText;
+      e.target.parentElement.classList.add('played');
+   }
+   function predicate(element, index, array) {
+      if (targetSongName === element.title) {
+         return element;
+      }
+   }
+   playNum = playList.findIndex(predicate);
+   if (isPlay === true) {
+      pauseSong();
+   }
+   audio.src = `${playList[playNum].src}`
+   toggleBtnItem();
+   getSongDuration();
+   playSong();
+   getNameOfPlaingSong();
+   playListContainer.children[playNum].classList.add('played');
+})
 
 timeLine.addEventListener('click', (e) => {
 
    progressSongLine.style.width = (e.pageX - e.target.offsetLeft) * 100 / timeLine.offsetWidth + "%";
 
    audio.currentTime = (e.pageX - e.target.offsetLeft) / timeLine.offsetWidth * audio.duration;
-   console.log(audio.currentTime)
 });
 
 const getSongPoint = () => {
@@ -398,7 +448,7 @@ setInterval(() => {
 }, 200);
 
 //volume control
-//volumeLevel.style.width = '0%';
+
 const toggleVolume = () => {
    volumeButton.addEventListener('click', () => {
       volumeButton.classList.toggle('volume-active');
@@ -407,45 +457,36 @@ const toggleVolume = () => {
          audio.volume = 0;
       } else {
          getLevelOfVolume();
+
       }
    });
 }
 toggleVolume();
 volumeContainer.addEventListener('mouseover', () => {
-   volumeSlider.style.width = '30%';
+   volumeLevel.classList.remove('volume-percentage_hidden');
+   volumeLevel.classList.add('volume-percentage_visible');
+});
 
-
-})
 volumeContainer.addEventListener('mouseleave', () => {
-   volumeSlider.style.width = '0';
-})
-
-
+   volumeLevel.classList.remove('volume-percentage_visible');
+   volumeLevel.classList.add('volume-percentage_hidden');
+});
 
 const getLevelOfVolume = () => {
-
-   volumeSlider.addEventListener('click', (e) => {
-      if (volumeButton.classList.contains('volume-muted')) {
+   let audioLevel = volumeLevel.value;
+   volumeLevel.addEventListener('change', (e) => {
+      audioLevel = e.target.value;
+      if (audioLevel === '0') {
+         volumeButton.classList.remove('volume-active');
+         volumeButton.classList.add('volume-muted');
+      } else if (audioLevel != '0') {
          volumeButton.classList.remove('volume-muted');
          volumeButton.classList.add('volume-active');
       }
-      let num = Math.floor((e.pageX - volumeContainer.offsetLeft - volumeSlider.offsetLeft) / (volumeSlider.offsetWidth) * 100);
-      volumeLevel.style.width = num + '%';
-      if (num < 3) {
-         num = 0;
-      } else if (num > 96) {
-         num = 100;
-      }
-      volumeLevel.style.width = num + '%';
-      audio.volume = num / 100;
-      if (audio.volume > 1) {
-         audio.volume = 1;
-      }
-      if (audio.volume === 0) {
-         volumeButton.classList.add('volume-muted')
-      }
-      return audio.volume;
+
+      return audio.volume = audioLevel / 100;
    })
-   return audio.volume = 0.75;
+   return audio.volume = audioLevel / 100;
 }
 getLevelOfVolume()
+
