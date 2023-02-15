@@ -401,34 +401,49 @@ const getCurrentSongTime = (curTime) => {
 
 playListContainer.addEventListener('click', (e) => {
    toggleBtn();
-   btnPlayItem.forEach(item => {
-      item.classList.remove('button-item_pause');
-      item.classList.add('button-item_play');
-      item.parentElement.classList.remove('played')
-   })
-   let targetSongName = '';
-   if (e.target.classList.contains('play-item')) {
-      targetSongName = e.target.innerText;
-      e.target.classList.add('played');
-   } else if (e.target.classList.contains('button-item')) {
-      targetSongName = e.target.parentElement.innerText;
-      e.target.parentElement.classList.add('played');
-   }
-   function predicate(element, index, array) {
-      if (targetSongName === element.title) {
-         return element;
-      }
-   }
-   playNum = playList.findIndex(predicate);
-   if (isPlay === true) {
+
+   if (isPlay === true && (e.target.classList.contains('played')) || e.target.parentElement.classList.contains('played')) {
+      console.log('1')
+      toggleBtnItem();
       pauseSong();
+   } else if (isPlay === false && ((e.target.classList.contains('played')) || e.target.parentElement.classList.contains('played'))) {
+      console.log('2')
+      toggleBtnItem();
+      playSong();
    }
-   audio.src = `${playList[playNum].src}`
-   toggleBtnItem();
-   getSongDuration();
-   playSong();
-   getNameOfPlaingSong();
-   playListContainer.children[playNum].classList.add('played');
+   else if (!e.target.classList.contains('played') && !e.target.parentElement.classList.contains('played')) {
+      console.log('3')
+      btnPlayItem.forEach(item => {
+         item.classList.remove('button-item_pause');
+         item.classList.add('button-item_play');
+         item.parentElement.classList.remove('played')
+      })
+      let targetSongName = '';
+      if (e.target.classList.contains('play-item')) {
+         targetSongName = e.target.innerText;
+         e.target.classList.add('played');
+      } else if (e.target.classList.contains('button-item')) {
+         targetSongName = e.target.parentElement.innerText;
+         e.target.parentElement.classList.add('played');
+      }
+      function predicate(element, index, array) {
+         if (targetSongName === element.title) {
+            return element;
+         }
+      }
+      playNum = playList.findIndex(predicate);
+
+      if (isPlay === true) {
+         pauseSong();
+      }
+
+      audio.src = `${playList[playNum].src}`
+      toggleBtnItem();
+      getSongDuration();
+      playSong();
+      getNameOfPlaingSong();
+      playListContainer.children[playNum].classList.add('played');
+   }
 })
 
 timeLine.addEventListener('click', (e) => {
