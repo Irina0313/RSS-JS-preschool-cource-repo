@@ -25,8 +25,53 @@ const city = document.querySelector('.city');
 const quote = document.querySelector('.quote');
 const author = document.querySelector('.author');
 const changeQuote = document.querySelector('.change-quote');
+const langOptions = document.querySelector('.options .lang');
+const langSelected = document.querySelector('.lang-selected')
 
+//langOptions.innerText = Object.keys[0](greetingTranslation);
 
+const greetingTranslation = {
+   en: 'Good',
+   ru: 'Добр'
+}
+let lang = '';
+langSelected.innerText = 'EN';
+
+const getLanguages = () => {
+   for (let element in greetingTranslation) {
+      let li = '';
+      li = document.createElement('li');
+      li.classList.add('lang-item');
+      li.classList.add('lang-item_hidden');
+      li.classList.add(element);
+      li.textContent = element.toUpperCase();
+      langOptions.append(li);
+   }
+   const langItem = document.querySelectorAll('.lang-item');
+
+   langSelected.addEventListener('mouseover', () => {
+      langItem.forEach(item => {
+         item.classList.remove('lang-item_hidden');
+      })
+   })
+   langOptions.addEventListener('click', (e) => {
+      langSelected.innerText = `${e.target.innerText}`;
+      e.target.classList.add('lang-item_selected');
+      langItem.forEach(item => {
+         item.classList.add('lang-item_hidden');
+      })
+      lang = e.target.innerText.toLowerCase();
+      getWeather();
+      getQuotes();
+   })
+   langOptions.addEventListener('mouseleave', () => {
+      langItem.forEach(item => {
+         item.classList.add('lang-item_hidden');
+      })
+   })
+
+}
+getLanguages();
 
 
 //show time
@@ -47,40 +92,59 @@ const showTime = () => {
 const showDate = () => {
    const date = new Date();
    const options = { weekday: 'long', month: 'long', day: 'numeric' };
-   const currentDate = date.toLocaleDateString('en-Us', options);
+   let local = '';
+   lang === 'en' ? local = 'en-US' : local = 'ru-RU';
+   // console.log(local)
+   const currentDate = date.toLocaleDateString(local, options);
    today.textContent = currentDate;
 };
 
 //show greeting
 
+
+
+
+lang === 'en' ? userName.placeholder = "my dear!" : userName.placeholder = "дружище!";
 const showGreeting = () => {
-   const timeOfDay = getTimeOfDay();
-   const greetingText = `Good ${timeOfDay},`;
+   const restOFGreeting = getGreeting();
+   const greetingText = `${greetingTranslation[lang]}${restOFGreeting}, `;
    greeting.textContent = greetingText;
-   if (timeOfDay === 'night') {
-      greeting.style.color = '#F5F5DC';
-   } else if (timeOfDay === 'morning') {
-      greeting.style.color = '#FFDC33';
-   } else if (timeOfDay === 'afternoon') {
-      greeting.style.color = '#8CCB5E';
-   } else if (timeOfDay === 'evening') {
-      greeting.style.color = '#A2ADD0';
-   }
 
 }
+let timeOfDay = '';
 const getTimeOfDay = () => {
+
    const date = new Date();
    const time = date.getHours();
    if (time < 6) {
-      return 'night';
+      timeOfDay = 'night';
    } else if (time < 12) {
-      return 'morning';
+      timeOfDay = 'morning';
    } else if (time < 18) {
-      return 'afternoon';
+      timeOfDay = 'afternoon';
    } else if (time < 24) {
-      return 'evening';
+      timeOfDay = 'evening';
+   }
+   return timeOfDay;
+};
+
+const getGreeting = () => {
+   if (timeOfDay = 'night') {
+      greeting.style.color = '#F5F5DC';
+      return lang === 'en' ? ' night' : 'ой ночи';
+   } else if (timeOfDay = 'morning') {
+      greeting.style.color = '#FFDC33';
+      return lang === 'en' ? ' morning' : 'ое утро';
+   } else if (timeOfDay = 'afternoon') {
+      greeting.style.color = '#8CCB5E';
+      return lang === 'en' ? ' afternoon' : 'ый день';
+   } else if (timeOfDay = 'evening') {
+      greeting.style.color = '#A2ADD0';
+      return lang === 'en' ? ' evening' : 'ый вечер';
    }
 };
+
+
 
 function setLocalStorage() {
    localStorage.setItem('name', userName.value);
@@ -107,6 +171,7 @@ const setBg = () => {
    const timeOfDay = getTimeOfDay();
    const bgNum = randomNum;
    const img = new Image();
+
    img.src = `https://github.com/Irina0313/stage1-tasks/blob/main/images/${timeOfDay}/${bgNum}.jpg?raw=true`;
    img.onload = () => {
       document.querySelector('body').style.backgroundImage = `url(${img.src})`;
@@ -168,9 +233,10 @@ async function getWeather() {
 
    getLocalStorage();
    if (city.value === '') {
-      city.value = "Minsk"
+      lang === 'en' ? city.value = "Minsk" : city.value = "Минск";
    }
-   const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=en&appid=de976795907a030f102e85cd73d64b2f&units=metric`;
+   const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=${lang}&appid=de976795907a030f102e85cd73d64b2f&units=metric`;
+
    try {
       const res = await fetch(url);
       if (!res.ok) {
@@ -190,8 +256,8 @@ async function getWeather() {
       weatherIcon.classList.add(`owf-${data.weather[0].id}`);
       temperature.textContent = `${Math.round(data.main.temp)}°C`;
       weatherDescription.textContent = data.weather[0].description;
-      wind.textContent = `Wind speed: ${Math.round(data.wind.speed)}m/s`;
-      humidity.textContent = `Humidity: ${Math.round(data.main.humidity)}%`;
+      lang === 'en' ? wind.textContent = `Wind speed: ${Math.round(data.wind.speed)}m/s` : wind.textContent = `Скорость ветра: ${Math.round(data.wind.speed)}m/s`;
+      lang === 'en' ? humidity.textContent = `Humidity: ${Math.round(data.main.humidity)}%` : humidity.textContent = `Влажность: ${Math.round(data.main.humidity)}%`;
 
    } catch (error) {
       console.log('Возникла проблема с вашим fetch запросом: ', error.message);
@@ -219,7 +285,8 @@ city.addEventListener('change', () => {
 //day qoute
 let result = 0;
 async function getQuotes() {
-   const quotes = 'source/quotesEn.json';
+   let quotes = '';
+   lang === 'en' ? quotes = 'source/quotesEn.json' : quotes = 'source/quotesRu.json'
    const res = await fetch(quotes);
    const data = await res.json();
    let num = Math.floor(Math.random() * data.length);
@@ -403,16 +470,13 @@ playListContainer.addEventListener('click', (e) => {
    toggleBtn();
 
    if (isPlay === true && (e.target.classList.contains('played')) || e.target.parentElement.classList.contains('played')) {
-      console.log('1')
       toggleBtnItem();
       pauseSong();
    } else if (isPlay === false && ((e.target.classList.contains('played')) || e.target.parentElement.classList.contains('played'))) {
-      console.log('2')
       toggleBtnItem();
       playSong();
    }
    else if (!e.target.classList.contains('played') && !e.target.parentElement.classList.contains('played')) {
-      console.log('3')
       btnPlayItem.forEach(item => {
          item.classList.remove('button-item_pause');
          item.classList.add('button-item_play');

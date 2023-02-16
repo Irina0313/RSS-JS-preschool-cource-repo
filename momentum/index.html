@@ -40,20 +40,27 @@
         <input type="range" class="volume-percentage volume-percentage_hidden " value="75"></input>
 
       </div>
+
       <ul class="play-list"></ul>
     </div>
-    <div class="weather">
-      <input type="text" class="city empty" />
-      <i class="weather-icon owf"></i>
-      <div class="weather-error"></div>
-      <div class="description-container">
-        <span class="temperature"></span>
-        <span class="weather-description"></span>
-        <span class="wind"></span>
-        <span class="humidity"></span>
+    <div class="header-right">
+      <div class="weather">
+        <input type="text" class="city empty" />
+        <i class="weather-icon owf"></i>
+        <div class="weather-error"></div>
+        <div class="description-container">
+          <span class="temperature"></span>
+          <span class="weather-description"></span>
+          <span class="wind"></span>
+          <span class="humidity"></span>
+        </div>
+        <div class="wind"></div>
+        <div class="humidity"></div>
       </div>
-      <div class="wind"></div>
-      <div class="humidity"></div>
+      <div class="options">
+        <div class="lang-selected"></div>
+        <ul class="lang"></ul>
+      </div>
     </div>
   </header>
   <main class="main">
@@ -65,7 +72,7 @@
     <date class="date"></date>
     <div class="greeting-container">
       <span class="greeting"></span>
-      <input type="text" class="name" placeholder="my dear!" />
+      <input type="text" class="name" />
     </div>
   </main>
   <footer class="footer">

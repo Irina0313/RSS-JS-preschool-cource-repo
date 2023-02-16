@@ -31,11 +31,44 @@ body {
   padding: 20px;
 }
 
-.player {
+.header-right {
+  display: flex;
+  justify-content: space-between;
+}
+.options {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.lang {
+  width: 100%;
+}
+.lang-item {
+  list-style-type: none;
+  margin-bottom: 10px;
+}
+.lang-item:hover {
+  font-weight: bold;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.lang-selected {
+  min-width: 50px;
+  padding-bottom: 8px;
+}
+.lang-item_hidden {
+  display: none;
+}
+.options .player {
   display: flex;
   flex-wrap: wrap;
   margin: 0 30px;
   max-width: 25%;
+}
+.player {
+  margin: 0 0 0 40px;
+  max-width: 500px;
 }
 .player-head {
   width: 100%;
