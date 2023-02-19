@@ -1,6 +1,7 @@
 
 window.onload = function () {
-
+   //get language
+   getLanguage();
 
    //get background image
    setBg();
@@ -16,17 +17,18 @@ window.onload = function () {
 
 const time = document.querySelector('.time');
 const today = document.querySelector('.date');
+const greetingContainer = document.querySelector('.greeting-container');
 const greeting = document.querySelector('.greeting');
 const userName = document.querySelector('.name');
 let randomNum = '';
 const slideNext = document.querySelector('.slide-next');
 const slidePrev = document.querySelector('.slide-prev');
 const city = document.querySelector('.city');
+const quoteContainer = document.querySelector('.quote-container');
 const quote = document.querySelector('.quote');
 const author = document.querySelector('.author');
 const changeQuote = document.querySelector('.change-quote');
-const langOptions = document.querySelector('.options .lang');
-const langSelected = document.querySelector('.lang-selected')
+
 
 //langOptions.innerText = Object.keys[0](greetingTranslation);
 
@@ -34,47 +36,21 @@ const greetingTranslation = {
    en: 'Good',
    ru: 'Добр'
 }
+
 let lang = '';
-langSelected.innerText = 'EN';
-
-const getLanguages = () => {
-   for (let element in greetingTranslation) {
-      let li = '';
-      li = document.createElement('li');
-      li.classList.add('lang-item');
-      li.classList.add('lang-item_hidden');
-      li.classList.add(element);
-      li.textContent = element.toUpperCase();
-      langOptions.append(li);
+const getLanguage = () => {
+   getLocalStorage();
+   if (lang === '') {
+      lang = 'en';
    }
-   const langItem = document.querySelectorAll('.lang-item');
-
-   langSelected.addEventListener('mouseover', () => {
-      langItem.forEach(item => {
-         item.classList.remove('lang-item_hidden');
-      })
-   })
-   langOptions.addEventListener('click', (e) => {
-      langSelected.innerText = `${e.target.innerText}`;
-      e.target.classList.add('lang-item_selected');
-      langItem.forEach(item => {
-         item.classList.add('lang-item_hidden');
-      })
-      lang = e.target.innerText.toLowerCase();
-      getWeather();
-      getQuotes();
-   })
-   langOptions.addEventListener('mouseleave', () => {
-      langItem.forEach(item => {
-         item.classList.add('lang-item_hidden');
-      })
-   })
-
+   return lang;
 }
-getLanguages();
-
 
 //show time
+if (localStorage.getItem('time') === 'hidden') {
+   time.classList.add('time_hidden');
+}
+
 
 const showTime = () => {
    const date = new Date();
@@ -89,10 +65,15 @@ const showTime = () => {
 
 //show date
 
+if (localStorage.getItem('date') === 'hidden') {
+   today.classList.add('date_hidden');
+}
+
 const showDate = () => {
    const date = new Date();
    const options = { weekday: 'long', month: 'long', day: 'numeric' };
    let local = '';
+   getLanguage();
    lang === 'en' ? local = 'en-US' : local = 'ru-RU';
    // console.log(local)
    const currentDate = date.toLocaleDateString(local, options);
@@ -100,12 +81,12 @@ const showDate = () => {
 };
 
 //show greeting
-
-
-
-
-lang === 'en' ? userName.placeholder = "my dear!" : userName.placeholder = "дружище!";
+if (localStorage.getItem('greeting') === 'hidden') {
+   greetingContainer.classList.add('greeting_hidden');
+}
 const showGreeting = () => {
+   getLanguage();
+   lang === 'en' ? userName.placeholder = "my dear!" : userName.placeholder = "дружище!";
    const restOFGreeting = getGreeting();
    const greetingText = `${greetingTranslation[lang]}${restOFGreeting}, `;
    greeting.textContent = greetingText;
@@ -126,19 +107,20 @@ const getTimeOfDay = () => {
       timeOfDay = 'evening';
    }
    return timeOfDay;
+
 };
 
 const getGreeting = () => {
-   if (timeOfDay = 'night') {
+   if (timeOfDay === 'night') {
       greeting.style.color = '#F5F5DC';
       return lang === 'en' ? ' night' : 'ой ночи';
-   } else if (timeOfDay = 'morning') {
+   } else if (timeOfDay === 'morning') {
       greeting.style.color = '#FFDC33';
       return lang === 'en' ? ' morning' : 'ое утро';
-   } else if (timeOfDay = 'afternoon') {
+   } else if (timeOfDay === 'afternoon') {
       greeting.style.color = '#8CCB5E';
       return lang === 'en' ? ' afternoon' : 'ый день';
-   } else if (timeOfDay = 'evening') {
+   } else if (timeOfDay === 'evening') {
       greeting.style.color = '#A2ADD0';
       return lang === 'en' ? ' evening' : 'ый вечер';
    }
@@ -149,7 +131,6 @@ const getGreeting = () => {
 function setLocalStorage() {
    localStorage.setItem('name', userName.value);
    localStorage.setItem('city', city.value);
-
 }
 window.addEventListener('beforeunload', setLocalStorage)
 
@@ -161,6 +142,9 @@ function getLocalStorage() {
    }
    if (localStorage.getItem('city')) {
       city.value = localStorage.getItem('city');
+   }
+   if (localStorage.getItem('language')) {
+      lang = localStorage.getItem('language');
    }
 }
 window.addEventListener('load', getLocalStorage)
@@ -218,8 +202,18 @@ const getSlidePrev = () => {
    setBg();
 };
 
+async function getLinkToImage() {
+   const url = 'https://api.unsplash.com/photos/random?orientation=landscape&query=nature&client_id=yW9HyBnOrimrmoBFYqyRmKDdlN6DCA9CKXX5NbcuilA';
+   const res = await fetch(url);
+   const data = await res.json();
+   // console.log(data.urls.regular)
+}
+getLinkToImage()
+
+
 //weather informer
 
+const weatherContainer = document.querySelector('.weather')
 const weatherIcon = document.querySelector('.weather-icon');
 const temperature = document.querySelector('.temperature');
 const wind = document.querySelector('.wind');
@@ -227,12 +221,17 @@ const humidity = document.querySelector('.humidity');
 const weatherDescription = document.querySelector('.weather-description');
 const weatherError = document.querySelector('.weather-error');
 
+if (localStorage.getItem('weather') === 'hidden') {
+   weatherContainer.classList.add('weather_hidden');
+}
 
 
 async function getWeather() {
 
    getLocalStorage();
+   getLanguage();
    if (city.value === '') {
+
       lang === 'en' ? city.value = "Minsk" : city.value = "Минск";
    }
    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=${lang}&appid=de976795907a030f102e85cd73d64b2f&units=metric`;
@@ -283,9 +282,15 @@ city.addEventListener('change', () => {
 
 
 //day qoute
+if (localStorage.getItem('quote') === 'hidden') {
+   quoteContainer.classList.add('quote_hidden');
+   changeQuote.classList.add('quote_hidden');
+}
+
 let result = 0;
 async function getQuotes() {
    let quotes = '';
+   getLanguage();
    lang === 'en' ? quotes = 'source/quotesEn.json' : quotes = 'source/quotesRu.json'
    const res = await fetch(quotes);
    const data = await res.json();
@@ -302,7 +307,7 @@ getQuotes();
 changeQuote.addEventListener('click', getQuotes);
 
 //audio player
-
+const playerContainer = document.querySelector('.player');
 const btnPlay = document.querySelector('.play');
 const btnPlayNext = document.querySelector('.play-next');
 const btnPlayPrev = document.querySelector('.play-prev')
@@ -313,12 +318,14 @@ const volumeContainer = document.querySelector('.volume-container');
 const volumeButton = document.querySelector('.volume');
 const volumeLevel = document.querySelector('.volume-percentage');
 
-
-
+if (localStorage.getItem('player') === 'hidden') {
+   playerContainer.classList.add('player_hidden');
+}
 let isPlay = false;
 let playNum = 0;
 let li = '';
 let div = '';
+let input = '';
 import playList from './playList.js';
 const audioLength = document.querySelector('.player-time .length');
 audio.volume = 0.75;
@@ -569,3 +576,331 @@ const getLevelOfVolume = () => {
 }
 getLevelOfVolume()
 
+
+//To Do
+
+if (localStorage.getItem('todo') === 'hidden') {
+   toDoContainer.classList.add('todo_hidden');
+}
+
+
+//settings
+
+const settingsButton = document.querySelector('.settings');
+const settingsModal = document.querySelector('.settings-modal');
+const body = document.querySelector('body');
+const settingsList = document.querySelector('.settings-list');
+let settingItems = document.querySelectorAll('.settings-item');
+const settingsProperty = document.querySelector('.settings-property');
+
+
+let settingsNamesEn = {
+   General: ['Player', 'Weather', 'Time', 'Date', 'Greeting', 'Quote of the day', 'To Do'],
+   Language: ['English', 'Russian'],
+   Background: 'git'
+};
+let settingsNamesRu = {
+   Общие: ['Плейер', 'Погода', 'Время', 'Дата', 'Приветствие', 'Цитата дня', 'Задачи'],
+   Язык: ['Английский', 'Русский'],
+   Фон: 'git'
+};
+let settingsNames = '';
+
+const getSettingNames = () => {
+   getLocalStorage();
+   getLanguage();
+   if (lang === '' || lang === 'en') {
+      return settingsNames = settingsNamesEn;
+   } else {
+      return settingsNames = settingsNamesRu;
+   }
+}
+
+const getListOfSettigsNames = () => {
+   getSettingNames();
+   for (let el in settingsNames) {
+      li = document.createElement('li');
+      li.classList.add('settings-item');
+      li.textContent = el;
+      settingsList.append(li);
+   }
+   settingItems = document.querySelectorAll('.settings-item');
+}
+
+
+
+settingsButton.addEventListener('click', () => {
+   settingsButton.classList.toggle('mooving');
+   showDefaultSetting();
+   settingsModal.classList.toggle('settings-modal_hidden');
+   settingsModal.classList.toggle('settings-modal_visible');
+})
+let choosedSetting = '';
+const showDefaultSetting = () => {
+   if (settingItems.length === 0) {
+      getListOfSettigsNames();
+   }
+   let num = 0;
+
+   settingItems.forEach(item => {
+      if (item.classList.contains('settings-item_active')) {
+         num += 1;
+      }
+   })
+   if (num === 0) {
+      settingItems[0].classList.add('settings-item_active');
+      choosedSetting = settingItems[0].innerHTML;
+      getGeneralSettings(choosedSetting);
+   }
+};
+
+const hideModalWindow = () => {
+   body.addEventListener('click', (e) => {
+      if (!e.target.classList.contains('lang-input') && !e.target.classList.contains('settings-modal') && !e.target.classList.contains('settings') && !e.target.offsetParent.classList.contains('settings-modal')) {
+         settingsModal.classList.add('settings-modal_hidden');
+         settingsModal.classList.remove('settings-modal_visible');
+      }
+   })
+}
+hideModalWindow();
+
+
+settingsList.addEventListener('click', (e) => {
+   cleanSettingsProperty();
+   settingItems.forEach(item => {
+      item.classList.remove('settings-item_active');
+   })
+   settingItems.forEach(item => {
+      if (e.target === item) {
+         item.classList.add('settings-item_active');
+         Object.keys(settingsNames).forEach(key => {
+            if (key === item.innerText) {
+               choosedSetting = key
+            }
+         })
+         getSettings(choosedSetting);
+      }
+   })
+
+})
+
+
+
+const getSettings = (choosedSetting) => {
+
+   if (choosedSetting === Object.keys(settingsNames)[0]) {
+      getGeneralSettings(choosedSetting);
+   } else if (choosedSetting === Object.keys(settingsNames)[1]) {
+      getLanguageSettings(choosedSetting);
+   } else if (choosedSetting === Object.keys(settingsNames)[2]) {
+      getBackgroundSettings(choosedSetting);
+   }
+}
+
+let generalElement = '';
+const getGeneralElement = () => {
+   return generalElement = document.querySelectorAll('.general-element');
+}
+let generalToggle = '';
+const getGeneralToggle = () => {
+   return generalToggle = document.querySelectorAll('.general-toggle');
+}
+
+const getGeneralSettings = (choosedSetting) => {
+   cleanSettingsProperty();
+   settingsNames[choosedSetting].forEach(el => {
+
+      div = document.createElement('div');
+      div.classList.add('general-element');
+      div.textContent = el;
+      settingsProperty.append(div);
+   })
+   getGeneralElement();
+   generalElement.forEach(el => {
+
+      div = document.createElement('div');
+      div.classList.add('general-toggle');
+      el.append(div);
+   })
+
+   if (localStorage.getItem('player') === 'hidden') {
+      settingsProperty.children[0].children[0].classList.add('general-toggle_unactive');
+   } else {
+      settingsProperty.children[0].children[0].classList.add('general-toggle_active');
+   }
+   if (localStorage.getItem('weather') === 'hidden') {
+      settingsProperty.children[1].children[0].classList.add('general-toggle_unactive');
+   } else {
+      settingsProperty.children[1].children[0].classList.add('general-toggle_active');
+   }
+   if (localStorage.getItem('time') === 'hidden') {
+      settingsProperty.children[2].children[0].classList.add('general-toggle_unactive');
+   } else {
+      settingsProperty.children[2].children[0].classList.add('general-toggle_active');
+   }
+   if (localStorage.getItem('date') === 'hidden') {
+      settingsProperty.children[3].children[0].classList.add('general-toggle_unactive');
+   } else {
+      settingsProperty.children[3].children[0].classList.add('general-toggle_active');
+   }
+   if (localStorage.getItem('greeting') === 'hidden') {
+      settingsProperty.children[4].children[0].classList.add('general-toggle_unactive');
+   } else {
+      settingsProperty.children[4].children[0].classList.add('general-toggle_active');
+   }
+   if (localStorage.getItem('quote') === 'hidden') {
+      settingsProperty.children[5].children[0].classList.add('general-toggle_unactive');
+   } else {
+      settingsProperty.children[5].children[0].classList.add('general-toggle_active');
+   }
+   if (localStorage.getItem('todo') === 'hidden') {
+      settingsProperty.children[6].children[0].classList.add('general-toggle_unactive');
+   } else {
+      settingsProperty.children[6].children[0].classList.add('general-toggle_active');
+   }
+
+
+
+   getGeneralToggle();
+   generalToggle.forEach(el => {
+      div = document.createElement('div');
+      div.classList.add('general-toggle-cirсle');
+      el.append(div);
+   })
+
+
+   generalToggle.forEach(el => {
+      el.addEventListener('click', (e) => {
+         e.target.classList.toggle('general-toggle_active');
+         e.target.classList.toggle('general-toggle_unactive');
+         if (e.target.classList.contains('general-toggle-cirсle')) {
+            e.target.parentElement.classList.toggle('general-toggle_active');
+            e.target.parentElement.classList.toggle('general-toggle_unactive');
+         }
+         if (settingsProperty.children[0].children[0].classList.contains('general-toggle_unactive')) {
+            playerContainer.classList.add('player_hidden');
+            localStorage.setItem('player', 'hidden');
+
+         } else if (settingsProperty.children[0].children[0].classList.contains('general-toggle_active')) {
+            playerContainer.classList.remove('player_hidden');
+            localStorage.removeItem('player');
+         }
+
+         if (settingsProperty.children[1].children[0].classList.contains('general-toggle_unactive')) {
+            weatherContainer.classList.add('weather_hidden');
+            localStorage.setItem('weather', 'hidden');
+         } else if (settingsProperty.children[1].children[0].classList.contains('general-toggle_active')) {
+            weatherContainer.classList.remove('weather_hidden');
+            localStorage.removeItem('weather');
+         }
+
+         if (settingsProperty.children[2].children[0].classList.contains('general-toggle_unactive')) {
+            time.classList.add('time_hidden');
+            localStorage.setItem('time', 'hidden');
+         } else if (settingsProperty.children[2].children[0].classList.contains('general-toggle_active')) {
+            time.classList.remove('time_hidden');
+            localStorage.removeItem('time');
+         }
+
+         if (settingsProperty.children[3].children[0].classList.contains('general-toggle_unactive')) {
+            today.classList.add('date_hidden');
+            localStorage.setItem('date', 'hidden');
+         } else if (settingsProperty.children[3].children[0].classList.contains('general-toggle_active')) {
+            today.classList.remove('date_hidden');
+            localStorage.removeItem('date');
+         }
+
+         if (settingsProperty.children[4].children[0].classList.contains('general-toggle_unactive')) {
+            greetingContainer.classList.add('greeting_hidden');
+            localStorage.setItem('greeting', 'hidden');
+         } else if (settingsProperty.children[4].children[0].classList.contains('general-toggle_active')) {
+            greetingContainer.classList.remove('greeting_hidden');
+            localStorage.removeItem('greeting');
+         }
+
+         if (settingsProperty.children[5].children[0].classList.contains('general-toggle_unactive')) {
+            quoteContainer.classList.add('quote_hidden');
+            changeQuote.classList.add('quote_hidden');
+            localStorage.setItem('quote', 'hidden');
+         } else if (settingsProperty.children[5].children[0].classList.contains('general-toggle_active')) {
+            quoteContainer.classList.remove('quote_hidden');
+            changeQuote.classList.remove('quote_hidden');
+            localStorage.removeItem('quote');
+         }
+
+         if (settingsProperty.children[6].children[0].classList.contains('general-toggle_unactive')) {
+            toDoContainer.classList.add('todo_hidden');
+            localStorage.setItem('todo', 'hidden');
+         } else if (settingsProperty.children[6].children[0].classList.contains('general-toggle_active')) {
+            toDoContainer.classList.remove('todo_hidden');
+            localStorage.removeItem('todo');
+         }
+
+
+
+
+      })
+   })
+
+
+
+}
+
+let langInput = '';
+const getLanguageSettings = (choosedSetting) => {
+   cleanSettingsProperty();
+   settingsNames[choosedSetting].forEach(el => {
+
+      div = document.createElement('div');
+      div.classList.add('lang-el');
+      if (el.substring(0, 2).toLowerCase() === 'ан' || el.substring(0, 2).toLowerCase() === 'en') {
+         div.classList.add('en');
+      } else {
+         div.classList.add('ru');
+      }
+      div.textContent = el;
+      settingsProperty.append(div);
+      input = document.createElement('input');
+      input.type = 'checkbox';
+      input.classList.add('lang-input')
+      div.append(input);
+   })
+
+   langInput = document.querySelectorAll('.lang-input')
+   getLocalStorage();
+
+   langInput.forEach(el => {
+      if (lang === el.parentElement.classList[1]) {
+         el.checked = true;
+      } else if (lang === '') {
+         langInput[0].checked = true;
+      }
+
+      el.addEventListener('click', (event) => {
+         langInput.forEach(el => {
+            el.checked = false
+         })
+         event.target.checked = true;
+         localStorage.setItem('language', event.target.parentElement.classList[1]);
+         getWeather();
+         getQuotes();
+         cleanSettingsList();
+         getListOfSettigsNames();
+         settingsList.children[1].classList.add('settings-item_active');
+         choosedSetting = settingsList.children[1].innerText;
+         getLanguageSettings(choosedSetting);
+      })
+   })
+}
+
+const cleanSettingsProperty = () => {
+   while (settingsProperty.firstChild) {
+      settingsProperty.removeChild(settingsProperty.firstChild);
+   }
+}
+const cleanSettingsList = () => {
+   while (settingsList.firstChild) {
+      settingsList.removeChild(settingsList.firstChild);
+   }
+}
+//console.log('662', Object.keys(settingsNames)[1])
