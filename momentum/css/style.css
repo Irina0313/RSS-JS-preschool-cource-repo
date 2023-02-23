@@ -449,7 +449,7 @@ body {
 .settings-modal_hidden {
   position: absolute;
   transition: all 0.5s ease-in;
-  left: -200px;
+  left: -400px;
   bottom: 100px;
   opacity: 0;
 }
@@ -482,7 +482,9 @@ body {
   padding: 15px;
 }
 
-.lang-el {
+.lang-el,
+.source-element,
+.tag-element {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -490,8 +492,14 @@ body {
   text-align: start;
   margin: 10px 0 15px 10px;
 }
-.lang-el input {
-  margin-right: 20px;
+
+.lang-el input,
+.source-element input,
+.tag-element input {
+  margin: 0 20px 0 0;
+}
+.settings-property div:nth-of-type(4) {
+  margin: 40px 0 15px 10px;
 }
 .general-element {
   display: flex;

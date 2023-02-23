@@ -32,6 +32,11 @@ const changeQuote = document.querySelector('.change-quote');
 
 //langOptions.innerText = Object.keys[0](greetingTranslation);
 
+userName.addEventListener('change', () => {
+   localStorage.setItem('name', userName.value)
+
+});
+
 const greetingTranslation = {
    en: 'Good',
    ru: 'Добр'
@@ -39,7 +44,7 @@ const greetingTranslation = {
 
 let lang = '';
 const getLanguage = () => {
-   getLocalStorage();
+   localStorage.getItem('language');
    if (lang === '') {
       lang = 'en';
    }
@@ -81,9 +86,11 @@ const showDate = () => {
 };
 
 //show greeting
+
 if (localStorage.getItem('greeting') === 'hidden') {
    greetingContainer.classList.add('greeting_hidden');
 }
+localStorage.getItem('name');
 const showGreeting = () => {
    getLanguage();
    lang === 'en' ? userName.placeholder = "my dear!" : userName.placeholder = "дружище!";
@@ -128,11 +135,7 @@ const getGreeting = () => {
 
 
 
-function setLocalStorage() {
-   localStorage.setItem('name', userName.value);
-   localStorage.setItem('city', city.value);
-}
-window.addEventListener('beforeunload', setLocalStorage)
+
 
 function getLocalStorage() {
 
@@ -147,23 +150,20 @@ function getLocalStorage() {
       lang = localStorage.getItem('language');
    }
 }
+
 window.addEventListener('load', getLocalStorage)
 
+
+
 //get background image
-const setBg = () => {
 
-   const timeOfDay = getTimeOfDay();
-   const bgNum = randomNum;
-   const img = new Image();
+/*let unsplashLink = '';
+let resultLinc;
+let imgTag = 'nature';*/
 
-   img.src = `https://github.com/Irina0313/stage1-tasks/blob/main/images/${timeOfDay}/${bgNum}.jpg?raw=true`;
-   img.onload = () => {
-      document.querySelector('body').style.backgroundImage = `url(${img.src})`;
-   };
-};
-
-const getRandomNum = () => {
-   let num = Math.floor(Math.random() * 20);
+let source = localStorage.getItem('source');
+const getRandomNum = (number) => {
+   let num = Math.floor(Math.random() * number);
    if (num > 0) {
       num = String(num).padStart(2, '0');
    } else {
@@ -172,7 +172,70 @@ const getRandomNum = () => {
    randomNum = String(num);
    return randomNum;
 };
-randomNum = getRandomNum();
+getRandomNum(20);
+
+
+const setBg = () => {
+   source = localStorage.getItem('source');
+   if (source === '' || !source) {
+      source = 'GIT';
+      localStorage.setItem('source', source)
+   }
+
+   timeOfDay = getTimeOfDay();
+   let bgNum = randomNum;
+   const img = new Image();
+
+
+   async function getLinkToImage() {
+      let url = '';
+      console.log(`Источник: ${source}, время суток: ${timeOfDay}, тэги: ${localStorage.getItem(`tagsFor${source}`)}`)
+      if (localStorage.getItem(`tagsFor${source}`) === '' || !localStorage.getItem(`tagsFor${source}`)) {
+         localStorage.setItem(`tagsFor${source}`, timeOfDay);
+      }
+      if (source === 'Unsplash API') {
+         url = `https://api.unsplash.com/photos/random?orientation=landscape&query=${localStorage.getItem(`tagsFor${source}`)}&client_id=yW9HyBnOrimrmoBFYqyRmKDdlN6DCA9CKXX5NbcuilA`;
+         const res = await fetch(url);
+         const data = await res.json();
+         img.src = data.urls.regular;
+         console.log(url);
+      }
+      if (source === 'Flickr API') {
+         url = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=a15a06a8b39bd2bb4b71633f0b6f285f&tags=${localStorage.getItem(`tagsFor${source}`)}&extras=url_l&format=json&nojsoncallback=1`;
+         const res = await fetch(url);
+         const data = await res.json();
+         getRandomNum(data.photos.photo.length);
+         randomNum = String(Number(randomNum));
+         console.log(randomNum, typeof randomNum)
+         if (data.photos.photo[randomNum].url_l) {
+            img.src = data.photos.photo[randomNum].url_l;
+         } else {
+            while (!data.photos.photo[randomNum].url_l) {
+               return getRandomNum(data.photos.photo.length);
+
+            }
+            img.src = data.photos.photo[randomNum].url_l;
+         }
+         console.log(url);
+      }
+
+      if (source === 'GIT') {
+         if (Number(randomNum) > 20) {
+            getRandomNum(20);
+         }
+         console.log(randomNum, typeof randomNum)
+         bgNum = randomNum;
+         img.src = `https://github.com/Irina0313/stage1-tasks/blob/main/images/${timeOfDay}/${bgNum}.jpg?raw=true`;
+         console.log(img.src);
+      }
+
+      img.onload = () => {
+         document.querySelector('body').style.backgroundImage = `url(${img.src})`;
+      }
+   }
+   getLinkToImage();
+}
+
 
 slideNext.addEventListener('click', () => {
    getSlideNext();
@@ -180,11 +243,9 @@ slideNext.addEventListener('click', () => {
 
 slidePrev.addEventListener('click', () => {
    getSlidePrev();
-
 })
 
 const getSlideNext = () => {
-   getLocalStorage();
    if (randomNum === '20') {
       randomNum = '01';
    } else {
@@ -202,13 +263,7 @@ const getSlidePrev = () => {
    setBg();
 };
 
-async function getLinkToImage() {
-   const url = 'https://api.unsplash.com/photos/random?orientation=landscape&query=nature&client_id=yW9HyBnOrimrmoBFYqyRmKDdlN6DCA9CKXX5NbcuilA';
-   const res = await fetch(url);
-   const data = await res.json();
-   // console.log(data.urls.regular)
-}
-getLinkToImage()
+
 
 
 //weather informer
@@ -228,14 +283,13 @@ if (localStorage.getItem('weather') === 'hidden') {
 
 async function getWeather() {
 
-   getLocalStorage();
-   getLanguage();
+   localStorage.getItem('language');
+   console.log(lang)
    if (city.value === '') {
-
       lang === 'en' ? city.value = "Minsk" : city.value = "Минск";
    }
    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=${lang}&appid=de976795907a030f102e85cd73d64b2f&units=metric`;
-
+   console.log(url)
    try {
       const res = await fetch(url);
       if (!res.ok) {
@@ -264,7 +318,6 @@ async function getWeather() {
 }
 
 
-
 city.addEventListener('change', () => {
    if (city.value === '') {
       weatherError.textContent = 'Type the city name';
@@ -276,7 +329,7 @@ city.addEventListener('change', () => {
       humidity.textContent = '';
       return
    }
-   setLocalStorage();
+   localStorage.setItem('city', city.value);
    getWeather();
 });
 
@@ -290,7 +343,7 @@ if (localStorage.getItem('quote') === 'hidden') {
 let result = 0;
 async function getQuotes() {
    let quotes = '';
-   getLanguage();
+   lang = localStorage.getItem('language');
    lang === 'en' ? quotes = 'source/quotesEn.json' : quotes = 'source/quotesRu.json'
    const res = await fetch(quotes);
    const data = await res.json();
@@ -597,17 +650,17 @@ const settingsProperty = document.querySelector('.settings-property');
 let settingsNamesEn = {
    General: ['Player', 'Weather', 'Time', 'Date', 'Greeting', 'Quote of the day', 'To Do'],
    Language: ['English', 'Russian'],
-   Background: 'git'
+   Background: ['GIT', 'Unsplash API', 'Flickr API']
 };
 let settingsNamesRu = {
    Общие: ['Плейер', 'Погода', 'Время', 'Дата', 'Приветствие', 'Цитата дня', 'Задачи'],
    Язык: ['Английский', 'Русский'],
-   Фон: 'git'
+   Фон: ['GIT', 'Unsplash API', 'Flickr API']
 };
 let settingsNames = '';
 
 const getSettingNames = () => {
-   getLocalStorage();
+   localStorage.getItem('language');
    getLanguage();
    if (lang === '' || lang === 'en') {
       return settingsNames = settingsNamesEn;
@@ -835,15 +888,8 @@ const getGeneralSettings = (choosedSetting) => {
             toDoContainer.classList.remove('todo_hidden');
             localStorage.removeItem('todo');
          }
-
-
-
-
       })
    })
-
-
-
 }
 
 let langInput = '';
@@ -867,7 +913,7 @@ const getLanguageSettings = (choosedSetting) => {
    })
 
    langInput = document.querySelectorAll('.lang-input')
-   getLocalStorage();
+   localStorage.getItem('language');
 
    langInput.forEach(el => {
       if (lang === el.parentElement.classList[1]) {
@@ -882,13 +928,14 @@ const getLanguageSettings = (choosedSetting) => {
          })
          event.target.checked = true;
          localStorage.setItem('language', event.target.parentElement.classList[1]);
-         getWeather();
+
          getQuotes();
          cleanSettingsList();
          getListOfSettigsNames();
          settingsList.children[1].classList.add('settings-item_active');
          choosedSetting = settingsList.children[1].innerText;
          getLanguageSettings(choosedSetting);
+         getWeather();
       })
    })
 }
@@ -903,4 +950,132 @@ const cleanSettingsList = () => {
       settingsList.removeChild(settingsList.firstChild);
    }
 }
-//console.log('662', Object.keys(settingsNames)[1])
+
+
+// background settings
+
+let sourceInput = '';
+
+let imgTagsRu = ['Природа', 'Семья', 'Город', 'IT', 'Животные', 'Растения', 'Еда'];
+let imgTagsEn = ['Nature', 'Family', 'City', 'IT', 'Animals', 'Plants', 'Food'];
+
+
+const getBackgroundSettings = (choosedSetting) => {
+   cleanSettingsProperty();
+   settingsNames[choosedSetting].forEach(el => {
+
+      div = document.createElement('div');
+      div.classList.add('source-element');
+      div.textContent = el;
+      settingsProperty.append(div);
+      input = document.createElement('input');
+      input.type = 'checkbox';
+      input.classList.add('source-input')
+      div.append(input);
+   })
+
+   sourceInput = document.querySelectorAll('.source-input')
+
+   localStorage.getItem('source');
+   let source = localStorage.getItem('source');
+   sourceInput.forEach(el => {
+      if (source === '' || !source) {
+         sourceInput[0].checked = true;
+         localStorage.setItem('source', el.parentElement.innerText);
+      } else if (source === el.parentElement.innerText) {
+         el.checked = true;
+      }
+      console.log(source)
+      if (source === 'GIT') {
+         cleanTags();
+      } else if (source === 'Unsplash API' || source === 'Flickr API') {
+         showTags();
+      }
+
+      el.addEventListener('click', (event) => {
+         sourceInput.forEach(el => {
+            el.checked = false;
+         })
+         cleanTags();
+
+         event.target.checked = true;
+         source = event.target.parentElement.innerText;
+         localStorage.setItem('source', event.target.parentElement.innerText);
+         settingsList.children[2].classList.add('settings-item_active');
+         choosedSetting = settingsList.children[1].innerText;
+         //setBg(source);
+
+         if (event.target.checked === true && event.target.parentElement.innerText != 'GIT') {
+            showTags();
+         }
+         setBg();
+         //console.log(choosedSetting)
+      })
+
+   })
+
+
+
+
+
+   function showTags() {
+      cleanTags();
+      let imgTags = [];
+      lang === 'en' ? imgTags = imgTagsEn : imgTags = imgTagsRu;
+      imgTags.forEach(el => {
+
+         div = document.createElement('div');
+         div.classList.add('tag-element');
+         div.textContent = el;
+         settingsProperty.append(div);
+         input = document.createElement('input');
+         input.type = 'checkbox';
+         input.classList.add('tag-input')
+         div.append(input);
+      })
+      let tagInput = document.querySelectorAll('.tag-input');
+      let savedTag = '';
+      if (source != 'GIT') {
+         savedTag = localStorage.getItem(`tagsFor${source}`).split(',');
+
+         let result = savedTag.map(item => item[0].toUpperCase() + item.slice(1));
+         result.forEach(item => {
+            imgTagsEn.forEach((el, i) => {
+               if (el === item) {
+                  tagInput[i].checked = true;
+               }
+            })
+         })
+      }
+
+      settingsProperty.addEventListener('click', (e) => {
+         source = localStorage.getItem('source');
+         if (e.target.classList.contains('tag-input')) {
+            let tagValue = '';
+            tagInput.forEach(function (item, i, tagInput) {
+
+               if (item.checked === true && tagValue === '') {
+                  tagValue = tagValue + `${imgTagsEn[i]}`;
+               } else if (item.checked === true && tagValue != '') {
+                  tagValue = tagValue + `,${imgTagsEn[i]}`;
+               }
+            })
+
+            console.log(source)
+            localStorage.setItem(`tagsFor${source}`, tagValue.toLowerCase());
+         }
+      })
+   }
+
+   function cleanTags() {
+      let tagItem = document.querySelectorAll('.tag-element');
+      tagItem.forEach(item => {
+         item.remove()
+      })
+   }
+   function setLocalStorage() {
+      localStorage.setItem('name', userName.value);
+      localStorage.setItem('city', city.value);
+   }
+   window.addEventListener('beforeunload', setLocalStorage)
+}
