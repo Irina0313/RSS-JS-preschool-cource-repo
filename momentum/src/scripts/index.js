@@ -12,9 +12,9 @@ window.onload = function () {
 
    getWeather();
 
-
+   checkIfTodoIsHidden();
 }
-
+let button = '';
 const time = document.querySelector('.time');
 const today = document.querySelector('.date');
 const greetingContainer = document.querySelector('.greeting-container');
@@ -44,11 +44,13 @@ const greetingTranslation = {
 
 let lang = '';
 const getLanguage = () => {
-   localStorage.getItem('language');
-   if (lang === '') {
+
+   if (localStorage.getItem('language') === '' || !localStorage.getItem('language')) {
       lang = 'en';
+      localStorage.setItem('language', 'en');
+   } else {
+      lang = localStorage.getItem('language');
    }
-   return lang;
 }
 
 //show time
@@ -631,14 +633,213 @@ getLevelOfVolume()
 
 
 //To Do
+let listNames = [];
+const listNamesEn = ['Done', 'Inbox', 'Today'];
+const listNamesRu = ['Сделано', 'Предстоящее', 'Сегодня'];
+let listName = document.querySelector('.list-name');
+const todo = document.querySelector('.todo');
+const modalTodo = document.querySelector('.todo-container');
+const listArrowContainer = document.querySelector('.list-button-container');
+const modalTodoNames = document.querySelector('.modal-todo-names');
+const todoNamesList = document.querySelector('.todo-names-list');
+const listSettingsButton = document.querySelector('.list-settings-button');
+const todoBody = document.querySelector('.todo-body');
+const defoltFrameContentContainer = document.querySelector('.defolt-frame-content-container');
 
-if (localStorage.getItem('todo') === 'hidden') {
-   toDoContainer.classList.add('todo_hidden');
+function checkIfTodoIsHidden() {
+   if (localStorage.getItem('todo') === 'hidden') {
+      todo.classList.remove('todo_active');
+      todo.classList.add('todo_hidden');
+      modalTodo.classList.add('todo_hidden');
+   }
+}
+
+localStorage.getItem('language');
+function showTodoSection() {
+   lang === 'en' ? todo.innerText = 'Todo' : todo.innerText = 'Список дел';
+}
+showTodoSection();
+
+todo.addEventListener('click', () => {
+   modalTodo.classList.toggle('todo_hidden');
+   todo.classList.toggle('todo_active');
+   showModalTodo();
+});
+
+function showModalTodo() {
+   getListName();
+   showTodoBody();
+   listArrowContainer.addEventListener('click', showModalToDoList);
+}
+
+const showTodoBody = () => {
+   let tasksAmount;
+   listNames.forEach((el, i) => {
+
+      if (listName.innerText === el) {
+         tasksAmount = Number(localStorage.getItem(`${listNamesEn[i].toLowerCase()}-tasks-amount`));
+         if (tasksAmount === 0) {
+            showDefaultFrame();
+         }
+      }
+   })
+}
+let defoltFrameContent = [];
+const defoltFrameContentEn = ['Add a todo to get started', 'Swich to', 'New Todo'];
+const defoltFrameContentRu = ['Для начала добавь задачу', 'Переключиться на', 'Новая задача'];
+
+const showDefaultFrame = () => {
+   cleanDefaultFrame();
+   getLanguage();
+   lang === 'en' ? defoltFrameContent = defoltFrameContentEn : defoltFrameContent = defoltFrameContentRu;
+   div = document.createElement('div');
+   div.classList.add('defolt-frame-title');
+   div.innerText = defoltFrameContent[0];
+   defoltFrameContentContainer.append(div);
+
+   div = document.createElement('div');
+   div.classList.add('defolt-frame-link');
+   listNames.forEach((el, i) => {
+      if (el === listName.innerText && i === 2) {
+         div.innerText = `${defoltFrameContent[1]} ${listNames[1]} >`;
+      } else if (el === listName.innerText && i === 1) {
+         div.innerText = `${defoltFrameContent[1]} ${listNames[2]} >`;
+      } else if (el === listName.innerText && i === 0) {
+         div.innerText = `${defoltFrameContent[1]} ${listNames[i]} >`;
+      }
+   })
+   defoltFrameContentContainer.append(div);
+
+   button = document.createElement('button');
+   button.classList.add('defolt-frame-button');
+   button.innerText = defoltFrameContent[2];
+   defoltFrameContentContainer.append(button);
+
+   input = document.createElement('input');
+   input.type = "text";
+   input.classList.add('todo-input');
+   input.classList.add('todo-input_hidden');
+   input.placeholder = defoltFrameContent[2];
+   defoltFrameContentContainer.append(input);
+
+   const defoltFrameButton = document.querySelector('.defolt-frame-button');
+   const todoInput = document.querySelector('.todo-input');
+   defoltFrameButton.addEventListener('click', () => {
+      todoInput.classList.remove('todo-input_hidden');
+      defoltFrameButton.classList.add('defolt-frame-button_hidden');
+   })
+
+   todoInput.addEventListener('change', () => {
+      cleanDefaultFrame();
+      addNewTask();
+   });
+
+}
+
+const addNewTask = () => {
+
+}
+const cleanDefaultFrame = () => {
+   while (defoltFrameContentContainer.firstChild) {
+      defoltFrameContentContainer.removeChild(defoltFrameContentContainer.firstChild)
+   }
 }
 
 
-//settings
+const getListName = () => {
+   getLanguage();
+   lang === 'en' ? listNames = listNamesEn : listNames = listNamesRu;
+   if (localStorage.getItem('To Do list') === '' || !localStorage.getItem('To Do list')) {
+      localStorage.setItem('To Do list', listNames[2]);
+   } else if (lang === 'en') {
+      listName.innerText = `${localStorage.getItem('To Do list')}`;
+   } else if (lang === 'ru') {
+      listNamesEn.forEach((el, i) => {
+         if (localStorage.getItem('To Do list') === el) {
+            listName.innerText = listNamesRu[i];
+         }
+      })
+   }
+}
 
+const showModalToDoList = () => {
+   modalTodoNames.classList.toggle('modal-todo-names_hidden');
+   cleanDefaultFrame();
+   if (!modalTodoNames.classList.contains('modal-todo-names_hidden')) {
+      getTodoListNames();
+      /*modalTodo.style.height = (modalTodo.offsetHeight + modalTodoNames.offsetHeight + 30) + 'px';*/
+      todoNamesList.addEventListener('mouseover', () => {
+         listArrowContainer.classList.add('listArrowContainer_active');
+      })
+      todoNamesList.addEventListener('mouseleave', () => {
+         listArrowContainer.classList.remove('listArrowContainer_active');
+      })
+
+   } /*else {
+      modalTodo.style.height = (modalTodo.offsetHeight - modalTodoNames.offsetHeight - 30) + 'px';
+   }*/
+}
+
+//showModalTodo();
+
+const getTodoListNames = () => {
+   clearTodoListNames();
+   lang === 'en' ? listNames = listNamesEn : listNames = listNamesRu;
+   let span = '';
+
+   listNames.forEach(el => {
+      li = document.createElement('li');
+      li.classList.add('todo-name-title');
+      li.textContent = el;
+      todoNamesList.append(li);
+      span = document.createElement('span');
+      span.classList.add(`tasks-amount`);
+
+      listNames.forEach((item, i) => {
+         if (item === el) {
+            span.classList.add(`${listNamesEn[i].toLowerCase()}-tasks-amount`);
+            if (localStorage.getItem(`${listNamesEn[i].toLowerCase()}-tasks-amount`) === '' || !localStorage.getItem(`${listNamesEn[i].toLowerCase()}-tasks-amount`)) {
+               span.innerText = '0';
+               localStorage.setItem(`${listNamesEn[i].toLowerCase()}-tasks-amount`, '0');
+            } else {
+               span.innerText = localStorage.getItem(`${listNamesEn[i].toLowerCase()}-tasks-amount`);
+            }
+         }
+      })
+      li.append(span);
+   })
+   todoNamesList.addEventListener('click', (e) => {
+      setTodoName(e.target);
+   })
+}
+
+const clearTodoListNames = () => {
+   while (todoNamesList.firstChild) {
+      todoNamesList.removeChild(todoNamesList.firstChild);
+   }
+}
+
+const setTodoName = (target) => {
+   let end = target.innerText.indexOf('\n');
+   listNames.forEach((el, i) => {
+      if (target.innerText.slice(0, end) === el) {
+         localStorage.setItem('To Do list', listNamesEn[i]);
+      }
+   })
+   getListName();
+   hideModalToDoList();
+   showDefaultFrame();
+}
+
+const hideModalToDoList = () => {
+   modalTodoNames.classList.add('modal-todo-names_hidden');
+   modalTodo.style.height = (modalTodo.offsetHeight - modalTodoNames.offsetHeight - 30) + 'px';
+
+}
+
+
+
+//settings
 const settingsButton = document.querySelector('.settings');
 const settingsModal = document.querySelector('.settings-modal');
 const body = document.querySelector('body');
@@ -647,13 +848,14 @@ let settingItems = document.querySelectorAll('.settings-item');
 const settingsProperty = document.querySelector('.settings-property');
 
 
+
 let settingsNamesEn = {
    General: ['Player', 'Weather', 'Time', 'Date', 'Greeting', 'Quote of the day', 'To Do'],
    Language: ['English', 'Russian'],
    Background: ['GIT', 'Unsplash API', 'Flickr API']
 };
 let settingsNamesRu = {
-   Общие: ['Плейер', 'Погода', 'Время', 'Дата', 'Приветствие', 'Цитата дня', 'Задачи'],
+   Общие: ['Плейер', 'Погода', 'Время', 'Дата', 'Приветствие', 'Цитата дня', 'Список дел'],
    Язык: ['Английский', 'Русский'],
    Фон: ['GIT', 'Unsplash API', 'Flickr API']
 };
@@ -707,15 +909,7 @@ const showDefaultSetting = () => {
    }
 };
 
-const hideModalWindow = () => {
-   body.addEventListener('click', (e) => {
-      if (!e.target.classList.contains('lang-input') && !e.target.classList.contains('settings-modal') && !e.target.classList.contains('settings') && !e.target.offsetParent.classList.contains('settings-modal')) {
-         settingsModal.classList.add('settings-modal_hidden');
-         settingsModal.classList.remove('settings-modal_visible');
-      }
-   })
-}
-hideModalWindow();
+
 
 
 settingsList.addEventListener('click', (e) => {
@@ -882,11 +1076,13 @@ const getGeneralSettings = (choosedSetting) => {
          }
 
          if (settingsProperty.children[6].children[0].classList.contains('general-toggle_unactive')) {
-            toDoContainer.classList.add('todo_hidden');
+            todo.classList.add('todo_hidden');
             localStorage.setItem('todo', 'hidden');
+            checkIfTodoIsHidden();
          } else if (settingsProperty.children[6].children[0].classList.contains('general-toggle_active')) {
-            toDoContainer.classList.remove('todo_hidden');
+            todo.classList.remove('todo_hidden');
             localStorage.removeItem('todo');
+            checkIfTodoIsHidden();
          }
       })
    })
@@ -936,6 +1132,10 @@ const getLanguageSettings = (choosedSetting) => {
          choosedSetting = settingsList.children[1].innerText;
          getLanguageSettings(choosedSetting);
          getWeather();
+         showTodoSection();
+         showModalTodo();
+         getTodoListNames();
+
       })
    })
 }
@@ -1052,6 +1252,7 @@ const getBackgroundSettings = (choosedSetting) => {
          source = localStorage.getItem('source');
          if (e.target.classList.contains('tag-input')) {
             let tagValue = '';
+            console.log(source)
             tagInput.forEach(function (item, i, tagInput) {
 
                if (item.checked === true && tagValue === '') {
@@ -1061,7 +1262,7 @@ const getBackgroundSettings = (choosedSetting) => {
                }
             })
 
-            console.log(source)
+
             localStorage.setItem(`tagsFor${source}`, tagValue.toLowerCase());
          }
       })
@@ -1079,3 +1280,30 @@ const getBackgroundSettings = (choosedSetting) => {
    }
    window.addEventListener('beforeunload', setLocalStorage)
 }
+
+// To Do 
+
+
+
+listSettingsButton.addEventListener('click', () => {
+   console.log('5555')
+   settingsButton.classList.toggle('mooving');
+   showDefaultSetting();
+   settingsModal.classList.toggle('settings-modal_hidden');
+   settingsModal.classList.toggle('settings-modal_visible');
+})
+
+
+
+
+
+
+const hideModalWindow = () => {
+   body.addEventListener('click', (e) => {
+      if (!e.target.classList.contains('lang-input') && !e.target.classList.contains('settings-modal') && !e.target.classList.contains('settings') && !e.target.offsetParent.classList.contains('settings-modal') && !e.target.classList.contains('list-settings-button') && !e.target.offsetParent.classList.contains('todo-header')) {
+         settingsModal.classList.add('settings-modal_hidden');
+         settingsModal.classList.remove('settings-modal_visible');
+      }
+   })
+}
+hideModalWindow();

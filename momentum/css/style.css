@@ -560,15 +560,209 @@ body {
 .quote {
   width: 100%;
   min-height: 32px;
+  transition: all 0.3s;
 }
 
 .author {
   min-height: 20px;
+  transition: all 0.3s;
 }
 
+.todo {
+  position: absolute;
+  right: 30px;
+  bottom: 30px;
+  opacity: 0.7;
+  color: rgb(217, 220, 225);
+  transition: all 0.3s;
+}
+
+.todo:hover {
+  cursor: pointer;
+  opacity: 1;
+}
 .todo_hidden {
   transition: all 0.3s;
   opacity: 0;
+}
+.todo-container .todo_hidden {
+  right: 500px;
+  transition: all 0.3s;
+}
+.todo_active {
+  opacity: 1;
+}
+
+.todo-container {
+  transition: all 0.3s;
+  width: 320px;
+  height: auto;
+  min-height: 205px;
+  position: absolute;
+  right: 30px;
+  bottom: 60px;
+  border-radius: 5px;
+  background-color: #fff;
+  color: rgb(33, 33, 33);
+}
+.todo-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  padding: 5px 18px 5px 20px;
+}
+.list-name-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.list-name {
+  font-size: 20px;
+  color: rgb(33, 33, 33);
+}
+.list-button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 5px;
+  width: 20px;
+  height: 20px;
+  padding: 0 0 3.5px 6px;
+}
+.list-button-container:hover {
+  border-radius: 50%;
+  background-color: rgb(231, 222, 222);
+  cursor: pointer;
+}
+.listArrowContainer_active {
+  border-radius: 50%;
+  background-color: rgb(231, 222, 222);
+}
+
+.list-arrow {
+  transform: rotate(45deg);
+  border-bottom: 1.5px solid rgb(33, 33, 33);
+  border-right: 1.5px solid rgb(33, 33, 33);
+  border-left: 1.5px solid transparent;
+  border-top: 1.5px solid transparent;
+  width: 8px;
+  height: 8px;
+  opacity: 1;
+}
+
+.list-settings-button {
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  padding: 3px 2px 0;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.1rem;
+}
+.list-settings-button:hover {
+  background-color: rgb(231, 222, 222);
+  cursor: pointer;
+}
+
+/*.todo-body {
+  
+}*/
+.modal-todo-names {
+  position: absolute;
+  z-index: 200;
+  left: 20px;
+  top: 40px;
+  border-radius: 5px;
+  box-shadow: 0 1px 8px rgb(0 0 0 / 25%);
+  width: 240px;
+  height: auto;
+  background-color: rgb(237, 237, 237);
+  transition: all 0.5s;
+}
+
+.modal-todo-names_hidden {
+  visibility: hidden;
+  opacity: 0;
+  top: 30px;
+  transition: all 0.2s;
+}
+.todo-name-title {
+  display: flex;
+  justify-content: flex-start;
+  color: rgb(33, 33, 33);
+  opacity: 0.7;
+  line-height: 1.2rem;
+  list-style-type: none;
+  padding: 7px 16px;
+}
+.todo-name-title:hover {
+  cursor: pointer;
+  opacity: 1;
+  background-color: rgb(231, 222, 222);
+  border-radius: 5px;
+}
+
+.tasks-amount {
+  margin-left: 5px;
+}
+
+.defolt-frame-content-container {
+  padding: 21px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 152px;
+}
+
+.defolt-frame-title {
+  opacity: 0.8;
+  margin-bottom: 6px;
+}
+.defolt-frame-link {
+  opacity: 0.6;
+  font-size: 0.9rem;
+  margin-bottom: 16px;
+}
+.defolt-frame-link:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+.defolt-frame-button {
+  background-color: rgba(89, 113, 65, 0.95);
+  border-radius: 50px;
+  color: #fff;
+  font-weight: 500;
+  padding: 7px 27px 8px;
+  border: none;
+  margin-bottom: 30px;
+}
+.defolt-frame-button:hover {
+  cursor: pointer;
+  background-color: rgba(89, 113, 65, 0.8);
+}
+.defolt-frame-button_hidden {
+  transition: all 0.3s;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.todo-input {
+  width: 100%;
+  height: 1.5rem;
+  border: 1px solid transparent;
+  font-size: 0.9rem;
+  transition: all 0.3s;
+}
+.todo-input:focus-visible {
+  outline-color: transparent;
+}
+.todo-input_hidden {
+  transition: all 0.3s;
+  opacity: 0;
+  visibility: hidden;
 }
 
 @media (max-width: 768px) {
