@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="assets/favicon.ico" rel="shortcut icon" />
+  <link rel="stylesheet" href="css/owfont-regular.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <title>momentum</title>
+</head>
+
+<body>
+  <header class="header">
+    <div class="player">
+      <div class="player-head">
+        <div class="player-controls">
+          <button class="play-prev player-icon"></button>
+          <button class="play player-icon"></button>
+          <button class="play-next player-icon"></button>
+        </div>
+        <div class="playing-song-container">
+          <div class="song-container">
+            <span class="playing-song"></span>
+          </div>
+        </div>
+      </div>
+      <div class="timeline">
+        <div class="progress"></div>
+      </div>
+
+      <div class="player-time">
+        <div class="current">0:00</div>
+        <div class="divider">/</div>
+        <div class="length">0:00</div>
+      </div>
+      <div class="volume-container">
+        <div class="volume-button">
+          <div class="volume volume-active"></div>
+        </div>
+        <input type="range" class="volume-percentage volume-percentage_hidden " value="75"></input>
+
+      </div>
+
+      <ul class="play-list"></ul>
+    </div>
+    <div class="header-right">
+      <div class="weather">
+        <input type="text" class="city empty" />
+        <i class="weather-icon owf"></i>
+        <div class="weather-error"></div>
+        <div class="description-container">
+          <span class="temperature"></span>
+          <span class="weather-description"></span>
+          <span class="wind"></span>
+          <span class="humidity"></span>
+        </div>
+        <div class="wind"></div>
+        <div class="humidity"></div>
+      </div>
+    </div>
+  </header>
+  <main class="main">
+    <div class="slider-icons">
+      <button class="slide-prev slider-icon"></button>
+      <button class="slide-next slider-icon"></button>
+    </div>
+    <time class="time"></time>
+    <date class="date"></date>
+    <div class="greeting-container">
+      <span class="greeting"></span>
+      <input type="text" class="name" />
+    </div>
+  </main>
+  <footer class="footer">
+    <button class="change-quote"></button>
+    <div class="settings"></div>
+    <div class="settings-modal settings-modal_hidden">
+      <ul class="settings-list"></ul>
+      <div class="settings-property"></div>
+    </div>
+    <div class="quote-container">
+      <div class="quote"></div>
+      <div class="author"></div>
+    </div>
+    <div class="todo"></div>
+    <div class="todo-container todo_hidden">
+      <div class="todo-header">
+        <div class="list-name-container">
+          <span class="list-name"></span>
+          <div class="list-button-container">
+            <div class="list-arrow"></div>
+          </div>
+        </div>
+        <span class="list-settings-button">&#8226&#8226&#8226</span>
+
+        <div class="modal-todo-names modal-todo-names_hidden">
+          <ul class="todo-names-list"></ul>
+        </div>
+
+
+      </div>
+      <div class="todo-body">
+        <div class="todo-content-container ">
+
+
+
+        </div>
+      </div>
+      <div class="todo-footer"></div>
+    </div>
+
+  </footer>
+  <script type="module" src="src/scripts/index.js"></script>
+</body>
+
+</html>
