@@ -768,16 +768,255 @@ todoBody.addEventListener('click', (e) => {
       e.target.checked = true;
       e.target.nextElementSibling.classList.add('task-value_checked');
    }
-   console.log(e)
+
+   // open task settings
+
    let settingsModalContent = document.querySelector('.task-settings-modal');
+   let taskItem = document.querySelectorAll('.task-item');
    if (e.target.classList.contains('task-settings')) {
+
+      let settingsModalContent = document.querySelector('.task-settings-modal');
+
+      if (settingsModalContent.classList.contains('task-settings-modal_hidden') || !settingsModalContent) {
+         showSettingsTaskModal();
+         settingsModalContent = document.querySelector('.task-settings-modal');
+         settingsModalContent.classList.add('task-settings-modal_active');
+         settingsModalContent.classList.remove('task-settings-modal_hidden');
+      } else if (settingsModalContent.classList.contains('task-settings-modal_active')) {
+         settingsModalContent.classList.remove('task-settings-modal_active');
+         settingsModalContent.classList.add('task-settings-modal_hidden');
+      }
+
+
+      taskItem.forEach(el => {
+         el.classList.remove('task-item_active')
+      })
+      e.target.parentElement.classList.toggle('task-item_active');
+   }
+
+   //edit task
+
+   if (e.target.classList.contains('edit')) {
+      taskItem.forEach(el => {
+         if (el.classList.contains('task-item_active')) {
+            el.children[1].readOnly = false;
+            el.children[1].classList.add('task-value_edited');
+            settingsModalContent.classList.toggle('task-settings-modal_active');
+            settingsModalContent.classList.toggle('task-settings-modal_hidden');
+
+            el.children[1].addEventListener('change', () => {
+               el.children[1].readOnly = true;
+               el.children[1].classList.remove('task-value_edited');
+               el.classList.remove('task-item_active');
+               rerecordTasksList();
+            })
+         }
+      })
+   }
+
+   // delete task
+
+   if (e.target.classList.contains('delete')) {
       settingsModalContent.classList.toggle('task-settings-modal_active');
       settingsModalContent.classList.toggle('task-settings-modal_hidden');
+      taskItem.forEach(el => {
+         if (el.classList.contains('task-item_active')) {
+            el.remove();
+         }
+      })
+      rerecordTasksList();
+      showTodoBody();
+   }
+
+   // move to somewere
+
+   if (e.target.classList.contains('move-to-today') || e.target.classList.contains('task-settings-today')) {
+      settingsModalContent.classList.toggle('task-settings-modal_active');
+      settingsModalContent.classList.toggle('task-settings-modal_hidden');
+      taskItem.forEach(el => {
+         if (el.classList.contains('task-item_active')) {
+            addTaskToTodayTaskList(el.children[1].value);
+            el.remove();
+            rerecordTasksList();
+         }
+      })
+      showTodoBody();
+   }
+
+   if (e.target.classList.contains('move-to-inbox') || e.target.classList.contains('task-settings-inbox')) {
+      settingsModalContent.classList.toggle('task-settings-modal_active');
+      settingsModalContent.classList.toggle('task-settings-modal_hidden');
+      taskItem.forEach(el => {
+         if (el.classList.contains('task-item_active')) {
+            addTaskToInboxTaskList(el.children[1].value);
+            el.remove();
+            rerecordTasksList();
+         }
+      })
+      showTodoBody();
+   }
+
+   if (e.target.classList.contains('move-to-done') || e.target.classList.contains('task-settings-done')) {
+      settingsModalContent.classList.toggle('task-settings-modal_active');
+      settingsModalContent.classList.toggle('task-settings-modal_hidden');
+      taskItem.forEach(el => {
+         if (el.classList.contains('task-item_active')) {
+            addTaskToDoneTaskList(el.children[1].value);
+            el.remove();
+            rerecordTasksList();
+         }
+      })
+      showTodoBody();
    }
 
 
+   // move to...
+
+   if (e.target.classList.contains('move-to')) {
+      changeSettingsModalContent();
+
+      /*settingsModalContent.classList.toggle('task-settings-modal_active');
+      settingsModalContent.classList.toggle('task-settings-modal_hidden');
+      taskItem.forEach(el => {
+         if (el.classList.contains('task-item_active')) {
+            addTaskToTodayTaskList(el.children[1].value);
+            el.remove();
+            rerecordTasksList();
+         }
+      })
+      showTodoBody();*/
+   }
+
+   if (e.target.classList.contains('task-settings-arrow')) {
+      //cleanSettingsModalContent();
+      showSettingsTaskModal();
+      let settingsModalContent = document.querySelector('.task-settings-modal');
+      settingsModalContent.classList.add('task-settings-modal_active');
+      settingsModalContent.classList.remove('task-settings-modal_hidden');
+   }
+   /*if (e.target.classList.contains('task-settings-inbox')) {
+      let settingsModalContent = document.querySelector('.task-settings-modal');
+      settingsModalContent.classList.toggle('task-settings-modal_active');
+      settingsModalContent.classList.toggle('task-settings-modal_hidden');
+      taskItem.forEach(el => {
+         if (el.classList.contains('task-item_active')) {
+            addTaskToInboxTaskList(el.children[1].value);
+            el.remove();
+            rerecordTasksList();
+         }
+      })
+      showTodoBody();
+   }*/
 
 })
+
+function changeSettingsModalContent() {
+
+   cleanSettingsModalContent();
+   div = document.createElement('div');
+   div.classList.add('task-settings-modal');
+   div.classList.add('task-settings-modal_active');
+   toDoContentContainer.append(div);
+
+
+   let taskSettingsModal = document.querySelector('.task-settings-modal');
+
+   div = document.createElement('div');
+   div.classList.add('task-settings-item');
+   div.classList.add('task-settings-arrow');
+   taskSettingsModal.append(div)
+
+
+   let moveToList = [];
+   let moveToListEn = ['Done', 'Inbox', 'Today'];
+   let moveToListRu = ['Сделано', 'Предстоящее', 'Сегодня'];
+
+   getLanguage();
+   lang === 'en' ? moveToList = moveToListEn : moveToList = moveToListRu;
+   console.log(moveToList)
+
+   moveToList.forEach((el, i) => {
+      if (listName.innerText === el && i != 0) {
+         moveToListRu.splice(i, 1);
+         moveToListEn.splice(i, 1);
+      }
+      if (listName.innerText === el && i === 0) {
+         moveToListRu.splice(i, 2);
+         moveToListEn.splice(i, 2);
+      }
+   })
+
+   console.log(moveToList)
+   moveToList.forEach((el, i) => {
+      div = document.createElement('div');
+      div.classList.add('task-settings-item');
+      div.classList.add(`task-settings-${moveToListEn[i].toLowerCase()}`);
+      div.innerText = el;
+      taskSettingsModal.append(div);
+   })
+
+}
+
+
+function rerecordTasksList() {
+   let taskValue = document.querySelectorAll('.task-value');
+   let listTask = [];
+   taskValue.forEach(el => {
+      listTask.push(el.value)
+   })
+
+   listNames.forEach((el, i) => {
+      if (el === listName.innerText) {
+         localStorage.setItem(`tasksList${listNamesEn[i]}`, JSON.stringify(listTask));
+         localStorage.setItem(`${listNamesEn[i].toLowerCase()}-tasks-amount`, listTask.length);
+      }
+   })
+}
+
+function addTaskToTodayTaskList(value) {
+
+   let listTask = [];
+   if (!localStorage.getItem('tasksListToday') || localStorage.getItem('tasksListToday') === '') {
+      listTask.push(String(value));
+      localStorage.setItem('tasksListToday', JSON.stringify(listTask));
+      localStorage.setItem('today-tasks-amount', listTask.length);
+   } else {
+      listTask = JSON.parse(localStorage.getItem('tasksListToday'));
+      listTask.push(String(value))
+      localStorage.setItem('tasksListToday', JSON.stringify(listTask));
+      localStorage.setItem('today-tasks-amount', listTask.length);
+   }
+}
+
+function addTaskToInboxTaskList(value) {
+
+   let listTask = [];
+   if (!localStorage.getItem('tasksListInbox') || localStorage.getItem('tasksListTInbox') === '') {
+      listTask.push(String(value));
+      localStorage.setItem('tasksListInbox', JSON.stringify(listTask));
+      localStorage.setItem('inbox-tasks-amount', listTask.length);
+   } else {
+      listTask = JSON.parse(localStorage.getItem('tasksListInbox'));
+      listTask.push(String(value))
+      localStorage.setItem('tasksListInbox', JSON.stringify(listTask));
+      localStorage.setItem('inbox-tasks-amount', listTask.length);
+   }
+}
+
+function addTaskToDoneTaskList(value) {
+
+   let listTask = [];
+   if (!localStorage.getItem('tasksListDone') || localStorage.getItem('tasksListTDone') === '') {
+      listTask.push(String(value));
+      localStorage.setItem('tasksListDone', JSON.stringify(listTask));
+      localStorage.setItem('done-tasks-amount', listTask.length);
+   } else {
+      listTask = JSON.parse(localStorage.getItem('tasksListDone'));
+      listTask.push(String(value))
+      localStorage.setItem('tasksListDone', JSON.stringify(listTask));
+      localStorage.setItem('done-tasks-amount', listTask.length);
+   }
+}
 
 
 function getTasksList() {
@@ -821,6 +1060,9 @@ const moveToToDoList = () => {
 }
 
 function showTasks() {
+
+   //cleanToDoList();
+
    let tasksListDone = JSON.parse(localStorage.getItem('tasksListDone'));
    let tasksListInbox = JSON.parse(localStorage.getItem('tasksListInbox'));
    let tasksListToday = JSON.parse(localStorage.getItem('tasksListToday'));
@@ -837,25 +1079,7 @@ function showTasks() {
          tasksList = tasksListToday;
       }
    })
-   let settingsModalContent = [];
-   let settingsModalContentEn = ['Edit', 'Move To Today', 'Move To...', 'Delete'];
-   let settingsModalContentRu = ['Редактировать', 'Переместить в Сегодня', 'Переместить в...', 'Удалить'];
-   getLanguage()
-   lang === 'en' ? settingsModalContent = settingsModalContentEn : settingsModalContent = settingsModalContentRu;
 
-   div = document.createElement('div');
-   div.classList.add('task-settings-modal');
-   div.classList.add('task-settings-modal_hidden');
-   toDoContentContainer.append(div);
-
-   let taskSettingsModal = document.querySelector('.task-settings-modal');
-   settingsModalContent.forEach(el => {
-      div = document.createElement('div');
-      div.classList.add('task-settings-item');
-
-      div.innerText = el;
-      taskSettingsModal.append(div);
-   })
 
 
 
@@ -882,15 +1106,11 @@ function showTasks() {
       span.classList.add('task-settings');
       span.classList.add('task-settings_hidden');
 
-
-
       taskItem[i].append(span);
    })
    let taskItem = document.querySelectorAll('.task-item')
-   console.log()
    taskItem.forEach(item => {
       item.addEventListener('mouseover', (e) => {
-         console.log(e.target)
          if (e.target === item || e.target === item.children[1]) {
             item.children[2].classList.remove('task-settings_hidden')
          }
@@ -901,13 +1121,81 @@ function showTasks() {
          }
       })
    })
-
-
-
-
+   showSettingsTaskModal()
 }
 
+function showSettingsTaskModal() {
+   getLanguage();
+   lang === 'en' ? listNames = listNamesEn : listNames = listNamesRu;
+   let todoName = '';
+   let todoListEn = ''
+   let todoListRu = '';
+   cleanSettingsModalContent();
 
+   listNames.forEach((el, i) => {
+
+      if (listName.innerText === el) {
+         todoName = listNamesEn[i];
+      }
+      if (todoName === 'Today' || todoName === 'Done') {
+         todoListEn = listNamesEn[1];
+         todoListRu = listNamesRu[1];
+      } else if (todoName === 'Inbox') {
+         todoListEn = listNamesEn[2];
+         todoListRu = listNamesRu[2];
+      }
+   })
+
+   let settingsModalContent = [];
+   let settingsModalContentEn = ['Edit', `Move To ${todoListEn}`, 'Move To...', 'Delete'];
+   let settingsModalContentRu = ['Редактировать', `Переместить в ${todoListRu}`, 'Переместить в...', 'Удалить'];
+
+
+   lang === 'en' ? settingsModalContent = settingsModalContentEn : settingsModalContent = settingsModalContentRu;
+
+   div = document.createElement('div');
+   div.classList.add('task-settings-modal');
+   div.classList.add('task-settings-modal_hidden');
+   toDoContentContainer.append(div);
+
+   let taskSettingsModal = document.querySelector('.task-settings-modal');
+
+   settingsModalContent.forEach(el => {
+      div = document.createElement('div');
+      div.classList.add('task-settings-item');
+      div.innerText = el;
+      taskSettingsModal.append(div);
+   })
+
+   let taskSettingsItem = document.querySelectorAll('.task-settings-item');
+   let className = '';
+
+   if (taskSettingsItem) {
+      taskSettingsItem.forEach((el, i) => {
+         className = settingsModalContentEn[i].replaceAll(' ', '-').replaceAll('.', '').toLowerCase();
+         el.classList.add(`${className}`);
+
+
+
+      })
+      let taskItem = document.querySelectorAll('.task-item');
+      if (todoName === 'Done') {
+         taskItem.forEach((el, i) => {
+            console.log(el)
+            el.firstChild.checked = true;
+            el.children[1].classList.add('task-value_checked');
+         })
+
+      }
+   }
+}
+
+function cleanSettingsModalContent() {
+   let taskSettingsModal = document.querySelector('.task-settings-modal');
+   if (taskSettingsModal) {
+      taskSettingsModal.remove();
+   }
+}
 
 
 function cleanDefaultFrame() {
@@ -956,7 +1244,7 @@ const showModalToDoList = () => {
 //showModalTodo();
 
 const getTodoListNames = () => {
-   clearTodoListNames();
+   cleanTodoListNames();
    lang === 'en' ? listNames = listNamesEn : listNames = listNamesRu;
    let span = '';
 
@@ -986,9 +1274,20 @@ const getTodoListNames = () => {
    })
 }
 
-const clearTodoListNames = () => {
+const cleanTodoListNames = () => {
    while (todoNamesList.firstChild) {
       todoNamesList.removeChild(todoNamesList.firstChild);
+   }
+}
+
+function cleanToDoList() {
+   let taskItem = document.querySelectorAll('.task-item');
+   if (taskItem.length === 1) {
+      taskItem.remove();
+   } else if (taskItem.length > 1) {
+      taskItem.forEach(el => {
+         el.remove();
+      })
    }
 }
 
