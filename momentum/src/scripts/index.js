@@ -394,6 +394,7 @@ audio.volume = 0.75;
 
 audio.src = `${playList[playNum].src}`;
 
+console.log(audio.src)
 const playSong = () => {
    isPlay = true;
    audio.play();
