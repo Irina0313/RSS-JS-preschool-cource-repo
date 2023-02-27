@@ -1,37 +1,37 @@
 const playList = [
    {
       title: 'Aqua CaelestisAqua CaelestisAqua CaelestisAqua CaelestisAqua CaelestisAqua CaelestisAqua',
-      src: '././assets/sounds/Aqua Caelestis.mp3',
+      src: 'sounds/Aqua Caelestis.mp3',
       duration: '00:39'
    },
    {
       title: 'River Flows In You',
-      src: '././assets/sounds/River Flows In You.mp3',
+      src: 'sounds/River Flows In You.mp3',
       duration: '01:37'
    },
    {
       title: 'Ennio Morricone',
-      src: '././assets/sounds/Ennio Morricone.mp3',
+      src: 'sounds/Ennio Morricone.mp3',
       duration: '01:37'
    },
    {
       title: 'Summer Wind',
-      src: '././assets/sounds/Summer Wind.mp3',
+      src: 'sounds/Summer Wind.mp3',
       duration: '01:50'
    },
    {
       title: 'First',
-      src: '././assets/sounds/first.mp3',
+      src: 'sounds/first.mp3',
       duration: '00:04'
    },
    {
       title: 'Second',
-      src: '././assets/sounds/second.mp3',
+      src: 'sounds/second.mp3',
       duration: '00:09'
    },
    {
       title: 'Third',
-      src: '././assets/sounds/third.mp3',
+      src: 'sounds/third.mp3',
       duration: '00:12'
    }
 ]
