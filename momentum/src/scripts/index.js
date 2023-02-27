@@ -677,16 +677,20 @@ todo.addEventListener('click', () => {
    modalTodo.classList.toggle('todo_hidden');
    todo.classList.toggle('todo_active');
    showModalTodo();
-   showDefaultFrame();
 });
 
 
 
 const showTodoBody = () => {
    let tasksAmount;
+
    listNames.forEach((el, i) => {
+      listName = document.querySelector('.list-name');
+
+
       if (listName.innerText === el) {
          tasksAmount = Number(localStorage.getItem(`${listNamesEn[i].toLowerCase()}-tasks-amount`));
+
          if (tasksAmount === 0) {
             cleanDefaultFrame();
             cleanToDoFooter();
@@ -886,7 +890,6 @@ todoBody.addEventListener('click', (e) => {
    }
 
    if (e.target.classList.contains('task-settings-arrow')) {
-      //cleanSettingsModalContent();
       showSettingsTaskModal();
       let settingsModalContent = document.querySelector('.task-settings-modal');
       settingsModalContent.classList.add('task-settings-modal_active');
@@ -1029,6 +1032,7 @@ function getTasksList() {
          })
          showTasks();
       });
+
    }
 }
 
@@ -1197,6 +1201,7 @@ function getListName() {
       localStorage.setItem('To Do list', listNames[2]);
    } else if (lang === 'en') {
       listName.innerText = `${localStorage.getItem('To Do list')}`;
+
    } else if (lang === 'ru') {
       listNamesEn.forEach((el, i) => {
          if (localStorage.getItem('To Do list') === el) {
@@ -1204,6 +1209,7 @@ function getListName() {
          }
       })
    }
+   console.log(listName.innerText)
 }
 
 const showModalToDoList = () => {
