@@ -269,6 +269,7 @@ const getSlidePrev = () => {
 
 //weather informer
 
+
 const weatherContainer = document.querySelector('.weather')
 const weatherIcon = document.querySelector('.weather-icon');
 const temperature = document.querySelector('.temperature');
@@ -284,17 +285,20 @@ if (localStorage.getItem('weather') === 'hidden') {
 
 async function getWeather() {
 
-   localStorage.getItem('language');
-   console.log(lang)
-   if (city.value === '') {
+   getLanguage();
+   if (city.value === '' || !localStorage.getItem('city')) {
       lang === 'en' ? city.value = "Minsk" : city.value = "Минск";
    }
    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=${lang}&appid=de976795907a030f102e85cd73d64b2f&units=metric`;
-   console.log(url)
+   console.log('url истоника погоды: ', url)
    try {
       const res = await fetch(url);
       if (!res.ok) {
-         weatherError.textContent = 'Check the city name, please. Let try again :)';
+         if (lang === 'en') {
+            weatherError.textContent = 'Check the city name, please. Let try again :)';
+         } else if (lang === 'ru') {
+            weatherError.textContent = 'Проверь название города :)';
+         }
          weatherIcon.className = 'weather-icon owf';
          weatherIcon.textContent = '';
          temperature.textContent = '';
@@ -321,7 +325,11 @@ async function getWeather() {
 
 city.addEventListener('change', () => {
    if (city.value === '') {
-      weatherError.textContent = 'Type the city name';
+      if (lang === 'en') {
+         weatherError.textContent = 'Type the city name';
+      } else if (lang === 'ru') {
+         weatherError.textContent = 'Введи название города';
+      }
       weatherIcon.className = 'weather-icon owf';
       weatherIcon.textContent = '';
       temperature.textContent = '';
@@ -530,10 +538,10 @@ const getCurrentSongTime = (curTime) => {
 playListContainer.addEventListener('click', (e) => {
    toggleBtn();
 
-   if (isPlay === true && (e.target.classList.contains('played')) || e.target.parentElement.classList.contains('played')) {
+   if (isPlay === true && (e.target.classList.contains('played') || e.target.parentElement.classList.contains('played'))) {
       toggleBtnItem();
       pauseSong();
-   } else if (isPlay === false && ((e.target.classList.contains('played')) || e.target.parentElement.classList.contains('played'))) {
+   } else if (isPlay === false && (e.target.classList.contains('played') || e.target.parentElement.classList.contains('played'))) {
       toggleBtnItem();
       playSong();
    }
@@ -669,6 +677,7 @@ todo.addEventListener('click', () => {
    modalTodo.classList.toggle('todo_hidden');
    todo.classList.toggle('todo_active');
    showModalTodo();
+   showDefaultFrame();
 });
 
 
@@ -874,17 +883,6 @@ todoBody.addEventListener('click', (e) => {
 
    if (e.target.classList.contains('move-to')) {
       changeSettingsModalContent();
-
-      /*settingsModalContent.classList.toggle('task-settings-modal_active');
-      settingsModalContent.classList.toggle('task-settings-modal_hidden');
-      taskItem.forEach(el => {
-         if (el.classList.contains('task-item_active')) {
-            addTaskToTodayTaskList(el.children[1].value);
-            el.remove();
-            rerecordTasksList();
-         }
-      })
-      showTodoBody();*/
    }
 
    if (e.target.classList.contains('task-settings-arrow')) {
@@ -894,20 +892,6 @@ todoBody.addEventListener('click', (e) => {
       settingsModalContent.classList.add('task-settings-modal_active');
       settingsModalContent.classList.remove('task-settings-modal_hidden');
    }
-   /*if (e.target.classList.contains('task-settings-inbox')) {
-      let settingsModalContent = document.querySelector('.task-settings-modal');
-      settingsModalContent.classList.toggle('task-settings-modal_active');
-      settingsModalContent.classList.toggle('task-settings-modal_hidden');
-      taskItem.forEach(el => {
-         if (el.classList.contains('task-item_active')) {
-            addTaskToInboxTaskList(el.children[1].value);
-            el.remove();
-            rerecordTasksList();
-         }
-      })
-      showTodoBody();
-   }*/
-
 })
 
 function changeSettingsModalContent() {
@@ -1061,8 +1045,6 @@ const moveToToDoList = () => {
 
 function showTasks() {
 
-   //cleanToDoList();
-
    let tasksListDone = JSON.parse(localStorage.getItem('tasksListDone'));
    let tasksListInbox = JSON.parse(localStorage.getItem('tasksListInbox'));
    let tasksListToday = JSON.parse(localStorage.getItem('tasksListToday'));
@@ -1079,8 +1061,6 @@ function showTasks() {
          tasksList = tasksListToday;
       }
    })
-
-
 
 
    tasksList.forEach(el => {
@@ -1362,6 +1342,7 @@ settingsButton.addEventListener('click', () => {
    showDefaultSetting();
    settingsModal.classList.toggle('settings-modal_hidden');
    settingsModal.classList.toggle('settings-modal_visible');
+   hideModalWindow();
 })
 let choosedSetting = '';
 const showDefaultSetting = () => {
@@ -1381,9 +1362,6 @@ const showDefaultSetting = () => {
       getGeneralSettings(choosedSetting);
    }
 };
-
-
-
 
 settingsList.addEventListener('click', (e) => {
    cleanSettingsProperty();
@@ -1676,13 +1654,11 @@ const getBackgroundSettings = (choosedSetting) => {
          localStorage.setItem('source', event.target.parentElement.innerText);
          settingsList.children[2].classList.add('settings-item_active');
          choosedSetting = settingsList.children[1].innerText;
-         //setBg(source);
 
          if (event.target.checked === true && event.target.parentElement.innerText != 'GIT') {
             showTags();
          }
          setBg();
-         //console.log(choosedSetting)
       })
 
    })
