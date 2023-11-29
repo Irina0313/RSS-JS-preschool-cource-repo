@@ -1,0 +1,116 @@
+.service {
+   @extend %background;
+}
+
+.service .layout-3-column {
+   @include media-mobile {
+      justify-content: center;
+   }
+}
+
+.services-content {
+   display: flex;
+   flex-wrap: wrap;
+   padding: 40px 0 66px 0;
+   @include media-tablet {
+      padding: 60px 0 29px 0;
+   }
+   @include media-mobile {
+      padding: 30px 0 11px;
+   }
+}
+
+.service__title {
+   margin: 0 142px 80px 0;
+   max-width: 306px;
+   color: $color-heading-additional;
+   @include media-tablet {
+      margin: 0;
+   }
+   @include media-mobile {
+      max-width: 187px;
+   }
+}
+
+.service-item {
+   transition: all 0.4s ease;
+   display: flex;
+   flex-direction: column;
+   margin-bottom: 55px;
+   max-width: 328px;
+   border-radius: 20px;
+   align-items: center;
+   border: 1px solid $color-border;
+
+   @include media-tablet {
+      max-width: 280px;
+      margin-bottom: 38px;
+   }
+   @include media-mobile {
+      max-width: 279px;
+      margin: 18px 0 15px;
+   }
+}
+
+._blur {
+   filter: blur(2px);
+}
+.service-item p {
+   margin: 14px 0 35px 0;
+   @include font($size: 1.6rem, $height: 2rem);
+   color: $color-text-light;
+   @include media-tablet {
+      margin: 10px 39px 20px;
+      text-align: center;
+   }
+}
+
+.service__image {
+   border-radius: 20px 20px 0 0;
+   width: 330px;
+   height: 349px;
+   background-size: cover;
+   margin-bottom: 10px;
+   @include media-tablet {
+      width: 280px;
+      background-size: cover;
+   }
+}
+
+.service__image_garden-care {
+   background-image: url("../images/service/garden-care.jpg");
+   @include media-tablet {
+      background-image: url("../images/service/tablet/garden-care.jpg");
+   }
+}
+
+.service__image_planting {
+   background-image: url("../images/service/planting.jpg");
+   @include media-tablet {
+      background-image: url("../images/service/tablet/planting.jpg");
+   }
+}
+.service__image_lawn-care {
+   background-image: url("../images/service/lawn-care.jpg");
+   @include media-tablet {
+      background-image: url("../images/service/tablet/lawn-care.jpg");
+   }
+}
+.service__image_planting-second {
+   background-image: url("../images/service/planting-second.jpg");
+   @include media-tablet {
+      background-image: url("../images/service/tablet/planting-second.jpg");
+   }
+}
+.service__image_garden-care-second {
+   background-image: url("../images/service/garden-care-second.jpg");
+   @include media-tablet {
+      background-image: url("../images/service/tablet/garden-care-second.jpg");
+   }
+}
+.service__image_planting-third {
+   background-image: url("../images/service/planting-third.jpg");
+   @include media-tablet {
+      background-image: url("../images/service/tablet/planting-third.jpg");
+   }
+}

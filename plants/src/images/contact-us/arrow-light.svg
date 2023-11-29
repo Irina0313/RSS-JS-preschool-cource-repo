@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml-stylesheet type="text/css" href="../../sass/style.css"?>
+<svg   width="6" height="4" viewBox="0 0 6 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path class = "arrow-light" d="M3.00003 3.00656L1.00003 1.00667" stroke="#FFFFFF"  stroke-width="0.5" stroke-linecap="round"/>
+<path  class = "arrow-light" d="M3 3.00635L5 1.00635" stroke="#FFFFFF" stroke-width="0.5" stroke-linecap="round"/>
+</svg>

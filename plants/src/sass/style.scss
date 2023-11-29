@@ -1,0 +1,26 @@
+@import "../../../node_modules/normalize-scss/sass/normalize/import-now";
+//abstract
+@import "abstract/constants";
+@import "abstract/placeholder";
+@import "abstract/mixins";
+
+//base
+@import "base/base";
+@import "base/buttons";
+@import "base/logo";
+@import "base/burger";
+
+//layouts
+@import "layout/columns";
+@import "layout/wrapper";
+@import "layout/header";
+
+//components
+
+@import "components/navigation";
+@import "components/welcome";
+@import "components/about";
+@import "components/service";
+@import "components/prices";
+@import "components/contacts";
+@import "components/footer";
